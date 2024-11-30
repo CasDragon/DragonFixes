@@ -1,0 +1,12 @@
+﻿{
+  "Id": "DragonFixes",
+  "DisplayName": "Dragon Fixes",
+  "Author": "",
+  "Version": "1.0.0",
+  "ManagerVersion": "0.27.11",
+  "Requirements": [],
+  "AssemblyName": "DragonFixes.dll",
+  "EntryMethod": "DragonFixes.Main.Load",
+  "HomePage": "",
+  "Repository": ""
+}
