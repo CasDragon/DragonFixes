@@ -63,6 +63,21 @@ namespace DragonFixes.Fixes
                     .Configure();
             }
         }
+        public static void PatchPrescientDuration()
+        {
+            if (Settings.ESPrescientDuration)
+            {
+                Main.log.Log("Patching ES Prescient duration");
+                FeatureConfigurator.For(FeatureRefs.EldritchPrescientAttackFeature)
+                    .EditComponent<AbilityEffectRunAction>(a => a.Actions.Actions
+                        .OfType<ContextActionApplyBuff>()
+                        .First()
+                        .DurationValue
+                        .BonusValue
+                        .Value = 2)
+                    .Configure();
+            }
+        }
         public static void AddESExtraArcanaSelection()
         {
             if (Settings.ESExtraArcanaSelection)

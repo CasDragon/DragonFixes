@@ -11,6 +11,7 @@ namespace DragonFixes.Util
     {
         public static bool ESArcaneAccuracy = true;
         public static bool ESExtraArcanaSelection = true;
+        public static bool ESPrescientDuration = true;
         public override void Save(UnityModManager.ModEntry modEntry)
         {
             Save(this, modEntry);
