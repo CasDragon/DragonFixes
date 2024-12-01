@@ -64,6 +64,7 @@ namespace DragonFixes
                     log.Log("Patching blueprints.");
                     EldritchScion.AddArcaneAccuracy();
                     EldritchScion.AddESExtraArcanaSelection();
+                    Oracle.RemoveApsuRestriction();
                 }
                 catch (Exception e)
                 {
