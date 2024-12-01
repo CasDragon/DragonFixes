@@ -4,6 +4,7 @@ Currently, it fixes the following bugs
 * Eldritch Scion (magus archetype) - Arcane Accuracy now correctly scales off CHA instead of INT
 * Extra Arcana (feat) - Now includes the Eldritch Scion versions of the arcanas, so Eldritch Scion can pick arcanas that work for them
 * Eldritch Scion (magus archetype) - Prescient Strike, which used to last only 1 round and now correctly lasts 2
+* Apsu (deity) - Can now be selected with the Oracle class
 
 Other fixes planned
 * None at the moment
