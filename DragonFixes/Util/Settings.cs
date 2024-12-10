@@ -20,16 +20,14 @@ namespace DragonFixes.Util
             ModMenu.ModMenu.AddSettings(
                 SettingsBuilder.New(RootKey, CreateString(GetKey("title"), "DragonFixes"))
                     .SetMod(Main.entry)
-                    .SetModDescription(CreateString("description", "A mod for CD's bug fixes"))
-                    .SetModAuthor("CascadingDragon")
-                    .AddSubHeader(CreateString(GetKey("es"), "Edlritch Scion"))
+                    .AddAnotherSettingsGroup(GetKey("es"), CreateString(GetKey("es-title"), "Edlritch Scion"))
                     .AddToggle(
                         Toggle.New(GetKey("esarcaneaccuracy"), defaultValue: true, CreateString("esarcaneaccuracy-toggle", "Fixes Eldritch Scions version of Arcane Accuracy to correctly scale off CHA.")))
                     .AddToggle(
                         Toggle.New(GetKey("esprescientduration"), defaultValue: true, CreateString("esprescientduration-toggle", "Change Edlritch Scions version of Prescient Strike to correctly last for 2 rounds instead of 1")))
                     .AddToggle(
                         Toggle.New(GetKey("esextraarcanaselection"), defaultValue: true, CreateString("esextraarcanaselection-toggle", "The Feat Extra Arcana will now allow Eldritch Scrion to add an extra version of their Arcana and not regular versions")))
-                    .AddSubHeader(CreateString(GetKey("various"), "Various Fixes"))
+                    .AddAnotherSettingsGroup(GetKey("various"), CreateString(GetKey("various-title"), "Various Fixes"))
                     .AddToggle(
                         Toggle.New(GetKey("oracleapsurestrictionremoval"), defaultValue: true, CreateString("oracleapsurestrictionremoval-toggle", "Allow Oracle to select Apsu as a deity")))
                     .AddToggle(
