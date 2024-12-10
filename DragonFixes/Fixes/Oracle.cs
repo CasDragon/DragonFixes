@@ -15,7 +15,7 @@ namespace DragonFixes.Fixes
     {
         public static void RemoveApsuRestriction()
         {
-            if (Settings.OracleApsuRestrictionRemoval)
+            if (Settings.GetSetting<bool>("oracleapsurestrictionremoval"))
             {
                 Main.log.Log("Removing Apsu restriction from Oracle");
                 CharacterClassConfigurator.For(CharacterClassRefs.OracleClass)

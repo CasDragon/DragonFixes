@@ -1,5 +1,9 @@
-﻿using System;
+﻿using DragonFixes;
+using Kingmaker.Localization;
+using ModMenu.Settings;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,15 +11,79 @@ using UnityModManagerNet;
 
 namespace DragonFixes.Util
 {
-    public class Settings : UnityModManager.ModSettings
+    internal class Settings
     {
-        public static bool ESArcaneAccuracy = true;
-        public static bool ESExtraArcanaSelection = true;
-        public static bool ESPrescientDuration = true;
-        public static bool OracleApsuRestrictionRemoval = true;
-        public override void Save(UnityModManager.ModEntry modEntry)
+        private static readonly string RootKey = "dragonfixes";
+
+        public static void InitializeSettings()
         {
-            Save(this, modEntry);
+            ModMenu.ModMenu.AddSettings(
+                SettingsBuilder.New(RootKey, CreateString(GetKey("title"), "DragonFixes"))
+                    .SetMod(Main.entry)
+                    .SetModDescription(CreateString("description", "A mod for CD's bug fixes"))
+                    .SetModAuthor("CascadingDragon")
+                    .AddSubHeader(CreateString(GetKey("es"), "Edlritch Scion"))
+                    .AddToggle(
+                        Toggle.New(GetKey("esarcaneaccuracy"), defaultValue: true, CreateString("esarcaneaccuracy-toggle", "Fixes Eldritch Scions version of Arcane Accuracy to correctly scale off CHA.")))
+                    .AddToggle(
+                        Toggle.New(GetKey("esprescientduration"), defaultValue: true, CreateString("esprescientduration-toggle", "Change Edlritch Scions version of Prescient Strike to correctly last for 2 rounds instead of 1")))
+                    .AddToggle(
+                        Toggle.New(GetKey("esextraarcanaselection"), defaultValue: true, CreateString("esextraarcanaselection-toggle", "The Feat Extra Arcana will now allow Eldritch Scrion to add an extra version of their Arcana and not regular versions")))
+                    .AddSubHeader(CreateString(GetKey("various"), "Various Fixes"))
+                    .AddToggle(
+                        Toggle.New(GetKey("oracleapsurestrictionremoval"), defaultValue: true, CreateString("oracleapsurestrictionremoval-toggle", "Allow Oracle to select Apsu as a deity")))
+                    .AddToggle(
+                        Toggle.New(GetKey("curespellstargetfix"), defaultValue: true, CreateString("curespellstargetfix-toggle", "Fixes several healing spells (Like Heal and Cure Light Wounds) to target enemies"))));
+        }
+        public static T GetSetting<T>(string key)
+        {
+            try
+            {
+                return ModMenu.ModMenu.GetSettingValue<T>(GetKey(key));
+            }
+            catch (Exception ex)
+            {
+                Main.log.Error(ex.ToString());
+                return default(T);
+            }
+        }
+        private static LocalizedString CreateString(string partialkey, string text)
+        {
+            return Helpers.CreateString(GetKey(partialkey), text);
+        }
+        private static string GetKey(string partialKey)
+        {
+            return $"{RootKey}.{partialKey}";
+        }
+
+    }
+    public static class Helpers
+    {
+        private static Dictionary<string, LocalizedString> textToLocalizedString = new Dictionary<string, LocalizedString>();
+        public static LocalizedString CreateString(string key, string value)
+        {
+            // See if we used the text previously.
+            // (It's common for many features to use the same localized text.
+            // In that case, we reuse the old entry instead of making a new one.)
+            if (textToLocalizedString.TryGetValue(value, out LocalizedString localized))
+            {
+                return localized;
+            }
+            var strings = LocalizationManager.CurrentPack?.m_Strings;
+            if (strings!.TryGetValue(key, out var oldValue) && value != oldValue.Text)
+            {
+                Main.log.Log($"Info: duplicate localized string `{key}`, different text.");
+            }
+            var sE = new Kingmaker.Localization.LocalizationPack.StringEntry();
+            sE.Text = value;
+            strings[key] = sE;
+            localized = new LocalizedString
+            {
+                m_Key = key
+            };
+            textToLocalizedString[value] = localized;
+            return localized;
         }
     }
 }
+

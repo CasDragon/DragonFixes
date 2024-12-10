@@ -29,7 +29,7 @@ namespace DragonFixes.Fixes
         public static void AddArcaneAccuracy()
         {
             string buffname = "ESArcaneAccuracy";
-            if (Settings.ESArcaneAccuracy)
+            if (Settings.GetSetting<bool>("esarcaneaccuracy"))
             {
                 Main.log.Log("Adding new ES Arance Accuray buff");
                 BlueprintBuff newbuff = BuffConfigurator.New(buffname, Guids.ESAccurayBuff)
@@ -65,7 +65,7 @@ namespace DragonFixes.Fixes
         }
         public static void PatchPrescientDuration()
         {
-            if (Settings.ESPrescientDuration)
+            if (Settings.GetSetting<bool>("esprescientduration"))
             {
                 Main.log.Log("Patching ES Prescient duration");
                 FeatureConfigurator.For(FeatureRefs.EldritchPrescientAttackFeature)
@@ -80,7 +80,7 @@ namespace DragonFixes.Fixes
         }
         public static void AddESExtraArcanaSelection()
         {
-            if (Settings.ESExtraArcanaSelection)
+            if (Settings.GetSetting<bool>("esextraarcanaselection"))
             {
                 Main.log.Log("Patching ES Arcanas with prereq for ExtraArcanaSelection");
                 var ESAA = FeatureConfigurator.For(FeatureRefs.EldritchArcaneAccuracyFeature)

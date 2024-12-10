@@ -6,9 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using BlueprintCore.Utils;
 using DragonFixes.Fixes;
+using DragonFixes.Util;
 using HarmonyLib;
 using Kingmaker.Blueprints.JsonSystem;
 using UnityModManagerNet;
+using static UnityModManagerNet.UnityModManager;
 
 namespace DragonFixes
 {
@@ -19,9 +21,11 @@ namespace DragonFixes
     {
         internal static Harmony HarmonyInstance;
         internal static UnityModManager.ModEntry.ModLogger log;
+        internal static ModEntry entry;
 
         public static bool Load(UnityModManager.ModEntry modEntry)
         {
+            entry = modEntry;
             log = modEntry.Logger;
 #if DEBUG
             modEntry.OnUnload = OnUnload;
@@ -61,6 +65,8 @@ namespace DragonFixes
                     }
                     Initialized = true;
 
+                    log.Log("Adding DragonFix settings");
+                    Settings.InitializeSettings();
                     log.Log("Patching blueprints.");
                     EldritchScion.AddArcaneAccuracy();
                     EldritchScion.AddESExtraArcanaSelection();
