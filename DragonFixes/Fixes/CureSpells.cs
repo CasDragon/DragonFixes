@@ -16,15 +16,45 @@ namespace DragonFixes.Fixes
             if (Settings.GetSetting<bool>("curespellstargetfix"))
             {
                 AbilityConfigurator.For(AbilityRefs.CureLightWounds)
-                .SetCanTargetEnemies(true)
-                .Configure();
+                    .SetCanTargetEnemies(true)
+                    .Configure();
                 AbilityConfigurator.For(AbilityRefs.CureModerateWounds)
                     .SetCanTargetEnemies(true)
                     .Configure();
                 AbilityConfigurator.For(AbilityRefs.CureSeriousWounds)
                     .SetCanTargetEnemies(true)
                     .Configure();
+                AbilityConfigurator.For(AbilityRefs.CureCriticalWounds)
+                    .SetCanTargetEnemies(true)
+                    .Configure();
+                AbilityConfigurator.For(AbilityRefs.CureLightWoundsCast)
+                    .SetCanTargetEnemies(true)
+                    .Configure();
+                AbilityConfigurator.For(AbilityRefs.CureModerateWoundsCast)
+                    .SetCanTargetEnemies(true)
+                    .Configure();
+                AbilityConfigurator.For(AbilityRefs.CureSeriousWoundsCast)
+                    .SetCanTargetEnemies(true)
+                    .Configure();
+                AbilityConfigurator.For(AbilityRefs.CureCriticalWoundsCast)
+                    .SetCanTargetEnemies(true)
+                    .Configure();
+                AbilityConfigurator.For(AbilityRefs.WhiteMageCureLightWoundsCast)
+                    .SetCanTargetEnemies(true)
+                    .Configure();
+                AbilityConfigurator.For(AbilityRefs.WhiteMageCureModerateWoundsCast)
+                    .SetCanTargetEnemies(true)
+                    .Configure();
+                AbilityConfigurator.For(AbilityRefs.WhiteMageCureSeriousWoundsCast)
+                    .SetCanTargetEnemies(true)
+                    .Configure();
+                AbilityConfigurator.For(AbilityRefs.WhiteMageCureCriticalWoundsCast)
+                    .SetCanTargetEnemies(true)
+                    .Configure();
                 AbilityConfigurator.For(AbilityRefs.Heal)
+                    .SetCanTargetEnemies(true)
+                    .Configure();
+                AbilityConfigurator.For(AbilityRefs.HealCast)
                     .SetCanTargetEnemies(true)
                     .Configure();
             }
