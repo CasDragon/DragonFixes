@@ -62,6 +62,10 @@ namespace DragonFixes.Fixes
                     .SetCanTargetEnemies(true)
                     .Configure();
             }
+            else
+            {
+                Main.log.Log("Cure spell patch disabled, skipping.");
+            }
         }
     }
 }

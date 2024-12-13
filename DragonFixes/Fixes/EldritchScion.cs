@@ -77,6 +77,10 @@ namespace DragonFixes.Fixes
                         .Value = 2)
                     .Configure();
             }
+            else
+            {
+                Main.log.Log("ES Prescient patch disabled, skipping.");
+            }
         }
         public static void AddESExtraArcanaSelection()
         {
@@ -177,6 +181,10 @@ namespace DragonFixes.Fixes
                 FeatureSelectionConfigurator.For(FeatureSelectionRefs.ExtraArcanaSelection)
                     .AddToAllFeatures([ESAA, ESBB, ESDB, ESDS, ESEB, ESGB, ESHA, ESPA, ESWM, ESWW])
                     .Configure();
+            }
+            else
+            {
+                Main.log.Log("ES Arcana patch disabled, skipping.");
             }
         }
     }

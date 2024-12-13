@@ -26,6 +26,10 @@ namespace DragonFixes.Fixes
                     .RemoveComponents(c => c is PrerequisiteClassLevel cl && cl.m_CharacterClass.deserializedGuid == "20ce9bf8af32bee4c8557a045ab499b1")
                     .Configure();
             }
+            else
+            {
+                Main.log.Log("Oracle Apsu patch disabled, skipping.");
+            }
         }
     }
 }

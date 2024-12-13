@@ -72,6 +72,7 @@ namespace DragonFixes
                     EldritchScion.AddESExtraArcanaSelection();
                     Oracle.RemoveApsuRestriction();
                     CureSpells.TargetEnemiesPatch();
+                    Scalykind.PatchScalykind();
                 }
                 catch (Exception e)
                 {
