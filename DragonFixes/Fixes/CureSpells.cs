@@ -57,6 +57,9 @@ namespace DragonFixes.Fixes
                 AbilityConfigurator.For(AbilityRefs.HealCast)
                     .SetCanTargetEnemies(true)
                     .Configure();
+                AbilityConfigurator.For(AbilityRefs.WitchHexLifeGiverAbility)
+                    .SetCanTargetEnemies(true)
+                    .Configure();
             }
         }
     }
