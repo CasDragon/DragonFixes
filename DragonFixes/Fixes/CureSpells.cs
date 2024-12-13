@@ -15,6 +15,7 @@ namespace DragonFixes.Fixes
         {
             if (Settings.GetSetting<bool>("curespellstargetfix"))
             {
+                Main.log.Log("Patching cure spells to target enemies.");
                 AbilityConfigurator.For(AbilityRefs.CureLightWounds)
                     .SetCanTargetEnemies(true)
                     .Configure();

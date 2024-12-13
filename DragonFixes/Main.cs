@@ -71,6 +71,7 @@ namespace DragonFixes
                     EldritchScion.AddArcaneAccuracy();
                     EldritchScion.AddESExtraArcanaSelection();
                     Oracle.RemoveApsuRestriction();
+                    CureSpells.TargetEnemiesPatch();
                 }
                 catch (Exception e)
                 {
