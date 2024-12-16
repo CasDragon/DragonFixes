@@ -73,6 +73,7 @@ namespace DragonFixes
                     Oracle.RemoveApsuRestriction();
                     CureSpells.TargetEnemiesPatch();
                     Scalykind.PatchScalykind();
+                    Various.PatchAbundantArcanePool();
                 }
                 catch (Exception e)
                 {
