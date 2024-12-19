@@ -18,9 +18,8 @@ namespace DragonFixes.Util
         public static void InitializeSettings()
         {
             ModMenu.ModMenu.AddSettings(
-                SettingsBuilder.New(RootKey, CreateString(GetKey("title"), "DragonFixes"))
+                SettingsBuilder.New(RootKey, CreateString(GetKey("es-title"), "Eldritch Scion"))
                     .SetMod(Main.entry)
-                    .AddAnotherSettingsGroup(GetKey("es"), CreateString(GetKey("es-title"), "Edlritch Scion"))
                     .AddToggle(
                         Toggle.New(GetKey("esarcaneaccuracy"), defaultValue: true, CreateString("esarcaneaccuracy-toggle", "Fixes Eldritch Scions version of Arcane Accuracy to correctly scale off CHA.")))
                     .AddToggle(
