@@ -74,6 +74,7 @@ namespace DragonFixes
                     CureSpells.TargetEnemiesPatch();
                     Scalykind.PatchScalykind();
                     Various.PatchAbundantArcanePool();
+                    Various.PatchMartialProf();
                 }
                 catch (Exception e)
                 {

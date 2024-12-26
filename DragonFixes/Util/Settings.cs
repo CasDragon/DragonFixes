@@ -23,7 +23,7 @@ namespace DragonFixes.Util
                     .AddToggle(
                         Toggle.New(GetKey("esarcaneaccuracy"), defaultValue: true, CreateString("esarcaneaccuracy-toggle", "Fixes Eldritch Scions version of Arcane Accuracy to correctly scale off CHA.")))
                     .AddToggle(
-                        Toggle.New(GetKey("esprescientduration"), defaultValue: true, CreateString("esprescientduration-toggle", "Change Edlritch Scions version of Prescient Strike to correctly last for 2 rounds instead of 1")))
+                        Toggle.New(GetKey("esprescientduration"), defaultValue: true, CreateString("esprescientduration-toggle", "Change Eldritch Scions version of Prescient Strike to correctly last for 2 rounds instead of 1")))
                     .AddToggle(
                         Toggle.New(GetKey("esextraarcanaselection"), defaultValue: true, CreateString("esextraarcanaselection-toggle", "The Feat Extra Arcana will now allow Eldritch Scrion to add an extra version of their Arcana and not regular versions")))
                     .AddAnotherSettingsGroup(GetKey("various"), CreateString(GetKey("various-title"), "Various Fixes"))
