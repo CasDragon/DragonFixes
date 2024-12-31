@@ -75,6 +75,7 @@ namespace DragonFixes
                     Scalykind.PatchScalykind();
                     Various.PatchAbundantArcanePool();
                     Various.PatchMartialProf();
+                    Various.PatchWyrmShifterRedBreath();
                 }
                 catch (Exception e)
                 {
