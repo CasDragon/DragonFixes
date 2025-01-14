@@ -34,6 +34,8 @@ namespace DragonFixes.Util
                     .AddToggle(
                         Toggle.New(GetKey("abundantarcanepool"), defaultValue: true, CreateString("abundantarcanepool-toggle", "Allow Spell Dancer archetype to select Abundant Arcane Pool.")))
                     .AddToggle(
+                        Toggle.New(GetKey("vavakia"), defaultValue: true, CreateString("vavakia-toggle", "Demonic Form IV - Vavakia Buff to us a different model that hopefully has animations")))
+                    .AddToggle(
                         Toggle.New(GetKey("scalykind"), defaultValue: true, CreateString("scalykind-toggle", "Include Scalykind domain in the second domain selection"))));
         }
         public static T GetSetting<T>(string key)
