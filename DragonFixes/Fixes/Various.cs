@@ -3,6 +3,7 @@ using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
 using DragonFixes.Util;
+using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Enums;
 using Kingmaker.UnitLogic.Abilities.Components;
 using Kingmaker.UnitLogic.Buffs;
@@ -34,6 +35,9 @@ namespace DragonFixes.Fixes
             FeatureConfigurator.For(FeatureRefs.MartialWeaponProficiency)
                 .AddProficiencies(weaponProficiencies: [WeaponCategory.WeaponLightShield, WeaponCategory.SpikedHeavyShield,
                                                         WeaponCategory.WeaponHeavyShield, WeaponCategory.SpikedLightShield])
+                .Configure();
+            FeatureConfigurator.For(FeatureRefs.ShieldBashFeature)
+                .RemoveComponents(c => c is PrerequisiteNotProficient)
                 .Configure();
         }
 
