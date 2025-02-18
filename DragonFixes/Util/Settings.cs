@@ -34,7 +34,9 @@ namespace DragonFixes.Util
                     .AddToggle(
                         Toggle.New(GetKey("abundantarcanepool"), defaultValue: true, CreateString("abundantarcanepool-toggle", "Allow Spell Dancer archetype to select Abundant Arcane Pool.")))
                     .AddToggle(
-                        Toggle.New(GetKey("vavakia"), defaultValue: true, CreateString("vavakia-toggle", "Demonic Form IV - Vavakia Buff to us a different model that hopefully has animations")))
+                        Toggle.New(GetKey("fingerofdeath"), defaultValue: true, CreateString("fingerofdeath-toggle", "Removes the dupe Finger of Death from Wizard spell list")))
+                    .AddToggle(
+                        Toggle.New(GetKey("breathofflies"), defaultValue: true, CreateString("breathofflies-toggle", "Removes the Breath of Nothingness from base Cleric spell list, as it is a Plague specific spell")))
                     .AddToggle(
                         Toggle.New(GetKey("scalykind"), defaultValue: true, CreateString("scalykind-toggle", "Include Scalykind domain in the second domain selection"))));
         }

@@ -52,15 +52,5 @@ namespace DragonFixes.Fixes
                         .Energy = Kingmaker.Enums.Damage.DamageEnergyType.Fire)
                 .Configure();
         }
-        public static void PatchDemonFormIVVavakia()
-        {
-            if (Settings.GetSetting<bool>("vavakia"))
-            {
-                Main.log.Log("Patching Demonic Form IV - Vavakia Buff to us a different model that hopefully has animations");
-                BuffConfigurator.For(BuffRefs.DemonicFormIVVavakiaBuff)
-                    .EditComponent<Polymorph>(c => c.m_Prefab.AssetId = "f984bb6de78f12a4784375c2c33dc783")
-                    .Configure();
-            }
-        }
     }
 }
