@@ -38,7 +38,9 @@ namespace DragonFixes.Util
                     .AddToggle(
                         Toggle.New(GetKey("breathofflies"), defaultValue: true, CreateString("breathofflies-toggle", "Removes the Breath of Nothingness from base Cleric spell list, as it is a Plague specific spell")))
                     .AddToggle(
-                        Toggle.New(GetKey("scalykind"), defaultValue: true, CreateString("scalykind-toggle", "Include Scalykind domain in the second domain selection"))));
+                        Toggle.New(GetKey("scalykind"), defaultValue: true, CreateString("scalykind-toggle", "Include Scalykind domain in the second domain selection")))
+                    .AddToggle(
+                        Toggle.New(GetKey("scalykinddomain"), defaultValue: true, CreateString("scalykinddomain-toggle", "Fix Domain Zealot to work with Scalykind domain"))));
         }
         public static T GetSetting<T>(string key)
         {
