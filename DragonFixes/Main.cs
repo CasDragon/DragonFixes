@@ -76,6 +76,7 @@ namespace DragonFixes
                     Various.PatchAbundantArcanePool();
                     Various.PatchMartialProf();
                     Various.PatchWyrmShifterRedBreath();
+                    Various.PatchBestialRags();
                 }
                 catch (Exception e)
                 {

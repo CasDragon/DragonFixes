@@ -4,6 +4,7 @@ using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
 using DragonFixes.Util;
 using Kingmaker.Blueprints.Classes.Prerequisites;
+using Kingmaker.Blueprints.Classes.Spells;
 using Kingmaker.Enums;
 using Kingmaker.UnitLogic.Abilities.Components;
 using Kingmaker.UnitLogic.Buffs;
@@ -50,6 +51,13 @@ namespace DragonFixes.Fixes
                         .First()
                         .DamageType
                         .Energy = Kingmaker.Enums.Damage.DamageEnergyType.Fire)
+                .Configure();
+        }
+        public static void PatchBestialRags()
+        {
+            Main.log.Log("Patching bestial rags");
+            BuffConfigurator.For(BuffRefs.BestialRagsBuff)
+                .RemoveComponents(c => c is SpellDescriptorComponent)
                 .Configure();
         }
     }
