@@ -50,6 +50,7 @@ namespace DragonFixes.Fixes
         public static void addstuff(AutoMetamagic component)
         {
             component.Abilities.Add(AbilityRefs.ScalykindDomainBaseFeatureAbility.Reference.Get().ToReference<BlueprintAbilityReference>());
+            component.Abilities.Add(AbilityRefs.ScalykindDomainBaseFeatureAbilitySeparatist.Reference.Get().ToReference<BlueprintAbilityReference>());
 
         }
 

@@ -73,6 +73,7 @@ namespace DragonFixes
                     Oracle.RemoveApsuRestriction();
                     CureSpells.TargetEnemiesPatch();
                     Scalykind.PatchScalykind();
+                    Scalykind.PatchDomainZealot();
                     Various.PatchAbundantArcanePool();
                     Various.PatchMartialProf();
                     Various.PatchWyrmShifterRedBreath();
