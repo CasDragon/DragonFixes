@@ -3,8 +3,10 @@ using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
 using DragonFixes.Util;
+using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Blueprints.Classes.Spells;
+using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.Enums;
 using Kingmaker.UnitLogic.Abilities.Components;
 using Kingmaker.UnitLogic.Buffs;
@@ -19,6 +21,7 @@ namespace DragonFixes.Fixes
 {
     internal class Various
     {
+        [DragonFix]
         public static void PatchAbundantArcanePool()
         {
             if (Settings.GetSetting<bool>("abundantarcanepool"))
@@ -29,7 +32,7 @@ namespace DragonFixes.Fixes
                     .Configure();
             }
         }
-
+        [DragonFix]
         public static void PatchMartialProf()
         {
             Main.log.Log("Patching MartialProf to add Spiked Shields, owlcat plz");
@@ -41,7 +44,7 @@ namespace DragonFixes.Fixes
                 .RemoveComponents(c => c is PrerequisiteNotProficient)
                 .Configure();
         }
-
+        [DragonFix]
         public static void PatchWyrmShifterRedBreath()
         {
             Main.log.Log("Patching Wyrm Shifter's level 20 breath to correctly be fire damage instead of cold");
@@ -59,6 +62,31 @@ namespace DragonFixes.Fixes
             BuffConfigurator.For(BuffRefs.BestialRagsBuff)
                 .RemoveComponents(c => c is SpellDescriptorComponent)
                 .Configure();
+        }
+        [DragonFix]
+        public static void PatchInspiringCommand()
+        {
+            Main.log.Log("Patching Inspiring Command");
+            AbilityConfigurator.For(AbilityRefs.NobilityDomainBaseAbility)
+                .SetType(Kingmaker.UnitLogic.Abilities.Blueprints.AbilityType.Supernatural)
+                .Configure();
+            AbilityConfigurator.For(AbilityRefs.NobilityDomainBaseAbilitySeparatist)
+                .SetType(Kingmaker.UnitLogic.Abilities.Blueprints.AbilityType.Supernatural)
+                .Configure();
+        }
+        [DragonFix]
+        public static void PatchNeophyteGloves()
+        {
+            Main.log.Log("Patching the Gloves of the Neophyte to add the missing spells");
+            FeatureConfigurator.For(FeatureRefs.GlovesOfNeophyteFeature)
+                .EditComponent<DiceDamageBonusOnSpell>(c => dothisthing(c))
+                .Configure();
+        }
+
+        public static void dothisthing(DiceDamageBonusOnSpell spell)
+        {
+            spell.m_Spells.Append(AbilityRefs.ShockingGraspEffect.Reference.Get().ToReference<BlueprintAbilityReference>());
+            spell.m_Spells.Append(AbilityRefs.IncendiaryRunes.Reference.Get().ToReference<BlueprintAbilityReference>());
         }
     }
 }

@@ -26,6 +26,7 @@ namespace DragonFixes.Fixes
 {
     internal class EldritchScion
     {
+        [DragonFix]
         public static void AddArcaneAccuracy()
         {
             string buffname = "ESArcaneAccuracy";
@@ -63,6 +64,7 @@ namespace DragonFixes.Fixes
                     .Configure();
             }
         }
+        [DragonFix]
         public static void PatchPrescientDuration()
         {
             if (Settings.GetSetting<bool>("esprescientduration"))
@@ -82,6 +84,7 @@ namespace DragonFixes.Fixes
                 Main.log.Log("ES Prescient patch disabled, skipping.");
             }
         }
+        [DragonFix]
         public static void AddESExtraArcanaSelection()
         {
             if (Settings.GetSetting<bool>("esextraarcanaselection"))

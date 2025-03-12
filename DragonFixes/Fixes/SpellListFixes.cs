@@ -13,6 +13,7 @@ namespace DragonFixes.Fixes
 {
     internal class SpellListFixes
     {
+        [DragonFix]
         public static void WizardSpellListPatch()
         {
             if (Settings.GetSetting<bool>("fingerofdeath"))
@@ -23,6 +24,7 @@ namespace DragonFixes.Fixes
                 .Configure();
             }
         }
+        [DragonFix]
         public static void ClericSpellListPatch()
         {
             if (Settings.GetSetting<bool>("breathofflies"))

@@ -16,6 +16,7 @@ namespace DragonFixes.Fixes
 {
     internal class Scalykind
     {
+        [DragonFix]
         public static void PatchScalykind()
         {
             if (Settings.GetSetting<bool>("scalykind"))
@@ -33,6 +34,7 @@ namespace DragonFixes.Fixes
                 Main.log.Log("Scalykind patch disabled, skipping.");
             }
         }
+        [DragonFix]
         public static void PatchDomainZealot()
         {
             if (Settings.GetSetting<bool>("scalykinddomain"))

@@ -68,6 +68,8 @@ namespace DragonFixes
                     log.Log("Adding DragonFix settings");
                     Settings.InitializeSettings();
                     log.Log("Patching blueprints.");
+                    Thingy.DoPatches();
+                    /*
                     EldritchScion.AddArcaneAccuracy();
                     EldritchScion.AddESExtraArcanaSelection();
                     Oracle.RemoveApsuRestriction();
@@ -78,6 +80,7 @@ namespace DragonFixes
                     Various.PatchMartialProf();
                     Various.PatchWyrmShifterRedBreath();
                     Various.PatchBestialRags();
+                    */
                 }
                 catch (Exception e)
                 {
