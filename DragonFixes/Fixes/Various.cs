@@ -56,6 +56,7 @@ namespace DragonFixes.Fixes
                         .Energy = Kingmaker.Enums.Damage.DamageEnergyType.Fire)
                 .Configure();
         }
+        [DragonFix]
         public static void PatchBestialRags()
         {
             Main.log.Log("Patching bestial rags");
