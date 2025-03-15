@@ -28,6 +28,9 @@ namespace DragonFixes.Fixes
                 FeatureSelectionConfigurator.For(FeatureSelectionRefs.SecondDomainsSeparatistSelection)
                     .AddToAllFeatures(ProgressionRefs.ScalykindDomainProgressionSeparatist.Reference.Get())
                     .Configure();
+                FeatureSelectionConfigurator.For(FeatureSelectionRefs.ExtraDomain)
+                    .AddToAllFeatures(ProgressionRefs.ScalykindDomainProgressionSeparatist.Reference.Get())
+                    .Configure();
             }
             else
             {
