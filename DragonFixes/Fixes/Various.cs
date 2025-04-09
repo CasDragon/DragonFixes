@@ -11,6 +11,7 @@ using Kingmaker.Enums;
 using Kingmaker.UnitLogic.Abilities.Components;
 using Kingmaker.UnitLogic.Buffs;
 using Kingmaker.UnitLogic.Mechanics.Actions;
+using Kingmaker.UnitLogic.Mechanics.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,6 +89,15 @@ namespace DragonFixes.Fixes
         {
             spell.m_Spells.Append(AbilityRefs.ShockingGraspEffect.Reference.Get().ToReference<BlueprintAbilityReference>());
             spell.m_Spells.Append(AbilityRefs.IncendiaryRunes.Reference.Get().ToReference<BlueprintAbilityReference>());
+        }
+        [DragonFix]
+        public static void PatchAspectofAsp()
+        {
+            Main.log.Log("Patching Aspect of Asep enchant to work");
+            FeatureConfigurator.For(FeatureRefs.AspectOfTheAspFeature)
+                .EditComponent<AdditionalDiceOnAttack>(c =>
+                            c.AttackType = AdditionalDiceOnAttack.WeaponOptions.AllAttacks)
+                .Configure();
         }
     }
 }
