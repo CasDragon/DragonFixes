@@ -11,6 +11,7 @@ namespace DragonFixes.Fixes
 {
     internal class CureSpells
     {
+        [DragonFix]
         public static void TargetEnemiesPatch()
         {
             if (Settings.GetSetting<bool>("curespellstargetfix"))

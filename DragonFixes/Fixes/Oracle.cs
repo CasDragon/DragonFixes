@@ -13,6 +13,7 @@ namespace DragonFixes.Fixes
 {
     internal class Oracle
     {
+        [DragonFix]
         public static void RemoveApsuRestriction()
         {
             if (Settings.GetSetting<bool>("oracleapsurestrictionremoval"))
@@ -30,6 +31,18 @@ namespace DragonFixes.Fixes
             {
                 Main.log.Log("Oracle Apsu patch disabled, skipping.");
             }
+        }
+        [DragonFix]
+        public static void PatchOracleRevelations()
+        {
+            Main.log.Log("Patching Fortune Revelation feature `isClassFeature`");
+            FeatureConfigurator.For(FeatureRefs.FortuneRevelationFeature)
+                .SetIsClassFeature(true)
+                .Configure();
+            Main.log.Log("Patching Mistfortune Revelation feature `isClassFeature`");
+            FeatureConfigurator.For(FeatureRefs.MisfortuneRevelationFeature)
+                .SetIsClassFeature(true)
+                .Configure();
         }
     }
 }
