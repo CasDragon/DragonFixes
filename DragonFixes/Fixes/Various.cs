@@ -99,5 +99,16 @@ namespace DragonFixes.Fixes
                             c.AttackType = AdditionalDiceOnAttack.WeaponOptions.AllAttacks)
                 .Configure();
         }
+        [DragonFix]
+        public static void PatchJoyfulRapture()
+        {
+            Main.log.Log("Patching Joyful Rapture to correctly dispel Negative Emotion instead of petrified");
+            AbilityConfigurator.For(AbilityRefs.JoyfulRapture)
+                .EditComponent<AbilityEffectRunAction>(c => c.Actions.Actions
+                            .OfType<ContextActionDispelMagic>()
+                            .First()
+                            .Descriptor = SpellDescriptor.NegativeEmotion)
+                .Configure();
+        }
     }
 }
