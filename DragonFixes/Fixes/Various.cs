@@ -6,12 +6,15 @@ using DragonFixes.Util;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Blueprints.Classes.Spells;
+using Kingmaker.Designers.EventConditionActionSystem.Actions;
 using Kingmaker.Designers.Mechanics.Facts;
+using Kingmaker.ElementsSystem;
 using Kingmaker.Enums;
 using Kingmaker.UnitLogic.Abilities.Components;
 using Kingmaker.UnitLogic.Buffs;
 using Kingmaker.UnitLogic.Mechanics.Actions;
 using Kingmaker.UnitLogic.Mechanics.Components;
+using Kingmaker.UnitLogic.Mechanics.Conditions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -108,6 +111,25 @@ namespace DragonFixes.Fixes
                             .OfType<ContextActionDispelMagic>()
                             .First()
                             .Descriptor = SpellDescriptor.NegativeEmotion)
+                .Configure();
+        }
+        [DragonFix]
+        public static void PatchStudyTarget()
+        {
+            Main.log.Log("Patching SlayerStudyTargetBuff to correctly use AND logic");
+            BuffConfigurator.For(BuffRefs.SlayerStudyTargetBuff)
+                .EditComponent<AddFactContextActions>(c => c.Activated.Actions
+                            .OfType<Conditional>()
+                            .Where(x => x.ConditionsChecker.Conditions
+                                    .OfType<ContextConditionCasterHasFact>()
+                                    .First()
+                                    .m_Fact.deserializedGuid == FeatureRefs.ExecutionerFocusedKiller.Reference.deserializedGuid)
+                            .First()
+                            .IfTrue.Actions
+                            .OfType<Conditional>()
+                            .First()
+                            .ConditionsChecker.Operation = Operation.And
+                            )
                 .Configure();
         }
     }
