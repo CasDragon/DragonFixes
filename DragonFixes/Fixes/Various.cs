@@ -113,24 +113,5 @@ namespace DragonFixes.Fixes
                             .Descriptor = SpellDescriptor.NegativeEmotion)
                 .Configure();
         }
-        [DragonFix]
-        public static void PatchStudyTarget()
-        {
-            Main.log.Log("Patching SlayerStudyTargetBuff to correctly use AND logic");
-            BuffConfigurator.For(BuffRefs.SlayerStudyTargetBuff)
-                .EditComponent<AddFactContextActions>(c => c.Activated.Actions
-                            .OfType<Conditional>()
-                            .Where(x => x.ConditionsChecker.Conditions
-                                    .OfType<ContextConditionCasterHasFact>()
-                                    .First()
-                                    .m_Fact.deserializedGuid == FeatureRefs.ExecutionerFocusedKiller.Reference.deserializedGuid)
-                            .First()
-                            .IfTrue.Actions
-                            .OfType<Conditional>()
-                            .First()
-                            .ConditionsChecker.Operation = Operation.And
-                            )
-                .Configure();
-        }
     }
 }
