@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace DragonFixes.Fixes
 {
-    internal class Whiterock
+    internal class WhiterockStuff
     {
         [DragonFix]
         public static void PatchStudyTarget()
