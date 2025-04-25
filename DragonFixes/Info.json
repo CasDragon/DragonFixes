@@ -2,11 +2,11 @@
   "Id": "DragonFixes",
   "DisplayName": "Dragon Fixes",
   "Author": "CascadingDragon",
-  "Version": "1.14.0",
+  "Version": "1.15.0",
   "ManagerVersion": "0.27.11",
   "Requirements": [ "ModMenu-2.0.0" ],
   "AssemblyName": "DragonFixes.dll",
   "EntryMethod": "DragonFixes.Main.Load",
-  "HomePage": "",
+  "HomePage": "https://github.com/CasDragon/DragonFixes",
   "Repository": ""
 }
