@@ -1,25 +1,31 @@
-﻿using BlueprintCore.Blueprints.CustomConfigurators.Classes;
+﻿using BlueprintCore.Actions.Builder;
+using BlueprintCore.Actions.Builder.ContextEx;
+using BlueprintCore.Blueprints.Configurators.Items.Ecnchantments;
+using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
+using BlueprintCore.Conditions.Builder;
+using BlueprintCore.Conditions.Builder.ContextEx;
+using BlueprintCore.Utils.Types;
 using DragonFixes.Util;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Blueprints.Classes.Spells;
-using Kingmaker.Designers.EventConditionActionSystem.Actions;
+using Kingmaker.Blueprints.Items.Ecnchantments;
 using Kingmaker.Designers.Mechanics.Facts;
-using Kingmaker.ElementsSystem;
+using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums;
+using Kingmaker.RuleSystem;
+using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Abilities.Components;
-using Kingmaker.UnitLogic.Buffs;
+using Kingmaker.UnitLogic.Buffs.Blueprints;
+using Kingmaker.UnitLogic.FactLogic;
+using Kingmaker.UnitLogic.Mechanics;
 using Kingmaker.UnitLogic.Mechanics.Actions;
 using Kingmaker.UnitLogic.Mechanics.Components;
-using Kingmaker.UnitLogic.Mechanics.Conditions;
-using System;
-using System.Collections.Generic;
+using Kingmaker.Utility;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DragonFixes.Fixes
 {
@@ -111,6 +117,57 @@ namespace DragonFixes.Fixes
                             .OfType<ContextActionDispelMagic>()
                             .First()
                             .Descriptor = SpellDescriptor.NegativeEmotion)
+                .Configure();
+        }
+        [DragonFix]
+        public static void PatchGnawingHunger()
+        {
+            Main.log.Log("Patching Gnawing Hunger to actually apply debuff to enemy?");
+            FeatureConfigurator.For(FeatureRefs.GnawingMagicFeature)
+                .RemoveComponents(c => c is AddAbilityUseTrigger)
+                .AddAbilityUseTrigger(action:
+                    ActionsBuilder.New().ApplyBuff(BuffRefs.GnawingMagicBuffEnemy.Reference.Get(),
+                            new ContextDurationValue()
+                            {
+                                Rate = DurationRate.Rounds,
+                                DiceType = DiceType.Zero,
+                                DiceCountValue = ContextValues.Constant(0),
+                                BonusValue = ContextValues.Constant(3)
+                            }, asChild: true, toCaster: false)
+                        .ApplyBuff(BuffRefs.GnawingMagicBuffSelf.Reference.Get(),
+                            new ContextDurationValue()
+                            {
+                                Rate = DurationRate.Rounds,
+                                DiceType = DiceType.Zero,
+                                DiceCountValue = ContextValues.Constant(0),
+                                BonusValue = ContextValues.Constant(3)
+                            }, asChild: true, toCaster: true), 
+                        actionsOnTarget: true,
+                        checkAbilityType: true,
+                        type: AbilityType.Spell)
+                .Configure();
+        }
+        [DragonFix]
+        public static void PatchAbruptEndEnchant()
+        {
+            Main.log.Log("Patching Abrupt End to actually work?");
+            BlueprintBuff buff = BuffConfigurator.New("abruptendbuff", Guids.EbruptEndBuff)
+                .SetDisplayName("abruptendbuff.name")
+                .SetDescription("abruptendbuff.description")
+                .AddContextStatBonus(StatType.AdditionalAttackBonus, ContextValues.Constant(2), ModifierDescriptor.Insight)
+                .AddRemoveBuffOnAttack()
+                .Configure();
+            BlueprintWeaponEnchantment enchant = WeaponEnchantmentConfigurator.For(WeaponEnchantmentRefs.AbruptEndEnchantment)
+                .AddInitiatorAttackWithWeaponTrigger(onlyHit: true, action:
+                    ActionsBuilder.New()
+                            .ApplyBuff(buff, new ContextDurationValue()
+                            {
+                                Rate = DurationRate.Rounds,
+                                DiceType = DiceType.Zero,
+                                DiceCountValue = ContextValues.Constant(0),
+                                BonusValue = ContextValues.Constant(1)
+                            },
+                            asChild: true, toCaster: true), triggerBeforeAttack: true)
                 .Configure();
         }
     }
