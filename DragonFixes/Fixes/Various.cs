@@ -7,9 +7,11 @@ using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
 using BlueprintCore.Conditions.Builder;
 using BlueprintCore.Conditions.Builder.ContextEx;
+using BlueprintCore.Utils;
 using BlueprintCore.Utils.Types;
 using DragonFixes.Util;
 using Kingmaker.Blueprints;
+using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Blueprints.Classes.Spells;
 using Kingmaker.Blueprints.Items.Ecnchantments;
@@ -79,10 +81,10 @@ namespace DragonFixes.Fixes
         {
             Main.log.Log("Patching Inspiring Command");
             AbilityConfigurator.For(AbilityRefs.NobilityDomainBaseAbility)
-                .SetType(Kingmaker.UnitLogic.Abilities.Blueprints.AbilityType.Supernatural)
+                .SetType(AbilityType.Supernatural)
                 .Configure();
             AbilityConfigurator.For(AbilityRefs.NobilityDomainBaseAbilitySeparatist)
-                .SetType(Kingmaker.UnitLogic.Abilities.Blueprints.AbilityType.Supernatural)
+                .SetType(AbilityType.Supernatural)
                 .Configure();
         }
         [DragonFix]
@@ -141,7 +143,7 @@ namespace DragonFixes.Fixes
                                 DiceType = DiceType.Zero,
                                 DiceCountValue = ContextValues.Constant(0),
                                 BonusValue = ContextValues.Constant(3)
-                            }, asChild: true, toCaster: true), 
+                            }, asChild: true, toCaster: true),
                         actionsOnTarget: true,
                         checkAbilityType: true,
                         type: AbilityType.Spell)
@@ -168,6 +170,30 @@ namespace DragonFixes.Fixes
                                 BonusValue = ContextValues.Constant(1)
                             },
                             asChild: true, toCaster: true), triggerBeforeAttack: true)
+                .Configure();
+        }
+
+        [DragonFix]
+        public static void PatchFreeRein()
+        {
+            Main.log.Log("Patching Free Rein and Freest Rein");
+            BlueprintBuff buff = BuffConfigurator.For(BuffRefs.BootsOfFreereinBuff)
+                .AddBuffDescriptorImmunity(false, SpellDescriptor.Staggered)
+                .Configure();
+            FeatureConfigurator.For(FeatureRefs.BootsOfFreestReinFeature)
+                .RemoveComponents(c => c is AddFactContextActions)
+                .AddFactContextActions(activated: ActionsBuilder.New()
+                            .ApplyBuffPermanent(buff, true),
+                        deactivated: ActionsBuilder.New()
+                            .RemoveBuff(buff))
+                .Configure();
+        }
+        [DragonFix]
+        public static void PatchFighterFinessDamageFeature()
+        {
+            Main.log.Log("Patching FighterFinessDamageFeature to be correctly removed upon respec");
+            FeatureConfigurator.For(FeatureRefs.FighterFinessDamageFeature)
+                .SetIsClassFeature(true)
                 .Configure();
         }
     }

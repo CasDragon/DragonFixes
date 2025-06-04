@@ -20,8 +20,8 @@ namespace DragonFixes.Fixes
             {
                 Main.log.Log("Patching Wizard spell list to remove dupe Finger of Death");
                 SpellListConfigurator.For(SpellListRefs.WizardSpellList)
-                .RemoveFromSpellsByLevel(new SpellLevelList(7) { m_Spells = [AbilityRefs.FingerOfDeathSithhud.Reference.Get().ToReference<BlueprintAbilityReference>()] })
-                .Configure();
+                    .RemoveFromSpellsByLevel(new SpellLevelList(7) { m_Spells = [AbilityRefs.FingerOfDeathSithhud.Reference.Get().ToReference<BlueprintAbilityReference>()] })
+                    .Configure();
             }
         }
         [DragonFix]
@@ -31,8 +31,8 @@ namespace DragonFixes.Fixes
             {
                 Main.log.Log("Patching Cleric spell list to remove Breath of Flies");
                 SpellListConfigurator.For(SpellListRefs.WizardSpellList)
-                .RemoveFromSpellsByLevel(new SpellLevelList(7) { m_Spells = [AbilityRefs.BreathofFliesAbility.Reference.Get().ToReference<BlueprintAbilityReference>()] })
-                .Configure();
+                    .RemoveFromSpellsByLevel(new SpellLevelList(7) { m_Spells = [AbilityRefs.BreathofFliesAbility.Reference.Get().ToReference<BlueprintAbilityReference>()] })
+                    .Configure();
             }
         }
     }
