@@ -40,7 +40,7 @@ namespace DragonFixes.Fixes
             {
                 Main.log.Log("Patching Abundant Arcane Pool for Spell Dancer");
                 FeatureConfigurator.For(FeatureRefs.AbundantArcanePool)
-                    .AddPrerequisiteFeature(FeatureRefs.SpellDanceFeature.Reference.Get())
+                    .AddPrerequisiteFeature(FeatureRefs.SpellDanceFeature.Reference.Get(), false, Prerequisite.GroupType.Any, false)
                     .Configure();
             }
         }
