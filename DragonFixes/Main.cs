@@ -14,9 +14,6 @@ using static UnityModManagerNet.UnityModManager;
 
 namespace DragonFixes
 {
-#if DEBUG
-    [EnableReloading]
-#endif
     public static class Main
     {
         internal static Harmony HarmonyInstance;
@@ -27,9 +24,6 @@ namespace DragonFixes
         {
             entry = modEntry;
             log = modEntry.Logger;
-#if DEBUG
-            modEntry.OnUnload = OnUnload;
-#endif
             modEntry.OnGUI = OnGUI;
             HarmonyInstance = new Harmony(modEntry.Info.Id);
             HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
@@ -40,19 +34,11 @@ namespace DragonFixes
         {
 
         }
-
-#if DEBUG
-        public static bool OnUnload(UnityModManager.ModEntry modEntry) {
-            HarmonyInstance.UnpatchAll(modEntry.Info.Id);
-            return true;
-        }
-#endif
         [HarmonyPatch(typeof(BlueprintsCache))]
         public static class BlueprintsCaches_Patch
         {
             private static bool Initialized = false;
 
-            [HarmonyPriority(Priority.Last)]
             [HarmonyPatch(nameof(BlueprintsCache.Init)), HarmonyPostfix]
             public static void Init_Postfix()
             {
@@ -69,18 +55,6 @@ namespace DragonFixes
                     Settings.InitializeSettings();
                     log.Log("Patching blueprints.");
                     Thingy.DoPatches();
-                    /*
-                    EldritchScion.AddArcaneAccuracy();
-                    EldritchScion.AddESExtraArcanaSelection();
-                    Oracle.RemoveApsuRestriction();
-                    CureSpells.TargetEnemiesPatch();
-                    Scalykind.PatchScalykind();
-                    Scalykind.PatchDomainZealot();
-                    Various.PatchAbundantArcanePool();
-                    Various.PatchMartialProf();
-                    Various.PatchWyrmShifterRedBreath();
-                    Various.PatchBestialRags();
-                    */
                 }
                 catch (Exception e)
                 {

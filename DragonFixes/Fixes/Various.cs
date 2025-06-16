@@ -92,15 +92,28 @@ namespace DragonFixes.Fixes
         {
             Main.log.Log("Patching the Gloves of the Neophyte to add the missing spells");
             FeatureConfigurator.For(FeatureRefs.GlovesOfNeophyteFeature)
-                .EditComponent<DiceDamageBonusOnSpell>(c => dothisthing(c))
+                .RemoveComponents(c => c is DiceDamageBonusOnSpell)
+                .AddDiceDamageBonusOnSpell(spells: [
+                    AbilityRefs.ShockingGraspEffect.Reference.Get().ToReference<BlueprintAbilityReference>(),
+                    AbilityRefs.IncendiaryRunes.Reference.Get().ToReference<BlueprintAbilityReference>(),
+                    AbilityRefs.AcidSplash.Reference.Get().ToReference<BlueprintAbilityReference>(),
+                    AbilityRefs.Jolt.Reference.Get().ToReference<BlueprintAbilityReference>(),
+                    AbilityRefs.RayOfFrost.Reference.Get().ToReference<BlueprintAbilityReference>(),
+                    AbilityRefs.BurningHands.Reference.Get().ToReference<BlueprintAbilityReference>(),
+                    AbilityRefs.CorrosiveTouch.Reference.Get().ToReference<BlueprintAbilityReference>(),
+                    AbilityRefs.CureLightWoundsDamage.Reference.Get().ToReference<BlueprintAbilityReference>(),
+                    AbilityRefs.EarPiercingScream.Reference.Get().ToReference<BlueprintAbilityReference>(),
+                    AbilityRefs.FirebellyAbility.Reference.Get().ToReference<BlueprintAbilityReference>(),
+                    AbilityRefs.MagicMissile.Reference.Get().ToReference<BlueprintAbilityReference>(),
+                    AbilityRefs.Snowball.Reference.Get().ToReference<BlueprintAbilityReference>(),
+                    AbilityRefs.DivineZap.Reference.Get().ToReference<BlueprintAbilityReference>(),
+                    AbilityRefs.Ignition.Reference.Get().ToReference<BlueprintAbilityReference>(),
+                    AbilityRefs.InflictLightWoundsDamage.Reference.Get().ToReference<BlueprintAbilityReference>()
+                    ], 
+                    mergeBehavior: BlueprintCore.Blueprints.CustomConfigurators.ComponentMerge.Replace)
                 .Configure();
         }
 
-        public static void dothisthing(DiceDamageBonusOnSpell spell)
-        {
-            spell.m_Spells.Append(AbilityRefs.ShockingGraspEffect.Reference.Get().ToReference<BlueprintAbilityReference>());
-            spell.m_Spells.Append(AbilityRefs.IncendiaryRunes.Reference.Get().ToReference<BlueprintAbilityReference>());
-        }
         [DragonFix]
         public static void PatchAspectofAsp()
         {
