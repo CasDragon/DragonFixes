@@ -1,6 +1,8 @@
 ﻿using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.References;
 using DragonFixes.Util;
+using Kingmaker.Blueprints;
+using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Items.Weapons;
 using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.Enums;
@@ -22,10 +24,11 @@ namespace DragonFixes.Fixes
                 .EditComponent<AddInitiatorAttackWithWeaponTrigger>(c => stuff(c))
                 .Configure();
             Main.log.Log("Patching 'OtherNaturalAttack' nonsense for AncientWoodFeature");
-            FeatureConfigurator.For(FeatureRefs.AncientWoodFeature)
-                .RemoveComponents(c => c is ACBonusAgainstWeaponCategory)
+            BlueprintFeature bp = FeatureConfigurator.For(FeatureRefs.AncientWoodFeature)
+                //.RemoveComponents(c => c is ACBonusAgainstWeaponCategory)
                 .AddACBonusAgainstWeaponGroup(armorClassBonus: 3, descriptor: ModifierDescriptor.Competence, fighterGroup: WeaponFighterGroup.Natural)
                 .Configure();
+            LibraryStuff.RemoveComponent(bp, bp.GetComponent<ACBonusAgainstWeaponCategory>());
         }
         public static void stuff(AddInitiatorAttackWithWeaponTrigger component)
         {

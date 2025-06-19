@@ -52,9 +52,11 @@ namespace DragonFixes.Fixes
                 .AddProficiencies(weaponProficiencies: [WeaponCategory.WeaponLightShield, WeaponCategory.SpikedHeavyShield,
                                                         WeaponCategory.WeaponHeavyShield, WeaponCategory.SpikedLightShield])
                 .Configure();
-            FeatureConfigurator.For(FeatureRefs.ShieldBashFeature)
+            BlueprintFeature bp = FeatureRefs.ShieldBashFeature.Reference.Get();
+            LibraryStuff.RemoveComponent(bp, bp.GetComponent<PrerequisiteNotProficient>());
+            /*FeatureConfigurator.For(FeatureRefs.ShieldBashFeature)
                 .RemoveComponents(c => c is PrerequisiteNotProficient)
-                .Configure();
+                .Configure();*/
         }
         [DragonFix]
         public static void PatchWyrmShifterRedBreath()
@@ -72,9 +74,11 @@ namespace DragonFixes.Fixes
         public static void PatchBestialRags()
         {
             Main.log.Log("Patching bestial rags");
-            BuffConfigurator.For(BuffRefs.BestialRagsBuff)
+            BlueprintBuff bp = BuffRefs.BestialRagsBuff.Reference.Get();
+            LibraryStuff.RemoveComponent(bp, bp.GetComponent<SpellDescriptorComponent>());
+            /*BuffConfigurator.For(BuffRefs.BestialRagsBuff)
                 .RemoveComponents(c => c is SpellDescriptorComponent)
-                .Configure();
+                .Configure();*/
         }
         [DragonFix]
         public static void PatchInspiringCommand()
@@ -91,8 +95,8 @@ namespace DragonFixes.Fixes
         public static void PatchNeophyteGloves()
         {
             Main.log.Log("Patching the Gloves of the Neophyte to add the missing spells");
-            FeatureConfigurator.For(FeatureRefs.GlovesOfNeophyteFeature)
-                .RemoveComponents(c => c is DiceDamageBonusOnSpell)
+            BlueprintFeature bp = FeatureConfigurator.For(FeatureRefs.GlovesOfNeophyteFeature)
+                //.RemoveComponents(c => c is DiceDamageBonusOnSpell)
                 .AddDiceDamageBonusOnSpell(spells: [
                     AbilityRefs.ShockingGraspEffect.Reference.Get().ToReference<BlueprintAbilityReference>(),
                     AbilityRefs.IncendiaryRunes.Reference.Get().ToReference<BlueprintAbilityReference>(),
@@ -112,6 +116,7 @@ namespace DragonFixes.Fixes
                     ], 
                     mergeBehavior: BlueprintCore.Blueprints.CustomConfigurators.ComponentMerge.Replace)
                 .Configure();
+            LibraryStuff.RemoveComponent(bp, bp.GetComponent<DiceDamageBonusOnSpell>());
         }
 
         [DragonFix]
@@ -138,8 +143,8 @@ namespace DragonFixes.Fixes
         public static void PatchGnawingHunger()
         {
             Main.log.Log("Patching Gnawing Hunger to actually apply debuff to enemy?");
-            FeatureConfigurator.For(FeatureRefs.GnawingMagicFeature)
-                .RemoveComponents(c => c is AddAbilityUseTrigger)
+            BlueprintFeature bp = FeatureConfigurator.For(FeatureRefs.GnawingMagicFeature)
+               // .RemoveComponents(c => c is AddAbilityUseTrigger)
                 .AddAbilityUseTrigger(action:
                     ActionsBuilder.New().ApplyBuff(BuffRefs.GnawingMagicBuffEnemy.Reference.Get(),
                             new ContextDurationValue()
@@ -161,6 +166,7 @@ namespace DragonFixes.Fixes
                         checkAbilityType: true,
                         type: AbilityType.Spell)
                 .Configure();
+            LibraryStuff.RemoveComponent(bp, bp.GetComponent<AddAbilityUseTrigger>());
         }
         [DragonFix]
         public static void PatchAbruptEndEnchant()
@@ -193,13 +199,14 @@ namespace DragonFixes.Fixes
             BlueprintBuff buff = BuffConfigurator.For(BuffRefs.BootsOfFreereinBuff)
                 .AddBuffDescriptorImmunity(false, SpellDescriptor.Staggered)
                 .Configure();
-            FeatureConfigurator.For(FeatureRefs.BootsOfFreestReinFeature)
-                .RemoveComponents(c => c is AddFactContextActions)
+            BlueprintFeature bp = FeatureConfigurator.For(FeatureRefs.BootsOfFreestReinFeature)
+                //.RemoveComponents(c => c is AddFactContextActions)
                 .AddFactContextActions(activated: ActionsBuilder.New()
                             .ApplyBuffPermanent(buff, true),
                         deactivated: ActionsBuilder.New()
                             .RemoveBuff(buff))
                 .Configure();
+            LibraryStuff.RemoveComponent(bp, bp.GetComponent<AddFactContextActions>());
         }
         [DragonFix]
         public static void PatchFighterFinessDamageFeature()
