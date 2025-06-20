@@ -21,6 +21,7 @@ using Kingmaker.Blueprints;
 using Kingmaker.UnitLogic.FactLogic;
 using System.Linq;
 using System.Security.AccessControl;
+using Kingmaker.UnitLogic.Abilities.Blueprints;
 
 namespace DragonFixes.Fixes
 {
@@ -70,14 +71,14 @@ namespace DragonFixes.Fixes
             if (Settings.GetSetting<bool>("esprescientduration"))
             {
                 Main.log.Log("Patching ES Prescient duration");
-                FeatureConfigurator.For(FeatureRefs.EldritchPrescientAttackFeature)
-                    .EditComponent<AbilityEffectRunAction>(a => a.Actions.Actions
-                        .OfType<ContextActionApplyBuff>()
-                        .First()
-                        .DurationValue
-                        .BonusValue
-                        .Value = 2)
-                    .Configure();
+                BlueprintAbility bp = AbilityRefs.EldritchPrescientAttackAbility.Reference.Get();
+                bp.GetComponent<AbilityEffectRunAction>()
+                    .Actions.Actions
+                    .OfType<ContextActionApplyBuff>()
+                    .First()
+                    .DurationValue
+                    .BonusValue
+                    .Value = 2;
             }
             else
             {

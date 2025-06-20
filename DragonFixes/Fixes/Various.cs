@@ -191,6 +191,37 @@ namespace DragonFixes.Fixes
                             asChild: true, toCaster: true), triggerBeforeAttack: true)
                 .Configure();
         }
+        [DragonFix]
+        public static void PatchDevitalizer()
+        {
+            Main.log.Log("Patching Abrupt End to actually work?");
+            BlueprintBuff buff = BuffConfigurator.New("devitalizerbuff", Guids.DevitalizerBuff)
+                .SetDisplayName("devitalizerbuff.name")
+                .SetDescription("devitalizerbuff.description")
+                .AddContextStatBonus(StatType.AdditionalAttackBonus, ContextValues.Constant(2), ModifierDescriptor.Circumstance)
+                .AddContextStatBonus(StatType.AdditionalDamage, ContextValues.Constant(2), ModifierDescriptor.Circumstance)
+                .AddRemoveBuffOnAttack()
+                .Configure();
+            BlueprintWeaponEnchantment enchant = WeaponEnchantmentRefs.DevitalizerEnchantment.Reference.Get();
+            LibraryStuff.RemoveComponent(enchant, enchant.GetComponent<AddInitiatorAttackWithWeaponTrigger>());
+            WeaponEnchantmentConfigurator.For(enchant)
+                .AddInitiatorAttackWithWeaponTrigger(onlyHit: true, action:
+                    ActionsBuilder.New()
+                        .Conditional(ConditionsBuilder.New()
+                            .HasBuffWithDescriptor(spellDescriptor: SpellDescriptor.Exhausted),
+                            ifTrue:
+                                ActionsBuilder.New()
+                                    .ApplyBuff(buff, new ContextDurationValue()
+                                    {
+                                        Rate = DurationRate.Rounds,
+                                        DiceType = DiceType.Zero,
+                                        DiceCountValue = ContextValues.Constant(0),
+                                        BonusValue = ContextValues.Constant(1)
+                                    },
+                                    asChild: true, toCaster: true)),
+                    triggerBeforeAttack: true)
+                .Configure();
+        }
 
         [DragonFix]
         public static void PatchFreeRein()

@@ -30,7 +30,7 @@ namespace DragonFixes.Fixes
             if (Settings.GetSetting<bool>("breathofflies"))
             {
                 Main.log.Log("Patching Cleric spell list to remove Breath of Flies");
-                BlueprintSpellList bp = SpellListRefs.WizardSpellList.Reference.Get();
+                BlueprintSpellList bp = SpellListRefs.ClericSpellList.Reference.Get();
                 LibraryStuff.RemoveSpellFromSpellList(bp, AbilityRefs.BreathofFliesAbility.Reference.Get(), 7);
             }
         }

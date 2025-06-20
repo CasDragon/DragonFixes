@@ -1,12 +1,23 @@
 [
-  {
-    "Key": "abruptendbuff.name",
-    "ProcessTemplates": false,
-    "enGB": "Abrupt End"
-  },
+    {
+        "Key": "abruptendbuff.name",
+        "ProcessTemplates": false,
+        "enGB": "Abrupt End"
+    },
 
-  {
-    "Key": "abruptendbuff.description",
-    "enGB": "+2 Insight bonus to attack rolls"
-  }
+    {
+        "Key": "abruptendbuff.description",
+        "enGB": "+2 Insight bonus to attack rolls"
+    },
+
+    {
+        "Key": "devitalizerbuff.name",
+        "ProcessTemplates": false,
+        "enGB": "Devitalizer"
+    },
+
+    {
+        "Key": "devitalizerbuff.description",
+        "enGB": "+2 Circumstance bonus to attack and damage rolls against Exhausted enemies."
+    }
 ]
