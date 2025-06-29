@@ -1,4 +1,5 @@
-﻿using BlueprintCore.Actions.Builder;
+﻿using System.Linq;
+using BlueprintCore.Actions.Builder;
 using BlueprintCore.Actions.Builder.ContextEx;
 using BlueprintCore.Blueprints.Configurators.Items.Ecnchantments;
 using BlueprintCore.Blueprints.CustomConfigurators.Classes;
@@ -21,13 +22,13 @@ using Kingmaker.Enums;
 using Kingmaker.RuleSystem;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Abilities.Components;
+using Kingmaker.UnitLogic.Abilities.Components.TargetCheckers;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.UnitLogic.FactLogic;
 using Kingmaker.UnitLogic.Mechanics;
 using Kingmaker.UnitLogic.Mechanics.Actions;
 using Kingmaker.UnitLogic.Mechanics.Components;
 using Kingmaker.Utility;
-using System.Linq;
 
 namespace DragonFixes.Fixes
 {
@@ -54,9 +55,6 @@ namespace DragonFixes.Fixes
                 .Configure();
             BlueprintFeature bp = FeatureRefs.ShieldBashFeature.Reference.Get();
             LibraryStuff.RemoveComponent(bp, bp.GetComponent<PrerequisiteNotProficient>());
-            /*FeatureConfigurator.For(FeatureRefs.ShieldBashFeature)
-                .RemoveComponents(c => c is PrerequisiteNotProficient)
-                .Configure();*/
         }
         [DragonFix]
         public static void PatchWyrmShifterRedBreath()
@@ -76,9 +74,6 @@ namespace DragonFixes.Fixes
             Main.log.Log("Patching bestial rags");
             BlueprintBuff bp = BuffRefs.BestialRagsBuff.Reference.Get();
             LibraryStuff.RemoveComponent(bp, bp.GetComponent<SpellDescriptorComponent>());
-            /*BuffConfigurator.For(BuffRefs.BestialRagsBuff)
-                .RemoveComponents(c => c is SpellDescriptorComponent)
-                .Configure();*/
         }
         [DragonFix]
         public static void PatchInspiringCommand()
@@ -95,8 +90,9 @@ namespace DragonFixes.Fixes
         public static void PatchNeophyteGloves()
         {
             Main.log.Log("Patching the Gloves of the Neophyte to add the missing spells");
-            BlueprintFeature bp = FeatureConfigurator.For(FeatureRefs.GlovesOfNeophyteFeature)
-                //.RemoveComponents(c => c is DiceDamageBonusOnSpell)
+            BlueprintFeature bp = FeatureRefs.GlovesOfNeophyteFeature.Reference.Get();
+            LibraryStuff.RemoveComponent(bp, bp.GetComponent<DiceDamageBonusOnSpell>());
+            FeatureConfigurator.For(bp)
                 .AddDiceDamageBonusOnSpell(spells: [
                     AbilityRefs.ShockingGraspEffect.Reference.Get().ToReference<BlueprintAbilityReference>(),
                     AbilityRefs.IncendiaryRunes.Reference.Get().ToReference<BlueprintAbilityReference>(),
@@ -116,7 +112,6 @@ namespace DragonFixes.Fixes
                     ], 
                     mergeBehavior: BlueprintCore.Blueprints.CustomConfigurators.ComponentMerge.Replace)
                 .Configure();
-            LibraryStuff.RemoveComponent(bp, bp.GetComponent<DiceDamageBonusOnSpell>());
         }
 
         [DragonFix]
@@ -143,8 +138,9 @@ namespace DragonFixes.Fixes
         public static void PatchGnawingHunger()
         {
             Main.log.Log("Patching Gnawing Hunger to actually apply debuff to enemy?");
-            BlueprintFeature bp = FeatureConfigurator.For(FeatureRefs.GnawingMagicFeature)
-               // .RemoveComponents(c => c is AddAbilityUseTrigger)
+            BlueprintFeature bp = FeatureRefs.GnawingMagicFeature.Reference.Get();
+            LibraryStuff.RemoveComponent(bp, bp.GetComponent<AddAbilityUseTrigger>());
+            FeatureConfigurator.For(bp)
                 .AddAbilityUseTrigger(action:
                     ActionsBuilder.New().ApplyBuff(BuffRefs.GnawingMagicBuffEnemy.Reference.Get(),
                             new ContextDurationValue()
@@ -166,7 +162,6 @@ namespace DragonFixes.Fixes
                         checkAbilityType: true,
                         type: AbilityType.Spell)
                 .Configure();
-            LibraryStuff.RemoveComponent(bp, bp.GetComponent<AddAbilityUseTrigger>());
         }
         [DragonFix]
         public static void PatchAbruptEndEnchant()
@@ -230,14 +225,14 @@ namespace DragonFixes.Fixes
             BlueprintBuff buff = BuffConfigurator.For(BuffRefs.BootsOfFreereinBuff)
                 .AddBuffDescriptorImmunity(false, SpellDescriptor.Staggered)
                 .Configure();
-            BlueprintFeature bp = FeatureConfigurator.For(FeatureRefs.BootsOfFreestReinFeature)
-                //.RemoveComponents(c => c is AddFactContextActions)
+            BlueprintFeature bp = FeatureRefs.BootsOfFreestReinFeature.Reference.Get();
+            LibraryStuff.RemoveComponent(bp, bp.GetComponent<AddFactContextActions>());
+            FeatureConfigurator.For(bp)
                 .AddFactContextActions(activated: ActionsBuilder.New()
                             .ApplyBuffPermanent(buff, true),
                         deactivated: ActionsBuilder.New()
                             .RemoveBuff(buff))
                 .Configure();
-            LibraryStuff.RemoveComponent(bp, bp.GetComponent<AddFactContextActions>());
         }
         [DragonFix]
         public static void PatchFighterFinessDamageFeature()
@@ -246,6 +241,28 @@ namespace DragonFixes.Fixes
             FeatureConfigurator.For(FeatureRefs.FighterFinessDamageFeature)
                 .SetIsClassFeature(true)
                 .Configure();
+        }
+
+        [DragonFix]
+        public static void PatchTrueSeeingCast()
+        {
+            Main.log.Log("Patching TrueSeeingCast to allow for Extend metamagic.");
+            AbilityConfigurator.For(AbilityRefs.TrueSeeingCast)
+                .AddToAvailableMetamagic(Kingmaker.UnitLogic.Abilities.Metamagic.Extend)
+                .Configure();
+        }
+        [DragonFix]
+        public static void PatchAbsoluteOrder()
+        {
+            Main.log.Log("Patching AbsoluteOrder to allow more targets.");
+            BlueprintAbility approach = AbilityRefs.AbsoluteOrderApproach.Reference.Get();
+            BlueprintAbility fall = AbilityRefs.AbsoluteOrderFall.Reference.Get();
+            BlueprintAbility flee = AbilityRefs.AbsoluteOrderFlee.Reference.Get();
+            BlueprintAbility halt = AbilityRefs.AbsoluteOrderHalt.Reference.Get();
+            LibraryStuff.RemoveComponent(approach, approach.GetComponent<AbilityTargetHasFact>());
+            LibraryStuff.RemoveComponent(fall, fall.GetComponent<AbilityTargetHasFact>());
+            LibraryStuff.RemoveComponent(flee, flee.GetComponent<AbilityTargetHasFact>());
+            LibraryStuff.RemoveComponent(halt, halt.GetComponent<AbilityTargetHasFact>());
         }
     }
 }
