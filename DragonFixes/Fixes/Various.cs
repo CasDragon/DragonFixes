@@ -256,13 +256,13 @@ namespace DragonFixes.Fixes
         {
             Main.log.Log("Patching AbsoluteOrder to allow more targets.");
             BlueprintAbility approach = AbilityRefs.AbsoluteOrderApproach.Reference.Get();
+            LibraryStuff.RemoveComponent<AbilityTargetHasFact>(approach);
             BlueprintAbility fall = AbilityRefs.AbsoluteOrderFall.Reference.Get();
+            LibraryStuff.RemoveComponent<AbilityTargetHasFact>(fall);
             BlueprintAbility flee = AbilityRefs.AbsoluteOrderFlee.Reference.Get();
+            LibraryStuff.RemoveComponent<AbilityTargetHasFact>(flee);
             BlueprintAbility halt = AbilityRefs.AbsoluteOrderHalt.Reference.Get();
-            LibraryStuff.RemoveComponent(approach, approach.GetComponent<AbilityTargetHasFact>());
-            LibraryStuff.RemoveComponent(fall, fall.GetComponent<AbilityTargetHasFact>());
-            LibraryStuff.RemoveComponent(flee, flee.GetComponent<AbilityTargetHasFact>());
-            LibraryStuff.RemoveComponent(halt, halt.GetComponent<AbilityTargetHasFact>());
+            LibraryStuff.RemoveComponent<AbilityTargetHasFact>(halt);
         }
     }
 }
