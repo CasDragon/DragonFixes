@@ -264,5 +264,13 @@ namespace DragonFixes.Fixes
             BlueprintAbility halt = AbilityRefs.AbsoluteOrderHalt.Reference.Get();
             LibraryStuff.RemoveComponent<AbilityTargetHasFact>(halt);
         }
+        [DragonFix]
+        public static void PatchDeadlyFascination()
+        {
+            Main.log.Log("Patching MantisZealotDeadlyFascinationAbility to include MindEffecting descriptor.");
+            AbilityConfigurator.For(AbilityRefs.MantisZealotDeadlyFascinationAbility)
+                .SetSpellDescriptor(SpellDescriptor.MindAffecting | SpellDescriptor.Charm | SpellDescriptor.Daze)
+                .Configure();
+        }
     }
 }
