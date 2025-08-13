@@ -272,5 +272,13 @@ namespace DragonFixes.Fixes
                 .SetSpellDescriptor(SpellDescriptor.MindAffecting | SpellDescriptor.Charm | SpellDescriptor.Daze)
                 .Configure();
         }
+        [DragonFix]
+        public static void PatchTieflingHeritageDemodand()
+        {
+            Main.log.Log("Patching TieflingHeritageDemodand to remove AND condition.");
+            FeatureConfigurator.For(FeatureRefs.TieflingHeritageDemodand)
+                .EditComponent<AttackBonusConditional>(c => c.Conditions.Operation = Kingmaker.ElementsSystem.Operation.Or)
+                .Configure();
+        }
     }
 }
