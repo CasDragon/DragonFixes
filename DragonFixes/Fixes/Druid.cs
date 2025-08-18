@@ -7,6 +7,8 @@ using BlueprintCore.Actions.Builder;
 using BlueprintCore.Actions.Builder.ContextEx;
 using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.References;
+using BlueprintCore.Conditions.Builder;
+using BlueprintCore.Conditions.Builder.BasicEx;
 using DragonFixes.Util;
 
 namespace DragonFixes.Fixes
@@ -20,7 +22,9 @@ namespace DragonFixes.Fixes
             FeatureConfigurator.For("017ed1a0d47a422eab183a88084966b1")
                 .AddInitiatorAttackWithWeaponTrigger(group: Kingmaker.Blueprints.Items.Weapons.WeaponFighterGroup.Natural, checkWeaponGroup: true,
                         onlyHit: true, action: 
-                        ActionsBuilder.New().CastSpell(AbilityRefs.RampageChainDischarge.Reference.Get()))
+                        ActionsBuilder.New()
+                            .Conditional(ConditionsBuilder.New().HasBuff(BuffRefs.ElementalRampagerRampageBuff.Reference.Get()),
+                                ifTrue: ActionsBuilder.New().CastSpell(AbilityRefs.RampageChainDischarge.Reference.Get())))
                 .Configure();
         }
     }
