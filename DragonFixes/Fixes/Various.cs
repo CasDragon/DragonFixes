@@ -287,17 +287,17 @@ namespace DragonFixes.Fixes
         public static void PatchCursedArmor()
         {
             Main.log.Log("Patching cursed armor");
-            ItemArmorConfigurator.For(ItemArmorRefs.CursedDelameresArmorItem)
-                .SetCasterLevel(7)
+            BuffConfigurator.For(BuffRefs.CursedDelameresArmorBuff)
+                .EditComponent<ContextSetAbilityParams>(c => c.CasterLevel.Value = 7)
                 .Configure();
-            ItemWeaponConfigurator.For(ItemWeaponRefs.CursedDelameresBowItem)
-                .SetCasterLevel(7)
+            BuffConfigurator.For(BuffRefs.CursedDelameresBowCurse)
+                .EditComponent<ContextSetAbilityParams>(c => c.CasterLevel.Value = 7)
                 .Configure();
-            ItemEquipmentHeadConfigurator.For(ItemEquipmentHeadRefs.MaskOfNothingItem)
-                .SetCasterLevel(10)
+            BuffConfigurator.For(BuffRefs.MaskOfNothingBuff)
+                .EditComponent<ContextSetAbilityParams>(c => c.CasterLevel.Value = 10)
                 .Configure();
-            ItemEquipmentHeadConfigurator.For(ItemEquipmentHeadRefs.StorytellerAreshkaMaskItem)
-                .SetCasterLevel(10)
+            BuffConfigurator.For(BuffRefs.StorytellerAreshkaMaskBuff)
+                .EditComponent<ContextSetAbilityParams>(c => c.CasterLevel.Value = 10)
                 .Configure();
         }
     }
