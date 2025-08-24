@@ -299,6 +299,12 @@ namespace DragonFixes.Fixes
             BuffConfigurator.For(BuffRefs.StorytellerAreshkaMaskBuff)
                 .EditComponent<ContextSetAbilityParams>(c => c.CasterLevel.Value = 10)
                 .Configure();
+            BuffConfigurator.For(BuffRefs.TheTyranyOfMindCurseBuff)
+                .EditComponent<ContextSetAbilityParams>(c => c.CasterLevel.Value = 4)
+                .Configure();
+            BuffConfigurator.For(BuffRefs.WickedKukriBuff)
+                .EditComponent<ContextSetAbilityParams>(c => c.CasterLevel.Value = 9)
+                .Configure();
         }
     }
 }
