@@ -1,7 +1,10 @@
 ﻿using System.Linq;
 using BlueprintCore.Actions.Builder;
 using BlueprintCore.Actions.Builder.ContextEx;
+using BlueprintCore.Blueprints.Configurators.Items.Armors;
 using BlueprintCore.Blueprints.Configurators.Items.Ecnchantments;
+using BlueprintCore.Blueprints.Configurators.Items.Equipment;
+using BlueprintCore.Blueprints.Configurators.Items.Weapons;
 using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
@@ -278,6 +281,23 @@ namespace DragonFixes.Fixes
             Main.log.Log("Patching TieflingHeritageDemodand to remove AND condition.");
             FeatureConfigurator.For(FeatureRefs.TieflingHeritageDemodand)
                 .EditComponent<AttackBonusConditional>(c => c.Conditions.Operation = Kingmaker.ElementsSystem.Operation.Or)
+                .Configure();
+        }
+        [DragonFix]
+        public static void PatchCursedArmor()
+        {
+            Main.log.Log("Patching cursed armor");
+            ItemArmorConfigurator.For(ItemArmorRefs.CursedDelameresArmorItem)
+                .SetCasterLevel(7)
+                .Configure();
+            ItemWeaponConfigurator.For(ItemWeaponRefs.CursedDelameresBowItem)
+                .SetCasterLevel(7)
+                .Configure();
+            ItemEquipmentHeadConfigurator.For(ItemEquipmentHeadRefs.MaskOfNothingItem)
+                .SetCasterLevel(10)
+                .Configure();
+            ItemEquipmentHeadConfigurator.For(ItemEquipmentHeadRefs.StorytellerAreshkaMaskItem)
+                .SetCasterLevel(10)
                 .Configure();
         }
     }

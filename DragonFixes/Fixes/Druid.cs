@@ -22,9 +22,7 @@ namespace DragonFixes.Fixes
             FeatureConfigurator.For("017ed1a0d47a422eab183a88084966b1")
                 .AddInitiatorAttackWithWeaponTrigger(group: Kingmaker.Blueprints.Items.Weapons.WeaponFighterGroup.Natural, checkWeaponGroup: true,
                         onlyHit: true, action: 
-                        ActionsBuilder.New()
-                            .Conditional(ConditionsBuilder.New().HasBuff(BuffRefs.ElementalRampagerRampageBuff.Reference.Get()),
-                                ifTrue: ActionsBuilder.New().CastSpell(AbilityRefs.RampageChainDischarge.Reference.Get())))
+                        ActionsBuilder.New().CastSpell(AbilityRefs.RampageChainDischarge.Reference.Get()))
                 .Configure();
         }
     }
