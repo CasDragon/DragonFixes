@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BlueprintCore.Utils;
 using DragonFixes.Fixes;
 using DragonFixes.Util;
+using DragonLibrary.Utils;
 using HarmonyLib;
 using Kingmaker.Blueprints.JsonSystem;
 using UnityModManagerNet;
@@ -39,6 +40,7 @@ namespace DragonFixes
         {
             private static bool Initialized = false;
 
+            [HarmonyAfter("DragonLibrary")]
             [HarmonyPatch(nameof(BlueprintsCache.Init)), HarmonyPostfix]
             public static void Init_Postfix()
             {
@@ -50,11 +52,12 @@ namespace DragonFixes
                         return;
                     }
                     Initialized = true;
-
+                    log.Log("Generating localization file");
+                    LocalizedStringHelper.CreateLocalizationFile(LocalizedStringHelper.GetModFolderPath(entry), entry);
                     log.Log("Adding DragonFix settings");
                     Settings.InitializeSettings();
                     log.Log("Patching blueprints.");
-                    Thingy.DoPatches();
+                    DragonConfigureAction.DoPatches(entry);
                 }
                 catch (Exception e)
                 {

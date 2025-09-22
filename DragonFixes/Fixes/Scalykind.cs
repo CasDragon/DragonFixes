@@ -3,6 +3,7 @@ using BlueprintCore.Blueprints.CustomConfigurators.Classes.Selection;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
 using DragonFixes.Util;
+using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes.Spells;
 using Kingmaker.Designers.Mechanics.Facts;
@@ -16,7 +17,7 @@ namespace DragonFixes.Fixes
 {
     internal class Scalykind
     {
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchScalykind()
         {
             if (Settings.GetSetting<bool>("scalykind"))
@@ -37,7 +38,7 @@ namespace DragonFixes.Fixes
                 Main.log.Log("Scalykind patch disabled, skipping.");
             }
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchDomainZealot()
         {
             if (Settings.GetSetting<bool>("scalykinddomain"))

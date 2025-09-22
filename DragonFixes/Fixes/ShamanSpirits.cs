@@ -3,6 +3,7 @@ using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
 using DragonFixes.Util;
+using DragonLibrary.Utils;
 using Kingmaker.Blueprints.Classes.Spells;
 using Kingmaker.Designers.Mechanics.Facts;
 using System;
@@ -15,7 +16,7 @@ namespace DragonFixes.Fixes
 {
     internal class ShamanSpirits
     {
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchFireSpirit()
         {
             Main.log.Log("Patching Shaman Flame spirit capstone");
@@ -32,7 +33,7 @@ namespace DragonFixes.Fixes
                 .SetBuff(BuffRefs.ShamanFlameSpiritManifestationExtendBuff.Reference.Get())
                 .Configure();
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchWindSpirit()
         {
             Main.log.Log("Patching Shaman Wind spirit capstone");
@@ -40,7 +41,7 @@ namespace DragonFixes.Fixes
                 .SetBuff(BuffRefs.ShamanWindSpiritManifestationExtendBuff.Reference.Get())
                 .Configure();
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchFrostSpirit()
         {
             Main.log.Log("Patching Shaman Frost spirit capstone");
@@ -48,7 +49,7 @@ namespace DragonFixes.Fixes
                 .SetBuff(BuffRefs.ShamanFrostSpiritManifestationExtendBuff.Reference.Get())
                 .Configure();
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchWavesSpirit()
         {
             Main.log.Log("Patching Shaman Waves spirit capstone");
@@ -56,7 +57,7 @@ namespace DragonFixes.Fixes
                 .SetBuff(BuffRefs.ShamanWavesSpiritManifestationExtendBuff.Reference.Get())
                 .Configure();
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchStonesSpirit()
         {
             Main.log.Log("Patching Shaman Stones spirit capstone");

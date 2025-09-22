@@ -2,6 +2,7 @@
 using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.References;
 using DragonFixes.Util;
+using DragonLibrary.Utils;
 using Kingmaker.Blueprints.Classes.Prerequisites;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace DragonFixes.Fixes
 {
     internal class Oracle
     {
-        [DragonFix]
+        [DragonConfigure]
         public static void RemoveApsuRestriction()
         {
             if (Settings.GetSetting<bool>("oracleapsurestrictionremoval"))
@@ -32,7 +33,7 @@ namespace DragonFixes.Fixes
                 Main.log.Log("Oracle Apsu patch disabled, skipping.");
             }
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchOracleRevelations()
         {
             Main.log.Log("Patching Fortune Revelation feature `isClassFeature`");

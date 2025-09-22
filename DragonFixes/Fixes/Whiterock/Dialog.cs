@@ -1,5 +1,6 @@
 ﻿using BlueprintCore.Blueprints.Configurators.DialogSystem;
 using DragonFixes.Util;
+using DragonLibrary.Utils;
 using Kingmaker.ElementsSystem;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace DragonFixes.Fixes.Whiterock
 {
     internal class Dialog
     {
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchOne()
         {
             Main.log.Log("Nurah_GibberingSwarm_dialog - Answer_0037 - condition fix");

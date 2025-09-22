@@ -1,6 +1,7 @@
 ﻿using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
 using BlueprintCore.Blueprints.References;
 using DragonFixes.Util;
+using DragonLibrary.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace DragonFixes.Fixes
 {
     internal class CureSpells
     {
-        [DragonFix]
+        [DragonConfigure]
         public static void TargetEnemiesPatch()
         {
             if (Settings.GetSetting<bool>("curespellstargetfix"))

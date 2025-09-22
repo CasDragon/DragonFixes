@@ -22,12 +22,13 @@ using Kingmaker.UnitLogic.FactLogic;
 using System.Linq;
 using System.Security.AccessControl;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
+using DragonLibrary.Utils;
 
 namespace DragonFixes.Fixes
 {
     internal class EldritchScion
     {
-        [DragonFix]
+        [DragonConfigure]
         public static void AddArcaneAccuracy()
         {
             string buffname = "ESArcaneAccuracy";
@@ -65,7 +66,7 @@ namespace DragonFixes.Fixes
                     .Configure();
             }
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchPrescientDuration()
         {
             if (Settings.GetSetting<bool>("esprescientduration"))
@@ -85,7 +86,7 @@ namespace DragonFixes.Fixes
                 Main.log.Log("ES Prescient patch disabled, skipping.");
             }
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void AddESExtraArcanaSelection()
         {
             if (Settings.GetSetting<bool>("esextraarcanaselection"))

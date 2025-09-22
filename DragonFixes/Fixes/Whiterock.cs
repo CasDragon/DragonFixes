@@ -4,6 +4,7 @@ using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
 using BlueprintCore.Conditions.Builder;
 using DragonFixes.Util;
+using DragonLibrary.Utils;
 using Kingmaker.Designers.EventConditionActionSystem.Actions;
 using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.ElementsSystem;
@@ -19,7 +20,7 @@ namespace DragonFixes.Fixes
 {
     internal class WhiterockStuff
     {
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchStudyTarget()
         {
             Main.log.Log("Patching SlayerStudyTargetBuff to correctly use AND logic");
@@ -38,7 +39,7 @@ namespace DragonFixes.Fixes
                             )
                 .Configure();
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchBaneLivingEnchant()
         {
             Main.log.Log("Patching BaneLiving to correctly use AND logic");
@@ -47,7 +48,7 @@ namespace DragonFixes.Fixes
                 .EditComponent<WeaponConditionalDamageDice>(c => c.Conditions.Operation = Operation.And)
                 .Configure();
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchCue()
         {
             Main.log.Log("Patching Cue_0022 to have Jernaugh correctly recognise PC race");

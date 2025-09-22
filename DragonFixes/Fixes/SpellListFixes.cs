@@ -2,6 +2,7 @@
 using BlueprintCore.Blueprints.References;
 using BlueprintCore.Utils;
 using DragonFixes.Util;
+using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes.Spells;
 using System;
@@ -14,24 +15,24 @@ namespace DragonFixes.Fixes
 {
     internal class SpellListFixes
     {
-        [DragonFix]
+        [DragonConfigure]
         public static void WizardSpellListPatch()
         {
             if (Settings.GetSetting<bool>("fingerofdeath"))
             {
                 Main.log.Log("Patching Wizard spell list to remove dupe Finger of Death");
                 BlueprintSpellList bp = SpellListRefs.WizardSpellList.Reference.Get();
-                LibraryStuff.RemoveSpellFromSpellList(bp, AbilityRefs.FingerOfDeathSithhud.Reference.Get(), 7);
+                DragonHelpers.RemoveSpellFromSpellList(bp, AbilityRefs.FingerOfDeathSithhud.Reference.Get(), 7);
             }
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void ClericSpellListPatch()
         {
             if (Settings.GetSetting<bool>("breathofflies"))
             {
                 Main.log.Log("Patching Cleric spell list to remove Breath of Flies");
                 BlueprintSpellList bp = SpellListRefs.ClericSpellList.Reference.Get();
-                LibraryStuff.RemoveSpellFromSpellList(bp, AbilityRefs.BreathofFliesAbility.Reference.Get(), 7);
+                DragonHelpers.RemoveSpellFromSpellList(bp, AbilityRefs.BreathofFliesAbility.Reference.Get(), 7);
             }
         }
     }

@@ -14,6 +14,7 @@ using BlueprintCore.Conditions.Builder.ContextEx;
 using BlueprintCore.Utils;
 using BlueprintCore.Utils.Types;
 using DragonFixes.Util;
+using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Prerequisites;
@@ -37,7 +38,7 @@ namespace DragonFixes.Fixes
 {
     internal class Various
     {
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchAbundantArcanePool()
         {
             if (Settings.GetSetting<bool>("abundantarcanepool"))
@@ -48,7 +49,7 @@ namespace DragonFixes.Fixes
                     .Configure();
             }
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchMartialProf()
         {
             Main.log.Log("Patching MartialProf to add Spiked Shields, owlcat plz");
@@ -57,9 +58,9 @@ namespace DragonFixes.Fixes
                                                         WeaponCategory.WeaponHeavyShield, WeaponCategory.SpikedLightShield])
                 .Configure();
             BlueprintFeature bp = FeatureRefs.ShieldBashFeature.Reference.Get();
-            LibraryStuff.RemoveComponent(bp, bp.GetComponent<PrerequisiteNotProficient>());
+            DragonHelpers.RemoveComponent(bp, bp.GetComponent<PrerequisiteNotProficient>());
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchWyrmShifterRedBreath()
         {
             Main.log.Log("Patching Wyrm Shifter's level 20 breath to correctly be fire damage instead of cold");
@@ -71,14 +72,14 @@ namespace DragonFixes.Fixes
                         .Energy = Kingmaker.Enums.Damage.DamageEnergyType.Fire)
                 .Configure();
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchBestialRags()
         {
             Main.log.Log("Patching bestial rags");
             BlueprintBuff bp = BuffRefs.BestialRagsBuff.Reference.Get();
-            LibraryStuff.RemoveComponent(bp, bp.GetComponent<SpellDescriptorComponent>());
+            DragonHelpers.RemoveComponent(bp, bp.GetComponent<SpellDescriptorComponent>());
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchInspiringCommand()
         {
             Main.log.Log("Patching Inspiring Command");
@@ -89,12 +90,12 @@ namespace DragonFixes.Fixes
                 .SetType(AbilityType.Supernatural)
                 .Configure();
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchNeophyteGloves()
         {
             Main.log.Log("Patching the Gloves of the Neophyte to add the missing spells");
             BlueprintFeature bp = FeatureRefs.GlovesOfNeophyteFeature.Reference.Get();
-            LibraryStuff.RemoveComponent(bp, bp.GetComponent<DiceDamageBonusOnSpell>());
+            DragonHelpers.RemoveComponent(bp, bp.GetComponent<DiceDamageBonusOnSpell>());
             FeatureConfigurator.For(bp)
                 .AddDiceDamageBonusOnSpell(spells: [
                     AbilityRefs.ShockingGraspEffect.Reference.Get().ToReference<BlueprintAbilityReference>(),
@@ -117,7 +118,7 @@ namespace DragonFixes.Fixes
                 .Configure();
         }
 
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchAspectofAsp()
         {
             Main.log.Log("Patching Aspect of Asep enchant to work");
@@ -126,7 +127,7 @@ namespace DragonFixes.Fixes
                             c.AttackType = AdditionalDiceOnAttack.WeaponOptions.AllAttacks)
                 .Configure();
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchJoyfulRapture()
         {
             Main.log.Log("Patching Joyful Rapture to correctly dispel Negative Emotion instead of petrified");
@@ -137,12 +138,12 @@ namespace DragonFixes.Fixes
                             .Descriptor = SpellDescriptor.NegativeEmotion)
                 .Configure();
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchGnawingHunger()
         {
             Main.log.Log("Patching Gnawing Hunger to actually apply debuff to enemy?");
             BlueprintFeature bp = FeatureRefs.GnawingMagicFeature.Reference.Get();
-            LibraryStuff.RemoveComponent(bp, bp.GetComponent<AddAbilityUseTrigger>());
+            DragonHelpers.RemoveComponent(bp, bp.GetComponent<AddAbilityUseTrigger>());
             FeatureConfigurator.For(bp)
                 .AddAbilityUseTrigger(action:
                     ActionsBuilder.New().ApplyBuff(BuffRefs.GnawingMagicBuffEnemy.Reference.Get(),
@@ -166,13 +167,20 @@ namespace DragonFixes.Fixes
                         type: AbilityType.Spell)
                 .Configure();
         }
-        [DragonFix]
+        internal const string abruptendbuffname = "Abrupt End";
+        internal const string abruptendbuffdescription = "+2 Insight bonus to attack rolls.";
+        [DragonLocalizedString(abruptendbuffnamekey, abruptendbuffname)]
+        internal const string abruptendbuffnamekey = "abruptendbuff.name";
+        [DragonLocalizedString(abruptendbuffdescriptionkey, abruptendbuffdescription, true)]
+        internal const string abruptendbuffdescriptionkey = "abruptendbuff.description";
+
+        [DragonConfigure]
         public static void PatchAbruptEndEnchant()
         {
             Main.log.Log("Patching Abrupt End to actually work?");
             BlueprintBuff buff = BuffConfigurator.New("abruptendbuff", Guids.EbruptEndBuff)
-                .SetDisplayName("abruptendbuff.name")
-                .SetDescription("abruptendbuff.description")
+                .SetDisplayName(abruptendbuffnamekey)
+                .SetDescription(abruptendbuffdescriptionkey)
                 .AddContextStatBonus(StatType.AdditionalAttackBonus, ContextValues.Constant(2), ModifierDescriptor.Insight)
                 .AddRemoveBuffOnAttack()
                 .Configure();
@@ -189,19 +197,25 @@ namespace DragonFixes.Fixes
                             asChild: true, toCaster: true), triggerBeforeAttack: true)
                 .Configure();
         }
-        [DragonFix]
+        internal const string devitalizerbuffname = "Devitalizer";
+        internal const string devitalizerbuffdescription = "+2 Circumstance bonus to attack and damage rolls against Exhausted enemies.";
+        [DragonLocalizedString(devitalizerbuffnamekey, devitalizerbuffname)]
+        internal const string devitalizerbuffnamekey = "abruptendbuff.name";
+        [DragonLocalizedString(devitalizerbuffdescriptionkey, devitalizerbuffdescription, true)]
+        internal const string devitalizerbuffdescriptionkey = "abruptendbuff.description";
+        [DragonConfigure]
         public static void PatchDevitalizer()
         {
             Main.log.Log("Patching Abrupt End to actually work?");
             BlueprintBuff buff = BuffConfigurator.New("devitalizerbuff", Guids.DevitalizerBuff)
-                .SetDisplayName("devitalizerbuff.name")
-                .SetDescription("devitalizerbuff.description")
+                .SetDisplayName(devitalizerbuffnamekey)
+                .SetDescription(devitalizerbuffdescriptionkey)
                 .AddContextStatBonus(StatType.AdditionalAttackBonus, ContextValues.Constant(2), ModifierDescriptor.Circumstance)
                 .AddContextStatBonus(StatType.AdditionalDamage, ContextValues.Constant(2), ModifierDescriptor.Circumstance)
                 .AddRemoveBuffOnAttack()
                 .Configure();
             BlueprintWeaponEnchantment enchant = WeaponEnchantmentRefs.DevitalizerEnchantment.Reference.Get();
-            LibraryStuff.RemoveComponent(enchant, enchant.GetComponent<AddInitiatorAttackWithWeaponTrigger>());
+            DragonHelpers.RemoveComponent(enchant, enchant.GetComponent<AddInitiatorAttackWithWeaponTrigger>());
             WeaponEnchantmentConfigurator.For(enchant)
                 .AddInitiatorAttackWithWeaponTrigger(onlyHit: true, action:
                     ActionsBuilder.New()
@@ -221,7 +235,7 @@ namespace DragonFixes.Fixes
                 .Configure();
         }
 
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchFreeRein()
         {
             Main.log.Log("Patching Free Rein and Freest Rein");
@@ -229,7 +243,7 @@ namespace DragonFixes.Fixes
                 .AddBuffDescriptorImmunity(false, SpellDescriptor.Staggered)
                 .Configure();
             BlueprintFeature bp = FeatureRefs.BootsOfFreestReinFeature.Reference.Get();
-            LibraryStuff.RemoveComponent(bp, bp.GetComponent<AddFactContextActions>());
+            DragonHelpers.RemoveComponent(bp, bp.GetComponent<AddFactContextActions>());
             FeatureConfigurator.For(bp)
                 .AddFactContextActions(activated: ActionsBuilder.New()
                             .ApplyBuffPermanent(buff, true),
@@ -237,7 +251,7 @@ namespace DragonFixes.Fixes
                             .RemoveBuff(buff))
                 .Configure();
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchFighterFinessDamageFeature()
         {
             Main.log.Log("Patching FighterFinessDamageFeature to be correctly removed upon respec");
@@ -246,7 +260,7 @@ namespace DragonFixes.Fixes
                 .Configure();
         }
 
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchTrueSeeingCast()
         {
             Main.log.Log("Patching TrueSeeingCast to allow for Extend metamagic.");
@@ -254,20 +268,20 @@ namespace DragonFixes.Fixes
                 .AddToAvailableMetamagic(Kingmaker.UnitLogic.Abilities.Metamagic.Extend)
                 .Configure();
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchAbsoluteOrder()
         {
             Main.log.Log("Patching AbsoluteOrder to allow more targets.");
             BlueprintAbility approach = AbilityRefs.AbsoluteOrderApproach.Reference.Get();
-            LibraryStuff.RemoveComponent<AbilityTargetHasFact>(approach);
+            DragonHelpers.RemoveComponent<AbilityTargetHasFact>(approach);
             BlueprintAbility fall = AbilityRefs.AbsoluteOrderFall.Reference.Get();
-            LibraryStuff.RemoveComponent<AbilityTargetHasFact>(fall);
+            DragonHelpers.RemoveComponent<AbilityTargetHasFact>(fall);
             BlueprintAbility flee = AbilityRefs.AbsoluteOrderFlee.Reference.Get();
-            LibraryStuff.RemoveComponent<AbilityTargetHasFact>(flee);
+            DragonHelpers.RemoveComponent<AbilityTargetHasFact>(flee);
             BlueprintAbility halt = AbilityRefs.AbsoluteOrderHalt.Reference.Get();
-            LibraryStuff.RemoveComponent<AbilityTargetHasFact>(halt);
+            DragonHelpers.RemoveComponent<AbilityTargetHasFact>(halt);
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchDeadlyFascination()
         {
             Main.log.Log("Patching MantisZealotDeadlyFascinationAbility to include MindEffecting descriptor.");
@@ -275,7 +289,7 @@ namespace DragonFixes.Fixes
                 .SetSpellDescriptor(SpellDescriptor.MindAffecting | SpellDescriptor.Charm | SpellDescriptor.Daze)
                 .Configure();
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchTieflingHeritageDemodand()
         {
             Main.log.Log("Patching TieflingHeritageDemodand to remove AND condition.");
@@ -283,7 +297,7 @@ namespace DragonFixes.Fixes
                 .EditComponent<AttackBonusConditional>(c => c.Conditions.Operation = Kingmaker.ElementsSystem.Operation.Or)
                 .Configure();
         }
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchCursedArmor()
         {
             Main.log.Log("Patching cursed armor");

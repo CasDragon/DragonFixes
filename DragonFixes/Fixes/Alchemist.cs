@@ -8,6 +8,7 @@ using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
 using BlueprintCore.Blueprints.References;
 using BlueprintCore.Utils.Types;
 using DragonFixes.Util;
+using DragonLibrary.Utils;
 using Kingmaker.Blueprints.Classes.Spells;
 using Kingmaker.Enums.Damage;
 using Kingmaker.RuleSystem.Rules.Damage;
@@ -18,7 +19,7 @@ namespace DragonFixes.Fixes
 {
     internal class Alchemist
     {
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchRingOfBigBoomFeature()
         {
             Main.log.Log("Patching RingofBigBoom to actually work on booms");

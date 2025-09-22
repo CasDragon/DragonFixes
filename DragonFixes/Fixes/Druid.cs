@@ -10,12 +10,13 @@ using BlueprintCore.Blueprints.References;
 using BlueprintCore.Conditions.Builder;
 using BlueprintCore.Conditions.Builder.BasicEx;
 using DragonFixes.Util;
+using DragonLibrary.Utils;
 
 namespace DragonFixes.Fixes
 {
     internal class Druid
     {
-        [DragonFix]
+        [DragonConfigure]
         public static void PatchChainDischarge()
         {
             Main.log.Log("Patching 017ed1a0d47a422eab183a88084966b1 to correctly use the ability that it says it will.");
