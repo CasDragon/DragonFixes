@@ -20,18 +20,22 @@ using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Blueprints.Classes.Spells;
 using Kingmaker.Blueprints.Items.Ecnchantments;
+using Kingmaker.Designers.EventConditionActionSystem.Actions;
 using Kingmaker.Designers.Mechanics.Facts;
+using Kingmaker.ElementsSystem;
 using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums;
 using Kingmaker.RuleSystem;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Abilities.Components;
+using Kingmaker.UnitLogic.Abilities.Components.AreaEffects;
 using Kingmaker.UnitLogic.Abilities.Components.TargetCheckers;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.UnitLogic.FactLogic;
 using Kingmaker.UnitLogic.Mechanics;
 using Kingmaker.UnitLogic.Mechanics.Actions;
 using Kingmaker.UnitLogic.Mechanics.Components;
+using Kingmaker.UnitLogic.Mechanics.Conditions;
 using Kingmaker.Utility;
 
 namespace DragonFixes.Fixes
@@ -318,6 +322,16 @@ namespace DragonFixes.Fixes
                 .Configure();
             BuffConfigurator.For(BuffRefs.WickedKukriBuff)
                 .EditComponent<ContextSetAbilityParams>(c => c.CasterLevel.Value = 9)
+                .Configure();
+        }
+        [DragonConfigure]
+        public static void PatchStinkingCloud()
+        {
+            AbilityAreaEffectConfigurator.For(AbilityAreaEffectRefs.StinkingCloudArea)
+                .EditComponent<AbilityAreaEffectRunAction>(c => 
+                    c.UnitEnter.Actions.OfType<Conditional>().FirstOrDefault()
+                        .ConditionsChecker.Conditions.OfType<ContextConditionHasBuff>().FirstOrDefault()
+                        .Not = true)
                 .Configure();
         }
     }
