@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BlueprintCore.Blueprints.CustomConfigurators.Classes;
-using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
+﻿using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.References;
 using BlueprintCore.Utils.Types;
-using DragonFixes.Util;
 using DragonLibrary.Utils;
+using HarmonyLib;
 using Kingmaker.Blueprints.Classes.Spells;
 using Kingmaker.Enums.Damage;
 using Kingmaker.RuleSystem.Rules.Damage;
 using Kingmaker.UnitLogic.Mechanics;
+using Kingmaker.UnitLogic.Mechanics.Components;
 using static Kingmaker.UnitLogic.Mechanics.Components.AdditionalDiceOnDamage;
 
 namespace DragonFixes.Fixes
@@ -54,6 +49,19 @@ namespace DragonFixes.Fixes
                             Energy = DamageEnergyType.Fire
                         })
                 .Configure();
+        }
+
+        [HarmonyPatch(typeof(AdditionalDiceOnDamage))]
+        public static class AdditionalDiceOnDamage_Patch
+        {
+            [HarmonyPatch(nameof(AdditionalDiceOnDamage.FullCheck)), HarmonyPostfix]
+            public static void FullCheck_Postfix(AdditionalDiceOnDamage __instance, RuleDealDamage evt, ref bool __result)
+            {
+                if (__instance?.OwnerBlueprint?.AssetGuid == FeatureRefs.AlchemistBombsFeature.Reference.Guid && (evt?.Reason?.Context?.MainTarget != evt.Target))
+                {
+                    __result = false;
+                }
+            }
         }
     }
 }
