@@ -327,11 +327,20 @@ namespace DragonFixes.Fixes
         [DragonConfigure]
         public static void PatchStinkingCloud()
         {
+            Main.log.Log("Patching StinkingCloudArea to actually trigger");
             AbilityAreaEffectConfigurator.For(AbilityAreaEffectRefs.StinkingCloudArea)
                 .EditComponent<AbilityAreaEffectRunAction>(c => 
                     c.UnitEnter.Actions.OfType<Conditional>().FirstOrDefault()
                         .ConditionsChecker.Conditions.OfType<ContextConditionHasBuff>().FirstOrDefault()
                         .Not = true)
+                .Configure();
+        }
+        [DragonConfigure]
+        public static void PatchLeadBladesBuff()
+        {
+            Main.log.Log("Patching LeafBladeBuff to include Sawtooth Sabre.");
+            BuffConfigurator.For(BuffRefs.LeafBladesBuff)
+                .EditComponent<IncreaseDiceSizeOnAttack>(c => c.Categories = [.. c.Categories, WeaponCategory.SawtoothSabre])
                 .Configure();
         }
     }
