@@ -327,13 +327,16 @@ namespace DragonFixes.Fixes
         [DragonConfigure]
         public static void PatchStinkingCloud()
         {
-            Main.log.Log("Patching StinkingCloudArea to actually trigger");
-            AbilityAreaEffectConfigurator.For(AbilityAreaEffectRefs.StinkingCloudArea)
-                .EditComponent<AbilityAreaEffectRunAction>(c => 
-                    c.UnitEnter.Actions.OfType<Conditional>().FirstOrDefault()
-                        .ConditionsChecker.Conditions.OfType<ContextConditionHasBuff>().FirstOrDefault()
-                        .Not = true)
-                .Configure();
+            if (Settings.GetSetting<bool>("stinkycloud"))
+            {
+                Main.log.Log("Patching StinkingCloudArea to actually trigger");
+                AbilityAreaEffectConfigurator.For(AbilityAreaEffectRefs.StinkingCloudArea)
+                    .EditComponent<AbilityAreaEffectRunAction>(c =>
+                        c.UnitEnter.Actions.OfType<Conditional>().FirstOrDefault()
+                            .ConditionsChecker.Conditions.OfType<ContextConditionHasBuff>().FirstOrDefault()
+                            .Not = true)
+                    .Configure();
+            }
         }
         [DragonConfigure]
         public static void PatchLeadBladesBuff()

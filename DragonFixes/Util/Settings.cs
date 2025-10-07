@@ -40,7 +40,10 @@ namespace DragonFixes.Util
                     .AddToggle(
                         Toggle.New(GetKey("scalykind"), defaultValue: true, CreateString("scalykind-toggle", "Include Scalykind domain in the second domain selection")))
                     .AddToggle(
-                        Toggle.New(GetKey("scalykinddomain"), defaultValue: true, CreateString("scalykinddomain-toggle", "Fix Domain Zealot to work with Scalykind domain"))));
+                        Toggle.New(GetKey("scalykinddomain"), defaultValue: true, CreateString("scalykinddomain-toggle", "Fix Domain Zealot to work with Scalykind domain")))
+                    .AddAnotherSettingsGroup(GetKey("kabfixes"), CreateString(GetKey("kab-fixes-title"), "Kab's Fixes"))
+                    .AddToggle(
+                        Toggle.New(GetKey("stinkycloud"), defaultValue: true, CreateString(GetKey("stinkycloud-toggle"), "Fix Stinking Cloud to only call for 1 save with TTT installed"))));
         }
         public static T GetSetting<T>(string key)
         {
