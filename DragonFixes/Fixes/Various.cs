@@ -346,5 +346,17 @@ namespace DragonFixes.Fixes
                 .EditComponent<IncreaseDiceSizeOnAttack>(c => c.Categories = [.. c.Categories, WeaponCategory.SawtoothSabre])
                 .Configure();
         }
+        [DragonConfigure]
+        public static void PatchUncannyDodgeTalent()
+        {
+            Main.log.Log("Removing circular logic from UncannyDodgeTalent.");
+            BlueprintFeature x = FeatureRefs.UncannyDodgeTalent.Reference.Get();
+            DragonHelpers.RemoveComponent<RecalculateOnFactsChange>(x);
+            DragonHelpers.RemoveComponent<AddFeatureIfHasFact>(x);
+            DragonHelpers.RemoveComponent<AddFeatureIfHasFact>(x);
+            FeatureConfigurator.For(x)
+                .AddFacts([FeatureRefs.UncannyDodgeChecker.Reference.Get()])
+                .Configure();
+        }
     }
 }
