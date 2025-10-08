@@ -358,5 +358,13 @@ namespace DragonFixes.Fixes
                 .AddFacts([FeatureRefs.UncannyDodgeChecker.Reference.Get()])
                 .Configure();
         }
+        [DragonConfigure]
+        public static void PatchIroriFeature()
+        {
+            Main.log.Log("Patching IroriFeature to include SlayerClass for Deliverer.");
+            FeatureConfigurator.For(FeatureRefs.IroriFeature)
+                .EditComponent<AddFeatureOnClassLevel>(c => c.m_AdditionalClasses = [.. c.m_AdditionalClasses, CharacterClassRefs.SlayerClass.Reference.Get().ToReference<BlueprintCharacterClassReference>()])
+                .Configure();
+        }
     }
 }
