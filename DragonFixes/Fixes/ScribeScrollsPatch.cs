@@ -32,8 +32,8 @@ namespace DragonFixes.Fixes
                 }
                 else if (inst.opcode == OpCodes.Call && wasField)
                 {
-                    yield return inst;
                     yield return new(OpCodes.Dup);
+                    yield return inst;
                 }
                 else if (inst.Calls(method))
                 {
@@ -48,7 +48,7 @@ namespace DragonFixes.Fixes
         }
         private static bool ButWhatAboutEmpty(UnitEntityData unit, BlueprintFeatureReference reference, BlueprintFact fact)
         {
-            return reference.IsEmpty() || unit.HasFact(fact);
+            return (reference?.IsEmpty() ?? true) || unit.HasFact(fact);
         }
     }
 }
