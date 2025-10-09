@@ -1,5 +1,7 @@
 DragonFixes is a mod for Pathfinder: Wrath of the Righteous that fixes several bugs
 
+Requires [ModMenu](https://github.com/CasDragon/ModMenu) and [DragonLibrary](https://github.com/CasDragon/DragonLibrary)
+
 Currently, it fixes the following bugs
 * Eldritch Scion (magus archetype) - Arcane Accuracy now correctly scales off CHA instead of INT
 * Extra Arcana (feat) - Now includes the Eldritch Scion versions of the arcanas, so Eldritch Scion can pick arcanas that work for them
