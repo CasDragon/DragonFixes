@@ -366,5 +366,14 @@ namespace DragonFixes.Fixes
                 .EditComponent<AddFeatureOnClassLevel>(c => c.m_AdditionalClasses = [.. c.m_AdditionalClasses, CharacterClassRefs.SlayerClass.Reference.Get().ToReference<BlueprintCharacterClassReference>()])
                 .Configure();
         }
+
+        [DragonConfigure]
+        public static void PatchUndeadImmunities()
+        {
+            Main.log.Log("Patching UndeadImmunities to include RecalculateOnStatChange component.");
+            FeatureConfigurator.For(FeatureRefs.UndeadImmunities)
+                .AddRecalculateOnStatChange(stat: StatType.Charisma)
+                .Configure();
+        }
     }
 }
