@@ -375,5 +375,13 @@ namespace DragonFixes.Fixes
                 .AddRecalculateOnStatChange(stat: StatType.Charisma)
                 .Configure();
         }
+        [DragonConfigure]
+        public static void PatchConstrucImmunities()
+        {
+            Main.log.Log("Patching ConstructImmunities to include immunity to energy dragin component.");
+            FeatureConfigurator.For(FeatureRefs.ConstructImmunities)
+                .AddImmunityToEnergyDrain()
+                .Configure();
+        }
     }
 }
