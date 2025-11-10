@@ -1,4 +1,5 @@
 ﻿using BlueprintCore.Blueprints.CustomConfigurators.Classes.Spells;
+using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
 using BlueprintCore.Blueprints.References;
 using BlueprintCore.Utils;
 using DragonFixes.Util;
@@ -31,6 +32,14 @@ namespace DragonFixes.Fixes
                     DragonHelpers.RemoveComponent<SpellListComponent>(spell);
                 }
                 DragonHelpers.RemoveComponent<CraftInfoComponent>(spell);
+                if (ModCompat.tttbase)
+                {
+                    Main.log.Log("Dupe Finger of Death remains due to TTT-Base, changing name so people know");
+                    AbilityConfigurator.For(spell)
+                        .SetDisplayName(Main.tttbrokenname)
+                        .SetDescription(Main.tttbrokendescription)
+                        .Configure();
+                }
             }
         }
         [DragonConfigure]
@@ -47,6 +56,14 @@ namespace DragonFixes.Fixes
                     DragonHelpers.RemoveComponent<SpellListComponent>(spell);
                 }
                 DragonHelpers.RemoveComponent<CraftInfoComponent>(spell);
+                if (ModCompat.tttbase)
+                {
+                    Main.log.Log("Breath of Flies remains in wrong spell list due to TTT-Base, changing name so people know");
+                    AbilityConfigurator.For(spell)
+                        .SetDisplayName(Main.tttbrokenname)
+                        .SetDescription(Main.tttbrokendescription)
+                        .Configure();
+                }
             }
         }
     }

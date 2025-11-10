@@ -20,6 +20,8 @@ namespace DragonFixes
         internal static Harmony HarmonyInstance;
         internal static UnityModManager.ModEntry.ModLogger log;
         internal static ModEntry entry;
+        internal const string tttbrokenname = "vekbrokethis.name";
+        internal const string tttbrokendescription = "vekbrokethis.description";
 
         public static bool Load(UnityModManager.ModEntry modEntry)
         {

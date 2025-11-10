@@ -19,5 +19,14 @@
     {
         "Key": "devitalizerbuff.description",
         "enGB": "+2 Circumstance bonus to attack and damage rolls against Exhausted enemies."
+    },
+
+    {
+        "Key": "vekbrokethis.name",
+        "enGB": "BROKEN"
+    }
+    {
+        "Key": "vekbrokethis.description",
+        "enGB": "TTT-Base breaks the fix for this, do not use!"
     }
 ]
