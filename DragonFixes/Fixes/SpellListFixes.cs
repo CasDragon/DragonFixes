@@ -5,6 +5,8 @@ using DragonFixes.Util;
 using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes.Spells;
+using Kingmaker.Craft;
+using Kingmaker.UnitLogic.Abilities.Blueprints;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +24,13 @@ namespace DragonFixes.Fixes
             {
                 Main.log.Log("Patching Wizard spell list to remove dupe Finger of Death");
                 BlueprintSpellList bp = SpellListRefs.WizardSpellList.Reference.Get();
-                DragonHelpers.RemoveSpellFromSpellList(bp, AbilityRefs.FingerOfDeathSithhud.Reference.Get(), 7);
+                BlueprintAbility spell = AbilityRefs.FingerOfDeathSithhud.Reference.Get();
+                DragonHelpers.RemoveSpellFromSpellList(bp, spell, 7);
+                foreach (var x in spell.GetComponents<SpellListComponent>())
+                {
+                    DragonHelpers.RemoveComponent<SpellListComponent>(spell);
+                }
+                DragonHelpers.RemoveComponent<CraftInfoComponent>(spell);
             }
         }
         [DragonConfigure]
@@ -33,6 +41,12 @@ namespace DragonFixes.Fixes
                 Main.log.Log("Patching Cleric spell list to remove Breath of Flies");
                 BlueprintSpellList bp = SpellListRefs.ClericSpellList.Reference.Get();
                 DragonHelpers.RemoveSpellFromSpellList(bp, AbilityRefs.BreathofFliesAbility.Reference.Get(), 7);
+                BlueprintAbility spell = AbilityRefs.BreathofFliesAbilitySithhud.Reference.Get();
+                foreach (var x in spell.GetComponents<SpellListComponent>())
+                {
+                    DragonHelpers.RemoveComponent<SpellListComponent>(spell);
+                }
+                DragonHelpers.RemoveComponent<CraftInfoComponent>(spell);
             }
         }
     }

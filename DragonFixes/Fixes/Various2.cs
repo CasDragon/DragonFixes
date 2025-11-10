@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BlueprintCore.Actions.Builder;
 using BlueprintCore.Actions.Builder.ContextEx;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
+using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
 using BlueprintCore.Conditions.Builder;
 using BlueprintCore.Conditions.Builder.BasicEx;
@@ -46,6 +47,15 @@ namespace DragonFixes.Fixes
                     ifTrue: ActionsBuilder.New()
                         .ApplyBuffPermanent(BuffRefs.NecromancersStaffBuff.Reference.Get(), asChild: true)).Build();
             mob.AfterSpawn.Actions = [ .. mob.AfterSpawn.Actions , y.Actions[0] ];
+        }
+        [DragonConfigure]
+        public static void PatchThousandBitesBuff()
+        {
+            Main.log.Log("Patching ThousandBitesBuff to correctly buff CorruptedDragonForm");
+            BuffConfigurator.For(BuffRefs.ThousandBitesBuff)
+                .AddBuffExtraEffects(checkedBuff: BuffRefs.CorruptedDragonFormBuff.Reference.Get(), 
+                        extraEffectBuff: BuffRefs.ThousandBitesBuffEffect.Reference.Get())
+                .Configure();
         }
     }
 }
