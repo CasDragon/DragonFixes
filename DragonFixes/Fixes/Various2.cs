@@ -21,6 +21,7 @@ using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Abilities.Components;
 using Kingmaker.UnitLogic.Class.Kineticist;
 using Kingmaker.UnitLogic.Mechanics.Actions;
+using DragonLibrary.BPCoreExtensions;
 
 namespace DragonFixes.Fixes
 {
@@ -46,7 +47,7 @@ namespace DragonFixes.Fixes
             ActionList y = ActionsBuilder.New()
                 .Conditional(x,
                     ifTrue: ActionsBuilder.New()
-                        .ApplyBuffPermanent(BuffRefs.NecromancersStaffBuff.Reference.Get(), asChild: true)).Build();
+                        .ApplyBuffPermanentFixed(BuffRefs.NecromancersStaffBuff.Reference.Get(), asChild: true)).Build();
             mob.AfterSpawn.Actions = [ .. mob.AfterSpawn.Actions , y.Actions[0] ];
         }
         [DragonConfigure]
