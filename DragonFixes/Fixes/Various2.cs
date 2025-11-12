@@ -11,15 +11,16 @@ using BlueprintCore.Blueprints.References;
 using BlueprintCore.Conditions.Builder;
 using BlueprintCore.Conditions.Builder.BasicEx;
 using BlueprintCore.Conditions.Builder.ContextEx;
+using BlueprintCore.Utils;
 using BlueprintCore.Utils.Types;
 using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
-using Kingmaker.Designers.EventConditionActionSystem.Actions;
 using Kingmaker.ElementsSystem;
+using Kingmaker.UnitLogic.Abilities;
+using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Abilities.Components;
-using Kingmaker.UnitLogic.Mechanics;
+using Kingmaker.UnitLogic.Class.Kineticist;
 using Kingmaker.UnitLogic.Mechanics.Actions;
-using Kingmaker.UnitLogic.Mechanics.Conditions;
 
 namespace DragonFixes.Fixes
 {
@@ -56,6 +57,47 @@ namespace DragonFixes.Fixes
                 .AddBuffExtraEffects(checkedBuff: BuffRefs.CorruptedDragonFormBuff.Reference.Get(), 
                         extraEffectBuff: BuffRefs.ThousandBitesBuffEffect.Reference.Get())
                 .Configure();
+        }
+        [DragonConfigure]
+        public static void PatchSpindleInfusion()
+        {
+            Main.log.Log("Patching Spindle / Exploding Arrows infusions to use InfusionBurnCost instead of BlastBurnCost.");
+            Blueprint<BlueprintReference<BlueprintAbility>>[] abilities = [AbilityRefs.SpindleAirBlastAbility, AbilityRefs.SpindleBlizzardBlastAbility,
+                AbilityRefs.SpindleBloodBlastAbility, AbilityRefs.SpindleBlueFlameBlastAbility, AbilityRefs.SpindleChargedWaterBlastAbility,
+                AbilityRefs.SpindleColdBlastAbility, AbilityRefs.SpindleEarthBlastAbility, AbilityRefs.SpindleElectricBlastAbility,
+                AbilityRefs.SpindleFireBlastAbility, AbilityRefs.SpindleIceBlastAbility, AbilityRefs.SpindleMagmaBlastAbility,
+                AbilityRefs.SpindleMetalBlastAbility, AbilityRefs.SpindleMudBlastAbility, AbilityRefs.SpindlePlasmaBlastAbility,
+                AbilityRefs.SpindleSandstormBlastAbility, AbilityRefs.SpindleSteamBlastAbility, AbilityRefs.SpindleThunderstormBlastAbility,
+                AbilityRefs.SpindleWaterBlastAbility, AbilityRefs.ExplodingArrowsAirBlastAbility, AbilityRefs.ExplodingArrowsBlizzardBlastAbility,
+                AbilityRefs.ExplodingArrowsBlueFlameBlastAbility, AbilityRefs.ExplodingArrowsChargedWaterBlastAbility, AbilityRefs.ExplodingArrowsColdBlastAbility,
+                AbilityRefs.ExplodingArrowsEarthBlastAbility, AbilityRefs.ExplodingArrowsElectricBlastAbility, AbilityRefs.ExplodingArrowsFireBlastAbility,
+                AbilityRefs.ExplodingArrowsIceBlastAbility, AbilityRefs.ExplodingArrowsMagmaBlastAbility, AbilityRefs.ExplodingArrowsMetalBlastAbility,
+                AbilityRefs.ExplodingArrowsMudBlastAbility, AbilityRefs.ExplodingArrowsPlasmaBlastAbility, AbilityRefs.ExplodingArrowsSandstormBlastAbility,
+                AbilityRefs.ExplodingArrowsSteamBlastAbility, AbilityRefs.ExplodingArrowsThunderstormBlastAbility, AbilityRefs.ExplodingArrowsWaterBlastAbility];
+            foreach(var ability in abilities)
+            {
+                AbilityConfigurator.For(ability)
+                    .EditComponent<AbilityKineticist>(c => changeinfusions(c))
+                    .Configure();
+            }
+        }
+        public static void changeinfusions(AbilityKineticist component)
+        {
+            component.BlastBurnCost = 0;
+            component.InfusionBurnCost = 2;
+        }
+        [DragonConfigure]
+        public static void PatchDragonWrath()
+        {
+            Main.log.Log("Buffing DragonWrath spell to have available metamagics.");
+            Blueprint<BlueprintReference<BlueprintAbility>>[] spells = [AbilityRefs.DragonWrath, AbilityRefs.DragonWrathGold, AbilityRefs.DragonWrathGoldCorrupted];
+            Metamagic metas = Metamagic.CompletelyNormal | Metamagic.Reach | Metamagic.Empower | Metamagic.Bolstered | Metamagic.Maximize | Metamagic.Quicken | Metamagic.Intensified;
+            foreach (var spell in spells)
+            {
+                AbilityConfigurator.For(spell)
+                    .SetAvailableMetamagic(metas)
+                    .Configure();
+            }
         }
     }
 }
