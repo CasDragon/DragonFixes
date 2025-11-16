@@ -20,7 +20,9 @@ namespace DragonFixes
         internal static Harmony HarmonyInstance;
         internal static UnityModManager.ModEntry.ModLogger log;
         internal static ModEntry entry;
+        [DragonLocalizedString(tttbrokenname, "BROKEN")]
         internal const string tttbrokenname = "vekbrokethis.name";
+        [DragonLocalizedString(tttbrokendescription, "TTT-Base breaks the fix for this, do not use!")]
         internal const string tttbrokendescription = "vekbrokethis.description";
 
         public static bool Load(UnityModManager.ModEntry modEntry)
