@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BlueprintCore.Actions.Builder;
+﻿using BlueprintCore.Actions.Builder;
 using BlueprintCore.Actions.Builder.ContextEx;
+using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
@@ -13,15 +9,24 @@ using BlueprintCore.Conditions.Builder.BasicEx;
 using BlueprintCore.Conditions.Builder.ContextEx;
 using BlueprintCore.Utils;
 using BlueprintCore.Utils.Types;
+using DragonLibrary.BPCoreExtensions;
 using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
+using Kingmaker.Blueprints.Classes;
+using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.ElementsSystem;
+using Kingmaker.UI.MVVM._ConsoleView.InGame;
 using Kingmaker.UnitLogic.Abilities;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Abilities.Components;
 using Kingmaker.UnitLogic.Class.Kineticist;
 using Kingmaker.UnitLogic.Mechanics.Actions;
-using DragonLibrary.BPCoreExtensions;
+using Kingmaker.UnitLogic.Mechanics.Components;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DragonFixes.Fixes
 {
@@ -99,6 +104,31 @@ namespace DragonFixes.Fixes
                     .SetAvailableMetamagic(metas)
                     .Configure();
             }
+        }
+        [DragonConfigure]
+        public static void PatchAbrikandilu_Feature_Mutilation()
+        {
+            Main.log.Log("Patching Abrikandilu_Feature_Mutilation to have correct DC.");
+            FeatureConfigurator.For(FeatureRefs.Abrikandilu_Feature_Mutilation)
+                .EditComponent<AddInitiatorAttackWithWeaponTrigger>(c =>
+                    SetCustomDC(c.Action.Actions.OfType<ContextActionSavingThrow>().FirstOrDefault(), 13))
+                .Configure();
+        }
+        [DragonConfigure]
+        public static void PatchSchir_DiseaseFeature()
+        {
+            Main.log.Log("Patching Schir_DiseaseFeature to have correct DC.");
+            BlueprintFeature x = FeatureConfigurator.For(FeatureRefs.Schir_DiseaseFeature)
+                .EditComponent<AddInitiatorAttackWithWeaponTrigger>(c =>
+                    SetCustomDC(c.Action.Actions.OfType<ContextActionSavingThrow>().FirstOrDefault(), 15))
+                .Configure();
+            DragonHelpers.RemoveComponent<ContextCalculateAbilityParams>(x);
+            DragonHelpers.RemoveComponent<RecalculateOnStatChange>(x);
+        }
+        public static void SetCustomDC(ContextActionSavingThrow savingThrow, int dc)
+        {
+            savingThrow.HasCustomDC = true;
+            savingThrow.CustomDC.Value = dc;
         }
     }
 }
