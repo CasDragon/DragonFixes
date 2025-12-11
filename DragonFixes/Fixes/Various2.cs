@@ -21,6 +21,7 @@ using Kingmaker.UnitLogic.Abilities;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Abilities.Components;
 using Kingmaker.UnitLogic.Class.Kineticist;
+using Kingmaker.UnitLogic.FactLogic;
 using Kingmaker.UnitLogic.Mechanics.Actions;
 using Kingmaker.UnitLogic.Mechanics.Components;
 using System;
@@ -131,11 +132,26 @@ namespace DragonFixes.Fixes
             savingThrow.HasCustomDC = true;
             savingThrow.CustomDC.Value = dc;
         }
+        [DragonConfigure]
         public static void GiveAivuSwarmPoints()
         {
             Main.log.Log("Giving Aivu a value for swarm size");
             AnswerConfigurator.For("f85e4e6aee1ae964da765e705bbfbe95")
                 .ModifyOnSelect(s => s.Actions = [.. s.Actions, ActionsBuilder.New().IncreaseSwarmThatWalksStrength(ContextValues.Constant(20)).Build().Actions[0]])
+                .Configure();
+        }
+        [DragonConfigure]
+        public static void PatchBodyBuffs()
+        {
+            Main.log.Log("Patching FieryBodyBuff, IceBodyBuff, IronBodyBuff to include ImprovedUnarmedStrike");
+            BuffConfigurator.For(BuffRefs.FieryBodyBuff)
+                .AddMechanicsFeature(AddMechanicsFeature.MechanicsFeatureType.ImprovedUnarmedStrike)
+                .Configure();
+            BuffConfigurator.For(BuffRefs.IceBodyBuff)
+                .AddMechanicsFeature(AddMechanicsFeature.MechanicsFeatureType.ImprovedUnarmedStrike)
+                .Configure();
+            BuffConfigurator.For(BuffRefs.IronBodyBuff)
+                .AddMechanicsFeature(AddMechanicsFeature.MechanicsFeatureType.ImprovedUnarmedStrike)
                 .Configure();
         }
     }
