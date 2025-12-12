@@ -154,5 +154,12 @@ namespace DragonFixes.Fixes
                 .AddMechanicsFeature(AddMechanicsFeature.MechanicsFeatureType.ImprovedUnarmedStrike)
                 .Configure();
         }
+        [DragonConfigure]
+        public static void PatchCrushAndTearFeature()
+        {
+            Main.log.Log("Pathing CrushAndTearFeature to work at level 5");
+            AddFeatureOnClassLevel c = FeatureRefs.CrushAndTearFeature.Reference.Get().GetComponent<AddFeatureOnClassLevel>(com => com.Level == 5);
+            c.m_Feature = FeatureRefs.CrushAndTearFeatureLevelUp5.Reference.Get().ToReference<BlueprintFeatureReference>();
+        }
     }
 }
