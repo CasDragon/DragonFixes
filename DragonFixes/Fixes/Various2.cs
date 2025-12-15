@@ -38,13 +38,17 @@ namespace DragonFixes.Fixes
         [DragonConfigure]
         public static void PatchAnimateDead()
         {
-            Main.log.Log("Patching AnimateDead (and Lesser) to include NecromancersStaffFeature buff");
-            AbilityConfigurator.For(AbilityRefs.AnimateDead)
-                .EditComponent<AbilityEffectRunAction>(c => dothing(c))
-                .Configure();
-            AbilityConfigurator.For(AbilityRefs.AnimateDeadLesser)
-                .EditComponent<AbilityEffectRunAction>(c => dothing(c))
-                .Configure();
+            bool isDC = ModCompat.IsModEnabled("DarkCodex");
+            if (!isDC)
+            {
+                Main.log.Log("Patching AnimateDead (and Lesser) to include NecromancersStaffFeature buff");
+                AbilityConfigurator.For(AbilityRefs.AnimateDead)
+                    .EditComponent<AbilityEffectRunAction>(c => dothing(c))
+                    .Configure();
+                AbilityConfigurator.For(AbilityRefs.AnimateDeadLesser)
+                    .EditComponent<AbilityEffectRunAction>(c => dothing(c))
+                    .Configure();
+            }
         }
 
         public static void dothing(AbilityEffectRunAction action)
