@@ -15,12 +15,14 @@ using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Prerequisites;
+using Kingmaker.Designers.EventConditionActionSystem.Actions;
 using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.ElementsSystem;
 using Kingmaker.UI.MVVM._ConsoleView.InGame;
 using Kingmaker.UnitLogic.Abilities;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Abilities.Components;
+using Kingmaker.UnitLogic.Abilities.Components.AreaEffects;
 using Kingmaker.UnitLogic.Class.Kineticist;
 using Kingmaker.UnitLogic.FactLogic;
 using Kingmaker.UnitLogic.Mechanics.Actions;
@@ -173,6 +175,39 @@ namespace DragonFixes.Fixes
             var x = FeatureRefs.CriticalMastery.Reference.Get().GetComponent<PrerequisiteFeaturesFromList>();
             x.m_Features = [.. x.m_Features, FeatureRefs.FlayingCriticalFeature.Reference.Get().ToReference<BlueprintFeatureReference>(),
                 FeatureRefs.BleedingCriticalFeature.Reference.Get().ToReference<BlueprintFeatureReference>()];
+        }
+        [DragonConfigure]
+        public static void PatchCreatePitArea()
+        {
+            Main.log.Log("Patching CreatePitArea to include more Wings features");
+            var x = AbilityAreaEffectRefs.CreatePitArea.Reference.Get().GetComponent<AreaEffectPit>();
+            x.m_EffectsImmunityFacts = [
+                .. x.m_EffectsImmunityFacts, 
+                FeatureRefs.ShifterGriffonWingsFeature.Reference.Get().ToReference<BlueprintUnitFactReference>(),
+                FeatureRefs.ShifterFeyWingsFeature.Reference.Get().ToReference<BlueprintUnitFactReference>(),
+                FeatureRefs.ShifterAspectFiendWingsFeature.Reference.Get().ToReference<BlueprintUnitFactReference>(),
+                BuffRefs.ShifterWildShapeGriffonBuff.Reference.Get().ToReference<BlueprintUnitFactReference>(),
+                BuffRefs.ShifterWildShapeGriffonBuff9.Reference.Get().ToReference<BlueprintUnitFactReference>(),
+                BuffRefs.ShifterWildShapeGriffonBuff14.Reference.Get().ToReference<BlueprintUnitFactReference>(),
+                BuffRefs.ShifterWildShapeGriffonGodBuff.Reference.Get().ToReference<BlueprintUnitFactReference>(),
+                BuffRefs.ShifterWildShapeGriffonGodBuff9.Reference.Get().ToReference<BlueprintUnitFactReference>(),
+                BuffRefs.ShifterWildShapeGriffonGodBuff14.Reference.Get().ToReference<BlueprintUnitFactReference>(),
+                BuffRefs.ShifterWildShapeGriffonDemonBuff.Reference.Get().ToReference<BlueprintUnitFactReference>(),
+                BuffRefs.ShifterWildShapeGriffonDemonBuff9.Reference.Get().ToReference<BlueprintUnitFactReference>(),
+                BuffRefs.ShifterWildShapeGriffonDemonBuff14.Reference.Get().ToReference<BlueprintUnitFactReference>()
+            ];
+        }
+        [DragonConfigure]
+        public static void PatchBurningEntangleArea()
+        {
+            Main.log.Log("Patching BurningEntangleArea to not damage on succeeding save");
+            Conditional x = (Conditional)AbilityAreaEffectRefs.BurningEntangleArea.Reference.Get().GetComponent<AbilityAreaEffectRunAction>()
+                .Round.Actions[0];
+            ContextActionSavingThrow y = (ContextActionSavingThrow)x.IfFalse.Actions[0];
+            var z = y.Actions.Actions[1];
+            ContextActionConditionalSaved x1 = (ContextActionConditionalSaved)y.Actions.Actions[0];
+            x1.Failed.Actions = [.. x1.Failed.Actions, z];
+            x.IfFalse.Actions = [x1];
         }
     }
 }
