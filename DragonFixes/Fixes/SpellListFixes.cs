@@ -38,6 +38,7 @@ namespace DragonFixes.Fixes
                     AbilityConfigurator.For(spell)
                         .SetDisplayName(Main.tttbrokenname)
                         .SetDescription(Main.tttbrokendescription)
+                        .SetHidden(true)
                         .Configure();
                 }
             }

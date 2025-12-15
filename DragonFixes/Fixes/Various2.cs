@@ -14,6 +14,7 @@ using DragonLibrary.BPCoreExtensions;
 using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
+using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.ElementsSystem;
 using Kingmaker.UI.MVVM._ConsoleView.InGame;
@@ -157,9 +158,17 @@ namespace DragonFixes.Fixes
         [DragonConfigure]
         public static void PatchCrushAndTearFeature()
         {
-            Main.log.Log("Pathing CrushAndTearFeature to work at level 5");
+            Main.log.Log("Patching CrushAndTearFeature to work at level 5");
             AddFeatureOnClassLevel c = FeatureRefs.CrushAndTearFeature.Reference.Get().GetComponent<AddFeatureOnClassLevel>(com => com.Level == 5);
             c.m_Feature = FeatureRefs.CrushAndTearFeatureLevelUp5.Reference.Get().ToReference<BlueprintFeatureReference>();
+        }
+        [DragonConfigure]
+        public static void PatchCriticalMastery()
+        {
+            Main.log.Log("Patching CriticalMastery to include Bleeding/Flaying Critical");
+            var x = FeatureRefs.CriticalMastery.Reference.Get().GetComponent<PrerequisiteFeaturesFromList>();
+            x.m_Features = [.. x.m_Features, FeatureRefs.FlayingCriticalFeature.Reference.Get().ToReference<BlueprintFeatureReference>(),
+                FeatureRefs.BleedingCriticalFeature.Reference.Get().ToReference<BlueprintFeatureReference>()];
         }
     }
 }
