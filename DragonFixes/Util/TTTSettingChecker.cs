@@ -8,9 +8,9 @@ namespace DragonFixes.Util
 {
     internal class TTTSettingChecker
     {
-        public static bool CheckStaggerRemoval()
+        public static bool CheckSpellsFixes(string key)
         {
-            return TabletopTweaks.Base.Main.TTTContext.Fixes.BaseFixes.IsEnabled("StaggeredDescriptors");
+            return TabletopTweaks.Base.Main.TTTContext.Fixes.Spells.IsEnabled(key);
         }
     }
 }

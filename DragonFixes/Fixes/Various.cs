@@ -242,7 +242,7 @@ namespace DragonFixes.Fixes
         [DragonConfigure]
         public static void PatchFreeRein()
         {
-            if (ModCompat.tttbase && TTTSettingChecker.CheckStaggerRemoval())
+            if (ModCompat.tttbase && TTTSettingChecker.CheckSpellsFixes("FreedomOfMovement"))
             {
                 Main.log.Log("TTT installed and stagger setting is enabled, disabling Free Rein fix");
                 return;
