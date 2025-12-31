@@ -242,6 +242,11 @@ namespace DragonFixes.Fixes
         [DragonConfigure]
         public static void PatchFreeRein()
         {
+            if (ModCompat.tttbase && TTTSettingChecker.CheckStaggerRemoval())
+            {
+                Main.log.Log("TTT installed and stagger setting is enabled, disabling Free Rein fix");
+                return;
+            }
             Main.log.Log("Patching Free Rein and Freest Rein");
             BlueprintBuff buff = BuffConfigurator.For(BuffRefs.BootsOfFreereinBuff)
                 .AddBuffDescriptorImmunity(false, SpellDescriptor.Staggered)

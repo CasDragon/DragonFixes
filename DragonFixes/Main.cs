@@ -1,15 +1,16 @@
-﻿using System;
+﻿using BlueprintCore.Utils;
+using DragonFixes.Fixes;
+using DragonFixes.Util;
+using DragonLibrary.Utils;
+using HarmonyLib;
+using Kingmaker.Blueprints;
+using Kingmaker.Blueprints.JsonSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using BlueprintCore.Utils;
-using DragonFixes.Fixes;
-using DragonFixes.Util;
-using DragonLibrary.Utils;
-using HarmonyLib;
-using Kingmaker.Blueprints.JsonSystem;
 using UnityModManagerNet;
 using static UnityModManagerNet.UnityModManager;
 
@@ -20,6 +21,7 @@ namespace DragonFixes
         internal static Harmony HarmonyInstance;
         internal static UnityModManager.ModEntry.ModLogger log;
         internal static ModEntry entry;
+        internal static bool delayConfig = false;
         [DragonLocalizedString(tttbrokenname, "BROKEN")]
         internal const string tttbrokenname = "vekbrokethis.name";
         [DragonLocalizedString(tttbrokendescription, "TTT-Base breaks the fix for this, do not use!")]
@@ -50,22 +52,63 @@ namespace DragonFixes
             {
                 try
                 {
-                    if (Initialized)
+                    if (!ModCompat.tttbase)
                     {
-                        log.Log("Already initialized blueprints cache.");
-                        return;
+                        if (Initialized)
+                        {
+                            log.Log("Already initialized blueprints cache.");
+                            return;
+                        }
+                        Initialized = true;
+                        log.Log("Generating localization file");
+                        LocalizedStringHelper.CreateLocalizationFile(LocalizedStringHelper.GetModFolderPath(entry), entry);
+                        log.Log("Adding DragonFix settings");
+                        Settings.InitializeSettings();
+                        log.Log("Patching blueprints.");
+                        DragonConfigureAction.DoPatches(entry);
                     }
-                    Initialized = true;
-                    log.Log("Generating localization file");
-                    LocalizedStringHelper.CreateLocalizationFile(LocalizedStringHelper.GetModFolderPath(entry), entry);
-                    log.Log("Adding DragonFix settings");
-                    Settings.InitializeSettings();
-                    log.Log("Patching blueprints.");
-                    DragonConfigureAction.DoPatches(entry);
+                    else
+                    {
+                        log.Log("TTT Base is found, delaying blueprint changes until StartGameLoader.LoadPackTOC. Suffer Toybox users.");
+                        delayConfig = true;
+                    }
                 }
                 catch (Exception e)
                 {
                     log.Log(string.Concat("Failed to initialize.", e));
+                }
+            }
+        }
+        [HarmonyPatch(typeof(StartGameLoader))]
+        public static class StartGameLoader_Patch
+        {
+            private static bool Initialized = false;
+
+            [HarmonyAfter("DragonLibrary")]
+            [HarmonyPatch(nameof(StartGameLoader.LoadPackTOC)), HarmonyPostfix]
+            public static void Init_Postfix()
+            {
+                if (delayConfig)
+                {
+                    try
+                    {
+                        if (Initialized)
+                        {
+                            log.Log("Already initialized blueprints cache.");
+                            return;
+                        }
+                        Initialized = true;
+                        log.Log("Generating localization file");
+                        LocalizedStringHelper.CreateLocalizationFile(LocalizedStringHelper.GetModFolderPath(entry), entry);
+                        log.Log("Adding DragonFix settings");
+                        Settings.InitializeSettings();
+                        log.Log("Patching blueprints.");
+                        DragonConfigureAction.DoPatches(entry);
+                    }
+                    catch (Exception e)
+                    {
+                        log.Log(string.Concat("Failed to initialize.", e));
+                    }
                 }
             }
         }
