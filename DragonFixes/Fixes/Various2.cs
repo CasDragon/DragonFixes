@@ -18,6 +18,9 @@ using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Designers.EventConditionActionSystem.Actions;
 using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.ElementsSystem;
+using Kingmaker.Enums.Damage;
+using Kingmaker.RuleSystem;
+using Kingmaker.RuleSystem.Rules.Damage;
 using Kingmaker.UI.MVVM._ConsoleView.InGame;
 using Kingmaker.UnitLogic.Abilities;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
@@ -32,6 +35,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static TabletopTweaks.Core.MechanicsChanges.MetamagicExtention;
 
 namespace DragonFixes.Fixes
 {
@@ -105,14 +109,66 @@ namespace DragonFixes.Fixes
         public static void PatchDragonWrath()
         {
             Main.log.Log("Buffing DragonWrath spell to have available metamagics.");
-            Blueprint<BlueprintReference<BlueprintAbility>>[] spells = [AbilityRefs.DragonWrath, AbilityRefs.DragonWrathGold, AbilityRefs.DragonWrathGoldCorrupted];
             Metamagic metas = Metamagic.CompletelyNormal | Metamagic.Reach | Metamagic.Empower | Metamagic.Bolstered | Metamagic.Maximize | Metamagic.Quicken | Metamagic.Intensified;
-            foreach (var spell in spells)
+            if (ModCompat.tttbase)
             {
-                AbilityConfigurator.For(spell)
-                    .SetAvailableMetamagic(metas)
-                    .Configure();
+                metas = metas | (Metamagic)(CustomMetamagic.Burning | CustomMetamagic.ElementalAcid |
+                    CustomMetamagic.ElementalCold | CustomMetamagic.ElementalElectricity |
+                    CustomMetamagic.ElementalFire | CustomMetamagic.Flaring | CustomMetamagic.Rime);
             }
+            var ab = AbilityRefs.DragonWrath.Reference.Get();
+            var gab = AbilityRefs.DragonWrathGold.Reference.Get();
+            DragonHelpers.RemoveComponent<AbilityEffectRunAction>(ab);
+            DragonHelpers.RemoveComponent<ContextRankConfig>(ab);
+            AbilityConfigurator.For(ab)
+                .SetAvailableMetamagic(metas)
+                .AddAbilityEffectRunAction(savingThrowType: Kingmaker.EntitySystem.Stats.SavingThrowType.Unknown,
+                    actions:
+                        ActionsBuilder.New()
+                            .Conditional(
+                                conditions: ConditionsBuilder.New().CasterHasFact(FeatureRefs.CorruptedGoldenDragonFeature.Reference.Get()),
+                                ifTrue: 
+                                    ActionsBuilder.New()
+                                        .DealDamage(damageType: DamageTypes.Energy(DamageEnergyType.Fire),
+                                            ContextDice.Value(DiceType.D6, ContextValues.Rank()),
+                                            half: true, addAdditionalDamage: true, addFavoredEnemyDamage: true,
+                                            writeRawResultToSharedValue: true, resultSharedValue: AbilitySharedValue.Damage,
+                                            criticalSharedValue: AbilitySharedValue.Damage)
+                                        .DealDamage(damageType: DamageTypes.Energy(DamageEnergyType.Unholy),
+                                            ContextDice.Value(DiceType.D6, ContextValues.Rank()),
+                                            half: true, addAdditionalDamage: true, addFavoredEnemyDamage: true,
+                                            writeRawResultToSharedValue: true, resultSharedValue: AbilitySharedValue.Damage,
+                                            criticalSharedValue: AbilitySharedValue.Damage)
+                                        .Add(new ContextActionDisableBonusForDamage()
+                                        {
+                                            DisableAdditionalDamage = false,
+                                            DisableAdditionalDice = false,
+                                            DisableFavoredEnemyDamage = false,
+                                            DisableSneak = true
+                                        }),
+                                ifFalse:
+                                    ActionsBuilder.New()
+                                        .DealDamage(damageType: DamageTypes.Energy(DamageEnergyType.Fire),
+                                            ContextDice.Value(DiceType.D6, ContextValues.Rank()),
+                                            half: true, addAdditionalDamage: true, addFavoredEnemyDamage: true,
+                                            writeRawResultToSharedValue: true, resultSharedValue: AbilitySharedValue.Damage,
+                                            criticalSharedValue: AbilitySharedValue.Damage)
+                                        .DealDamage(damageType: DamageTypes.Energy(DamageEnergyType.Holy),
+                                            ContextDice.Value(DiceType.D6, ContextValues.Rank()),
+                                            half: true, addAdditionalDamage: true, addFavoredEnemyDamage: true,
+                                            writeRawResultToSharedValue: true, resultSharedValue: AbilitySharedValue.Damage,
+                                            criticalSharedValue: AbilitySharedValue.Damage)
+                                        .Add(new ContextActionDisableBonusForDamage()
+                                        {
+                                            DisableAdditionalDamage = false,
+                                            DisableAdditionalDice = false,
+                                            DisableFavoredEnemyDamage = false,
+                                            DisableSneak = true
+                                        })
+                                        ))
+                .AddComponent(gab.GetComponent<AbilityDeliverProjectile>())
+                .AddComponent(gab.GetComponent<ContextRankConfig>())
+                .Configure();
         }
         [DragonConfigure]
         public static void PatchAbrikandilu_Feature_Mutilation()
