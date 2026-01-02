@@ -1,4 +1,5 @@
 ﻿using BlueprintCore.Actions.Builder;
+using BlueprintCore.Actions.Builder.AVEx;
 using BlueprintCore.Actions.Builder.ContextEx;
 using BlueprintCore.Blueprints.Configurators.DialogSystem;
 using BlueprintCore.Blueprints.CustomConfigurators.Classes;
@@ -18,6 +19,7 @@ using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Designers.EventConditionActionSystem.Actions;
 using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.ElementsSystem;
+using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums.Damage;
 using Kingmaker.RuleSystem;
 using Kingmaker.RuleSystem.Rules.Damage;
@@ -26,10 +28,12 @@ using Kingmaker.UnitLogic.Abilities;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Abilities.Components;
 using Kingmaker.UnitLogic.Abilities.Components.AreaEffects;
+using Kingmaker.UnitLogic.Abilities.Components.TargetCheckers;
 using Kingmaker.UnitLogic.Class.Kineticist;
 using Kingmaker.UnitLogic.FactLogic;
 using Kingmaker.UnitLogic.Mechanics.Actions;
 using Kingmaker.UnitLogic.Mechanics.Components;
+using Kingmaker.UnitLogic.Mechanics.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -126,7 +130,7 @@ namespace DragonFixes.Fixes
                     actions:
                         ActionsBuilder.New()
                             .Conditional(
-                                conditions: ConditionsBuilder.New().CasterHasFact(FeatureRefs.CorruptedGoldenDragonFeature.Reference.Get()),
+                                conditions: ConditionsBuilder.New().CasterHasFact(FeatureRefs.CorruptedGoldenDragonFeature.Reference.Get()).Build(),
                                 ifTrue: 
                                     ActionsBuilder.New()
                                         .DealDamage(damageType: DamageTypes.Energy(DamageEnergyType.Fire),
@@ -264,6 +268,39 @@ namespace DragonFixes.Fixes
             ContextActionConditionalSaved x1 = (ContextActionConditionalSaved)y.Actions.Actions[0];
             x1.Failed.Actions = [.. x1.Failed.Actions, z];
             x.IfFalse.Actions = [x1];
+        }
+        [DragonConfigure]
+        public static void PatchScapeGoat()
+        {
+            Main.log.Log("Patching Scapegoat to work on allies?");
+            DragonHelpers.RemoveComponent<AbilityTargetHasFact>(AbilityRefs.ScapegoatAbilityAlly.Reference.Get());
+            DragonHelpers.RemoveComponent<AbilityTargetHasFact>(AbilityRefs.ScapegoatAbilityAllyPet.Reference.Get());
+        }
+        [DragonConfigure]
+        public static void PatchPrayer()
+        {
+            Main.log.Log("Patching Prayer to be extendable.");
+            var pray = AbilityRefs.Prayer.Reference.Get();
+            DragonHelpers.RemoveComponent<AbilityEffectRunAction>(pray);
+            AbilityConfigurator.For(pray)
+                .AddAbilityEffectRunAction(savingThrowType: SavingThrowType.Unknown,
+                    actions: ActionsBuilder.New()
+                        .Conditional(conditions: ConditionsBuilder.New()
+                            .IsAlly().Build(),
+                            ifTrue: ActionsBuilder.New()
+                                .SpawnFx("8bd36267b09ec344f9ab532a20b6bbf1")
+                                .ApplyBuff(BuffRefs.PrayerBuff.Reference.Get(),
+                                    ContextDuration.Variable(ContextValues.Property(UnitProperty.Level), isExtendable: true),
+                                    asChild: true),
+                            ifFalse: ActionsBuilder.New()
+                                .SpawnFx("dc41ce9fbc811194abad15f2e7db6f53")
+                                .ApplyBuff(BuffRefs.PrayerDebuff.Reference.Get(),
+                                    ContextDuration.Variable(ContextValues.Property(UnitProperty.Level), isExtendable: true),
+                                    asChild: true)
+                                )
+                        )
+                .AddToAvailableMetamagic(Metamagic.Extend)
+                .Configure();
         }
     }
 }
