@@ -20,6 +20,7 @@ using Kingmaker.Designers.EventConditionActionSystem.Actions;
 using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.ElementsSystem;
 using Kingmaker.EntitySystem.Stats;
+using Kingmaker.Enums;
 using Kingmaker.Enums.Damage;
 using Kingmaker.RuleSystem;
 using Kingmaker.RuleSystem.Rules.Damage;
@@ -290,15 +291,16 @@ namespace DragonFixes.Fixes
                             ifTrue: ActionsBuilder.New()
                                 .SpawnFx("8bd36267b09ec344f9ab532a20b6bbf1")
                                 .ApplyBuff(BuffRefs.PrayerBuff.Reference.Get(),
-                                    ContextDuration.Variable(ContextValues.Property(UnitProperty.Level), isExtendable: true),
+                                    ContextDuration.Variable(ContextValues.Rank(AbilityRankType.Default), isExtendable: true),
                                     asChild: true),
                             ifFalse: ActionsBuilder.New()
                                 .SpawnFx("dc41ce9fbc811194abad15f2e7db6f53")
                                 .ApplyBuff(BuffRefs.PrayerDebuff.Reference.Get(),
-                                    ContextDuration.Variable(ContextValues.Property(UnitProperty.Level), isExtendable: true),
+                                    ContextDuration.Variable(ContextValues.Rank(AbilityRankType.Default), isExtendable: true),
                                     asChild: true)
                                 )
                         )
+                .AddContextRankConfig(ContextRankConfigs.CasterLevel())
                 .AddToAvailableMetamagic(Metamagic.Extend)
                 .Configure();
         }
