@@ -4,7 +4,7 @@ using HarmonyLib;
 using Kingmaker.Items;
 using Kingmaker.RuleSystem.Rules;
 
-namespace DragonFixes.Fixes
+namespace DragonFixes.Patches
 {
     [HarmonyPatch]
     internal class WeaponEnhancementPatch

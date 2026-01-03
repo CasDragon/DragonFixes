@@ -24,7 +24,7 @@ using System.Security.AccessControl;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
 using DragonLibrary.Utils;
 
-namespace DragonFixes.Fixes
+namespace DragonFixes.Fixes.Classes
 {
     internal class EldritchScion
     {

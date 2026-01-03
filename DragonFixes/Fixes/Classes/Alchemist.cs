@@ -10,7 +10,7 @@ using Kingmaker.UnitLogic.Mechanics;
 using Kingmaker.UnitLogic.Mechanics.Components;
 using static Kingmaker.UnitLogic.Mechanics.Components.AdditionalDiceOnDamage;
 
-namespace DragonFixes.Fixes
+namespace DragonFixes.Fixes.Classes
 {
     internal class Alchemist
     {

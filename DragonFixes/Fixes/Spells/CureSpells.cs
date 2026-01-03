@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DragonFixes.Fixes
+namespace DragonFixes.Fixes.Spells
 {
     internal class CureSpells
     {

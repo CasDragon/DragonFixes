@@ -7,7 +7,7 @@ using HarmonyLib;
 using Kingmaker.RuleSystem.Rules;
 using Kingmaker.UnitLogic.FactLogic;
 
-namespace DragonFixes.Fixes
+namespace DragonFixes.Patches
 {
     [HarmonyPatch]
     internal class AddImmunityToAbilityScoreDamageFix

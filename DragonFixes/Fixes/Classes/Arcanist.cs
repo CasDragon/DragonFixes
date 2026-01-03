@@ -13,7 +13,7 @@ using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.UnitLogic.FactLogic;
 using Kingmaker.UnitLogic.Mechanics.Components;
 
-namespace DragonFixes.Fixes
+namespace DragonFixes.Fixes.Classes
 {
     internal class Arcanist
     {

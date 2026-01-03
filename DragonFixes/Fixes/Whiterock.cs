@@ -48,13 +48,5 @@ namespace DragonFixes.Fixes
                 .EditComponent<WeaponConditionalDamageDice>(c => c.Conditions.Operation = Operation.And)
                 .Configure();
         }
-        [DragonConfigure]
-        public static void PatchCue()
-        {
-            Main.log.Log("Patching Cue_0022 to have Jernaugh correctly recognise PC race");
-            CueConfigurator.For("e1c7bbcf26b658244939a8e4ca807556")
-                .ModifyConditions(c => c.Operation = Operation.Or)
-                .Configure();
-        }
     }
 }

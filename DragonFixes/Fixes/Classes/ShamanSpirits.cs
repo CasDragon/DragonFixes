@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DragonFixes.Fixes
+namespace DragonFixes.Fixes.Classes
 {
     internal class ShamanSpirits
     {

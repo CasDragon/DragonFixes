@@ -11,7 +11,7 @@ using Kingmaker.Craft;
 using Kingmaker.EntitySystem.Entities;
 using Kingmaker.UnitLogic;
 
-namespace DragonFixes.Fixes
+namespace DragonFixes.Patches
 {
     [HarmonyPatch]
     internal class ScribeScrollsPatch

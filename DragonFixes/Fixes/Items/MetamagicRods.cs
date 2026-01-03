@@ -12,7 +12,7 @@ using Kingmaker.Blueprints.Classes.Spells;
 using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 
-namespace DragonFixes.Fixes
+namespace DragonFixes.Fixes.Items
 {
     internal class MetamagicRods
     {

@@ -10,7 +10,7 @@ using Kingmaker.RuleSystem;
 using Kingmaker.RuleSystem.Rules;
 using Kingmaker.View.MapObjects;
 
-namespace DragonFixes.Fixes
+namespace DragonFixes.Patches
 {
     [HarmonyPatch]
     internal class AbilityScoreCheckBonusFix

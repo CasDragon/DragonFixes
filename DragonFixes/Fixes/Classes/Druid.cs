@@ -12,7 +12,7 @@ using BlueprintCore.Conditions.Builder.BasicEx;
 using DragonFixes.Util;
 using DragonLibrary.Utils;
 
-namespace DragonFixes.Fixes
+namespace DragonFixes.Fixes.Classes
 {
     internal class Druid
     {
