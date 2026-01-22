@@ -40,7 +40,7 @@ using Kingmaker.Utility;
 
 namespace DragonFixes.Fixes
 {
-    internal class Various
+    internal class Various3
     {
         [DragonConfigure]
         public static void PatchAbundantArcanePool()
