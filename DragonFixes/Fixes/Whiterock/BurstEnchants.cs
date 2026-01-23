@@ -1,5 +1,6 @@
 ﻿using BlueprintCore.Blueprints.Configurators.Items.Ecnchantments;
 using BlueprintCore.Blueprints.Configurators.Items.Weapons;
+using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
 using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
@@ -7,6 +8,7 @@ using Kingmaker.Blueprints.Items.Ecnchantments;
 using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.Enums.Damage;
 using Kingmaker.RuleSystem;
+using Kingmaker.UnitLogic.FactLogic;
 using TabletopTweaks.Core.Utilities;
 
 namespace DragonFixes.Fixes.Whiterock
@@ -75,13 +77,220 @@ namespace DragonFixes.Fixes.Whiterock
                         m_Rolls = 1
                     })
                 .Configure();
+            // HellknightFLamingBurstBuff
+            BuffConfigurator.For(BuffRefs.HellknightFLamingBurstBuff)
+                .RemoveComponents(c => c is BuffEnchantAnyWeapon d && d.m_EnchantmentBlueprint.guid == WeaponEnchantmentRefs.Flaming.Reference.guid)
+                .Configure();
+            // BloodragerInfernalHellfireStrikeBuff2
+            BuffConfigurator.For(BuffRefs.BloodragerInfernalHellfireStrikeBuff2)
+                .RemoveComponents(c => c is BuffEnchantAnyWeapon d && d.m_EnchantmentBlueprint.guid == WeaponEnchantmentRefs.Flaming.Reference.guid)
+                .Configure();
+            // SorcerousClawsFlamingBurstBuff
+            BuffConfigurator.For(BuffRefs.SorcerousClawsFlamingBurstBuff)
+                .RemoveComponents(c => c is BuffEnchantAnyWeapon d && d.m_EnchantmentBlueprint.guid == WeaponEnchantmentRefs.Flaming.Reference.guid)
+                .Configure();
+            // SorcerousClawsCorrosiveBurstBuff
+            BuffConfigurator.For(BuffRefs.SorcerousClawsCorrosiveBurstBuff)
+                .RemoveComponents(c => c is BuffEnchantAnyWeapon d && d.m_EnchantmentBlueprint.guid == WeaponEnchantmentRefs.Corrosive.Reference.guid)
+                .Configure();
+            // SorcerousClawsIcyBurstBuff
+            BuffConfigurator.For(BuffRefs.SorcerousClawsIcyBurstBuff)
+                .RemoveComponents(c => c is BuffEnchantAnyWeapon d && d.m_EnchantmentBlueprint.guid == WeaponEnchantmentRefs.Frost.Reference.guid)
+                .Configure();
+            // SorcerousClawsShockingBurstBuff
+            BuffConfigurator.For(BuffRefs.SorcerousClawsShockingBurstBuff)
+                .RemoveComponents(c => c is BuffEnchantAnyWeapon d && d.m_EnchantmentBlueprint.guid == WeaponEnchantmentRefs.Shock.Reference.guid)
+                .Configure();
+            PatchRemoveOtherEnchants();
         }
-        [DragonConfigure]
-        public static void PatchMageSlayerItem()
+        public static void PatchRemoveOtherEnchants()
         {
-            Main.log.Log("Patching MageSlayerItem to not have Corrosive enchant");
+            ItemWeaponConfigurator.For(ItemWeaponRefs.BrutalDecayItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.RottenDissectorItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.RustedDawnItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.EyeGougerItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
+                .Configure();
+
             ItemWeaponConfigurator.For(ItemWeaponRefs.MageSlayerItem)
                 .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.RovagugRelicScorpionBattlaxeItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.RovagugRelicScorpionBattlaxeItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.RovagugRelicScorpionGreataxeItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.RovagugRelicScorpionHandaxeItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.SpeedCorrosiveBusrtJavelinPlus5)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.SacrificialElderCorrosiveBurstSpearPlus5)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.ElderCorrosive.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.DevitalizerItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.ElderCorrosive.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.ElderFlamingBurstLightCrossbowPlus5)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.ElderFlaming.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.TidebringerItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.ElderFrost.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.CruelElderShockingBurstDwarvenWaraxePlus5)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.ElderShock.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.ViciousElderShockingBurstLightPickPlus5)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.ElderShock.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.FlamingBurstAdamantineDwarvenUrgroshPlus3)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.FlamingBurstAdamantineDwarvenUrgroshSecondPlus3)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.IgnitionItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.BloodBoilerItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.AshmakerItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.RapscallionItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.SkyScorcherItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.ExplosiveFervorItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.FierySpellWeaverItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.SpitefulMockeryItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.NemaryStigmaBardiche_MagicSealingItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.NemaryStigmaSlingStaff_MagicSealingItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.NemaryStigmaTrident_MagicSealingItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.AdamantineFrostBurstStarknifePlus3)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Frost.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.BaneOutsiderChaoticIcyBurstJavelinPlus1)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Frost.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.FrostEmbraceItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Frost.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.HeartOfIcebergItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Frost.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.IcyBurstKeenColdIronBastardSwordPlus3Item)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Frost.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.FrostbiteItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Frost.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.NordicWelcomeItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Frost.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.BloodFreezerItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Frost.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.HandaxeThievesMagicPoisonousItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Shock.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.AbruptEndItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Shock.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.GlaringThunderItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Shock.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.PocketLightningItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Shock.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.IndomitablePunisherItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Shock.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.HeavyCrossbowOfDegradationItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Thundering.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.ScreamOfPainItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Thundering.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.ThunderingBurstDualswordPlus3Item)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Thundering.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.StormcallerItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Thundering.Reference.Get())
+                .Configure();
+
+            ItemWeaponConfigurator.For(ItemWeaponRefs.OakOfThunderItem)
+                .RemoveFromEnchantments(WeaponEnchantmentRefs.Thundering.Reference.Get())
                 .Configure();
         }
     }
