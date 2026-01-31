@@ -2,7 +2,7 @@
   "Id": "DragonFixes",
   "DisplayName": "Dragon Fixes",
   "Author": "CascadingDragon",
-  "Version": "1.23.1b",
+  "Version": "1.23.1c",
   "ManagerVersion": "0.27.11",
   "Requirements": [ "ModMenu-2.0.0", "DragonLibrary" ],
   "AssemblyName": "DragonFixes.dll",

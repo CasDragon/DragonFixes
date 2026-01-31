@@ -9,7 +9,6 @@ using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.Enums.Damage;
 using Kingmaker.RuleSystem;
 using Kingmaker.UnitLogic.FactLogic;
-using TabletopTweaks.Core.Utilities;
 
 namespace DragonFixes.Fixes.Whiterock
 {
@@ -21,7 +20,7 @@ namespace DragonFixes.Fixes.Whiterock
             Main.log.Log("Patching Burst Enchants to have approriate 1d6 and also correct values.");
             // WeaponBondFlamingBurstEnchant
             BlueprintWeaponEnchantment bond = WeaponEnchantmentRefs.WeaponBondFlamingBurstEnchant.Reference.Get();
-            bond.RemoveComponent(bond.GetComponent<WeaponEnergyDamageDice>());
+            DragonHelpers.RemoveComponent<WeaponEnergyDamageDice>(bond);
             // ElderIcyBurst
             WeaponEnchantmentConfigurator.For(WeaponEnchantmentRefs.ElderIcyBurst)
                 .AddWeaponEnergyDamageDice(element: DamageEnergyType.Cold,
