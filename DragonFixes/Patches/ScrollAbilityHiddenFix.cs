@@ -17,11 +17,12 @@ namespace DragonFixes.Patches
                     __instance.Blueprint.Hidden == false &&
                     __instance.Data.IsVisible() == true &&
                     __instance.SourceItem?.Blueprint is BlueprintItemEquipmentUsable y &&
-                    y.Type == UsableItemType.Scroll &&
+                    (y.Type == UsableItemType.Scroll || y.Type == UsableItemType.Wand) &&
                     y.Ability != __instance.Blueprint)
             {
                 __result = false;
-                __instance.Data.SourceItemEquipmentBlueprint.SpendCharges = false;
+                if (y.Type == UsableItemType.Scroll && __instance.Data.SourceItem.Charges == 0)
+                    __instance.Data.SourceItem.Charges = 1;
             }
         }
     }
