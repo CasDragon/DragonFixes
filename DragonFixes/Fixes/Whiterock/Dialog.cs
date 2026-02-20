@@ -1,12 +1,18 @@
-﻿using BlueprintCore.Blueprints.Configurators.DialogSystem;
+﻿using BlueprintCore.Blueprints.Configurators.AreaLogic.Etudes;
+using BlueprintCore.Blueprints.Configurators.DialogSystem;
+using BlueprintCore.Utils;
 using DragonFixes.Util;
 using DragonLibrary.Utils;
+using Kingmaker.AreaLogic.Etudes;
+using Kingmaker.Blueprints;
+using Kingmaker.Designers.EventConditionActionSystem.Conditions;
+using Kingmaker.Designers.EventConditionActionSystem.Evaluators;
+using Kingmaker.Designers.EventConditionActionSystem.Events;
 using Kingmaker.ElementsSystem;
+using Kingmaker.UnitLogic.FactLogic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DragonFixes.Fixes.Whiterock
 {
@@ -77,6 +83,31 @@ namespace DragonFixes.Fixes.Whiterock
             CueConfigurator.For("e1c7bbcf26b658244939a8e4ca807556")
                 .ModifyConditions(c => c.Operation = Operation.Or)
                 .Configure();
+        }
+        [DragonConfigure]
+        public static void PatchWoljifCueThing()
+        {
+            Main.log.Log("Patching etude Chapter03 for whiterock nonsense");
+            BlueprintEtude x = BlueprintTool.Get<BlueprintEtude>("15e0048c7daf0ac4999c2313b58df0e3");
+            EtudePlayTrigger y = x.GetComponents<EtudePlayTrigger>()
+                .Where(c => 
+                    c.Conditions.Conditions
+                        .OfType<Kingmaker.Designers.EventConditionActionSystem.Conditions.CompanionInParty>()
+                        .Any() 
+                    &&
+                    c.Actions.Actions
+                        .OfType<AddVendorItemsAction>()
+                        .Any()
+                    )
+                .FirstOrDefault();
+            if (y is null)
+                return;
+            AddVendorItemsAction z = (AddVendorItemsAction)y.Actions.Actions[0];
+            Kingmaker.Designers.EventConditionActionSystem.Evaluators.CompanionInParty v = 
+                (Kingmaker.Designers.EventConditionActionSystem.Evaluators.CompanionInParty)z.m_VendorEvaluator.m_VendorEvaluator;
+            v.IncludeDettached = true;
+            v.IncludeExCompanions = true;
+            v.IncludeRemote = true;
         }
     }
 }
