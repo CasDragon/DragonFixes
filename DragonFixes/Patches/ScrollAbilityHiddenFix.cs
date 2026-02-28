@@ -25,5 +25,15 @@ namespace DragonFixes.Patches
                     __instance.Data.SourceItem.Charges = 1;
             }
         }
+        /*[HarmonyPatch(typeof(AbilityCastRateUtils), nameof(AbilityCastRateUtils.GetChargesCount))]
+        [HarmonyPostfix]
+        public static void ChargesPostFix(AbilityData ability, ref int __result)
+        {
+            if (__result == 0 && ability.SourceItem != null && ability.SourceItem.IsSpendCharges &&
+                    ability.SourceItem?.Blueprint is BlueprintItemEquipmentUsable y &&
+                    (y.Type == UsableItemType.Scroll || y.Type == UsableItemType.Wand) &&
+                    y.Ability != ability.Blueprint)
+                __result = -1;
+        }*/
     }
 }
