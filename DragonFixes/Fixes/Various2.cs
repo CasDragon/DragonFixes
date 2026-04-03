@@ -74,15 +74,6 @@ namespace DragonFixes.Fixes
             mob.AfterSpawn.Actions = [ .. mob.AfterSpawn.Actions , y.Actions[0] ];
         }
         [DragonConfigure]
-        public static void PatchThousandBitesBuff()
-        {
-            Main.log.Log("Patching ThousandBitesBuff to correctly buff CorruptedDragonForm");
-            BuffConfigurator.For(BuffRefs.ThousandBitesBuff)
-                .AddBuffExtraEffects(checkedBuff: BuffRefs.CorruptedDragonFormBuff.Reference.Get(), 
-                        extraEffectBuff: BuffRefs.ThousandBitesBuffEffect.Reference.Get())
-                .Configure();
-        }
-        [DragonConfigure]
         public static void PatchSpindleInfusion()
         {
             Main.log.Log("Patching Spindle / Exploding Arrows infusions to use InfusionBurnCost instead of BlastBurnCost.");

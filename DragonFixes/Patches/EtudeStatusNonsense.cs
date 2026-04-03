@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DragonFixes.Patches
 {
-    [HarmonyPatch]
+    /*[HarmonyPatch]
     public static class EtudeStatusNonsense
     {
         [HarmonyPatch(typeof(EtudeStatus), nameof(EtudeStatus.CheckCondition)), HarmonyTranspiler]
@@ -31,7 +31,7 @@ namespace DragonFixes.Patches
         private static bool IsPlayingOrToBePlayed(Etude etude)
         {
             var s = Game.Instance.Player.EtudesSystem;
-            if (s.m_AreaPartBeingLoaded == null)
+            if (s.m_AreaPartBeingLoaded == null || etude.IsActive)
             {
                 return etude.IsActive;
             }
@@ -65,5 +65,5 @@ namespace DragonFixes.Patches
                 return ret;
             }
         }
-    }
+    }*/
 }
