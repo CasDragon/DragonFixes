@@ -25,7 +25,7 @@
 		<Reference Include="$(WrathInstallDir)\Mods\ModMenu\ModMenu.dll" />
 		<Reference Include="$(WrathInstallDir)\Mods\DragonLibrary\DragonLibrary.dll" Publicize="true" />
 		<Reference Include="$(WrathInstallDir)\Mods\TabletopTweaks-Core\TabletopTweaks-Core.dll" />
-		<Reference Include="$(WrathInstallDir)\Mods\TabletopTweaks-Base\TabletopTweaks-Base.dll*" Publicize="true" />
+		<Reference Include="$(WrathInstallDir)\Mods\TabletopTweaks-Base\TabletopTweaks-Base.dll" Publicize="true" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="Info.json" CopyToOutputDirectory="PreserveNewest" />

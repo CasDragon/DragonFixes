@@ -1,0 +1,71 @@
+﻿- Eldritch Scion (magus archetype) - Arcane Accuracy now correctly scales off CHA instead of INT
+- Extra Arcana (feat) - Now includes the Eldritch Scion versions of the arcanas, so Eldritch Scion can pick arcanas that work for them
+- Eldritch Scion (magus archetype) - Prescient Strike, which used to last only 1 round and now correctly lasts 2
+- Apsu (deity) - Can now be selected with the Oracle class (toggeable, default is On)
+- Fixes several healing spells to now allow for targeting of enemies (for things such as "healing" the undead)
+- Scalykind (domain) - Adds the domain to secondary domain selection, because it somehow wasn't?
+- Fixes Spell Dancer archetype not being allowed to take Abundant Arcane Pool
+- Spiked shields are now correctly given out with Martial Proficiency
+- Wyrm Shifter's level 20 breath attack for Red Dragon is correctly fire damage instead of cold
+- Removes a prereq from Shield Base that would cause issues if you already have Spiked Shield proficiency from else where
+- Fixes Domain Zealot to work with Scalykind domain (untested) (maybe tested by now? I'm just copy/pasting from my releases on Github)
+- Removes duplicate version of Finger of Death from the spell list selection
+- Fixes Bestial Rages item (from Ulbrig's quest) to not break shifters from working (Owlcat wtf, that's literally what the shirt is for)
+- Fix Inspiring Command to be Supernatural
+- Add ShockingGrasp and IncendiaryRunes to Gloves of the Neophyte
+- Fix the Shaman elemental Spirits from not working correctly
+- Fix Aspect of the Asp item to actually work on spells (for Whiterock)
+- Minor oracle revelation blueprint fixes
+- Joyful Rapture now correctly dispels Negative Emotions
+- Study Target, Bane Living now correctly check for valid targets for the buff
+- Now Jernaugh correctly recognise PC race in Act 1
+- New batch of dialog fixes from Whiterock (adds 8 or so)
+- Fixes Free Rein, Cobra Pads, Clutch of Corruption, Ancient Wood, Gnawing Hunger
+- Weapon enchantments now don't apply +1 enhancement levels. This should fix the +2 weapons somehow bypassing DR/Good for no reason (Fix from ADDB)
+- Fixes the Devitalizer weapon (not tested) (maybe tested by now? I'm just copy/pasting from my releases on Github)
+- Fixes Magic Deceiver's Inhibit Courage and Inhibit Heroes to actually debuff the enemy
+- Possible fix for Explosion Ring?
+- Mantis Zealot's Deadly Fascination ability doesn't have Mind Effecting descriptor, so it's missing bonuses you would get from other features. So added the descriptor.
+- Fix Piercing metamagic rods to actually be piercing instead of intensified
+- Fixed "Cursed" armors to actual have correct CL which allows you to decurse
+- Fix from ADDB for a base game component AbilityScoreCheckBonus
+- Fix alchemist bombs only doing 1d6 damage when used in an AoE (from Kab)
+- Fix Stinking Cloud to actually work (from Kab)
+- Fix Lead Blades to actually apply to Sawtooth Sabres
+- If you get Uncanny Dodge from a talent selection, the game currently gives you Uncanny on the level you take, and then Improved Uncanny on the next level for free. This fixes this behavior.
+- You can now scribe scrolls for things like Protection From X, as the base game doesn't properly check for child spells/abilities. (From ADDB)
+- Deliverer now properly counts and gets Improved Unarmed from Irori deity
+- Fix the AddImmunityToAbilityScoreDamage component
+  *  Things affected by this is Blessing of Unlife from Lich, and any other way to get Undead immunities
+  *  Currently, things like Tick Swarms can deal CON drain to Undead, which is obviously a bug
+- Animate Undead (and Lesser) are now properly affected by Necromancer's Staff
+- Construct's are now properly immune to Energy Drain
+- Thousand Bites spell now properly applies to Corrupted Gold Dragon form
+- Dragon Wrath spell now can have metamagic applied to it (mainly for wands)
+- Update the duplicate Finger of Death fix to change the description if TTT is installed. TTT breaks my removal, so I just change the name and description so you know what spell is real
+- Spindle / Exploding Arrows Infusions for Kineticists now use InfusionCost instead of BurnBlastCost
+- Fiery Body, Ice Body, Iron Body to include Improved Unarmed Strike
+- Crush and Tear feature now works correctly even at level 5
+- Critical Mastery's prereqs now also include Bleeding/Flaying Critical
+- Create Pit spell now ignores more Wing types
+- Prayer is now correctly Extendable
+- Scaled Fist AC bonus is now properly removed on respec
+- SubtypeDemon now conditionally adds Electric Immunity (which helps with the Blackwater demons)
+- Dragonblood Shifter's breath weapons to actually scale off CON
+- Weakening Wound to include more archetypes for scaling
+- Burst Enchants now have approriate 1d6 and also correct values
+- The Gold Dragon cloak doesn't steal your old cloak when you click on Gold Dragon in the Mythic tab
+- Allow ray spells to properly work with BaphometFireGloves (Treacherous Flame gloves)
+- SeasonedAssassinFeature to not be hidden in the UI, so when you encounter an enemy with it, you can see it
+- The sneak attack book from Baphomet now allows for sneak attack to be added regardless, because Owlcat hates fun
+- Winter Witch hex selections now actually show up in the level up UI
+- Call To Violence item now properly buffs with Skald rage
+- Scrolls that grant abilities (such as Aspect of the Wolf, which should grant Trip ability) now actually allow the ability to show up and be used. Thanks to people in the #builds channel for finding these weird bugs
+- Favored Enemy Spellcasting feat can now be selected by the Hellknight Order of the Nail
+- Minor woljif dialog change that fixes his shop for some people? (Idk the specifics, ask Whiterock) 
+- Amulet of Jousting now actually works
+- Vorpal/Unholy enchants now prefix correctly
+- Fix Herbal Ring having the wrong enchantment
+- Fix Avenging Ring to proc on all AoOs and not just ones that hit you
+- Fix some Mythic spells to properly be labeled as "Harmful to enemies"
+- Fix DragonForm to not be castable if you are in corrupt gold dragon form
