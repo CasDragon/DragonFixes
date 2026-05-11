@@ -52,13 +52,21 @@ namespace DragonFixes.Fixes
             bool isDC = ModCompat.IsModEnabled("DarkCodex");
             if (!isDC)
             {
-                Main.log.Log("Patching AnimateDead (and Lesser) to include NecromancersStaffFeature buff");
-                AbilityConfigurator.For(AbilityRefs.AnimateDead)
-                    .EditComponent<AbilityEffectRunAction>(c => dothing(c))
-                    .Configure();
-                AbilityConfigurator.For(AbilityRefs.AnimateDeadLesser)
-                    .EditComponent<AbilityEffectRunAction>(c => dothing(c))
-                    .Configure();
+                try
+                {
+                    Main.log.Log("Patching AnimateDead (and Lesser) to include NecromancersStaffFeature buff");
+                    AbilityConfigurator.For(AbilityRefs.AnimateDead)
+                        .EditComponent<AbilityEffectRunAction>(c => dothing(c))
+                        .Configure();
+                    AbilityConfigurator.For(AbilityRefs.AnimateDeadLesser)
+                        .EditComponent<AbilityEffectRunAction>(c => dothing(c))
+                        .Configure();
+                }
+                catch (Exception e)
+                {
+                    Main.log.Log("Error patching Animate Dead");
+                    Main.log.LogException(e);
+                }
             }
         }
 
