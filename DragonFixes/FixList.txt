@@ -70,3 +70,4 @@
 - Fix some Mythic spells to properly be labeled as "Harmful to enemies"
 - Fix DragonForm to not be castable if you are in corrupt gold dragon form
 - Fix the Earth Elemental bloodline's ability Elemental Movement to correctly give AC bonus (prior, it would grant 8x0....  which means 0)
+- Fix various classes Weapon Training selections not qualifying them for Advanced Weapon Training (alongside their 5 levels of Fighter)
