@@ -7,6 +7,7 @@ using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.JsonSystem;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -62,6 +63,7 @@ namespace DragonFixes
                         Initialized = true;
                         log.Log("Generating localization file");
                         LocalizedStringHelper.CreateLocalizationFile(LocalizedStringHelper.GetModFolderPath(entry), entry);
+                        LocalizationTool.LoadLocalizationPacks(Path.Combine(LocalizedStringHelper.GetModFolderPath(entry), "LocalizedStrings.json"));
                         log.Log("Adding DragonFix settings");
                         Settings.InitializeSettings();
                         log.Log("Patching blueprints.");
