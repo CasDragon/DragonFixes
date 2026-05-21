@@ -72,3 +72,4 @@
 - Fix the Earth Elemental bloodline's ability Elemental Movement to correctly give AC bonus (prior, it would grant 8x0....  which means 0)
 - Fix various classes Weapon Training selections not qualifying them for Advanced Weapon Training (alongside their 5 levels of Fighter)
 - Fix Deadly Charge from Cavalier not doubling damage like description says
+- Reenable Rahadoum Faithless background from the base game, should show up in the Regional backgrounds. 
