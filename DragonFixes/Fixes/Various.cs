@@ -204,13 +204,13 @@ namespace DragonFixes.Fixes
         internal const string devitalizerbuffname = "Devitalizer";
         internal const string devitalizerbuffdescription = "+2 Circumstance bonus to attack and damage rolls against Exhausted enemies.";
         [DragonLocalizedString(devitalizerbuffnamekey, devitalizerbuffname)]
-        internal const string devitalizerbuffnamekey = "abruptendbuff.name";
+        internal const string devitalizerbuffnamekey = "devitalizerbuff.name";
         [DragonLocalizedString(devitalizerbuffdescriptionkey, devitalizerbuffdescription, true)]
-        internal const string devitalizerbuffdescriptionkey = "abruptendbuff.description";
+        internal const string devitalizerbuffdescriptionkey = "devitalizerbuff.description";
         [DragonConfigure]
         public static void PatchDevitalizer()
         {
-            Main.log.Log("Patching Abrupt End to actually work?");
+            Main.log.Log("Patching Devitalizer to actually work?");
             BlueprintBuff buff = BuffConfigurator.New("devitalizerbuff", Guids.DevitalizerBuff)
                 .SetDisplayName(devitalizerbuffnamekey)
                 .SetDescription(devitalizerbuffdescriptionkey)
