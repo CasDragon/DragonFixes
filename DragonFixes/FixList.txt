@@ -73,3 +73,5 @@
 - Fix various classes Weapon Training selections not qualifying them for Advanced Weapon Training (alongside their 5 levels of Fighter)
 - Fix Deadly Charge from Cavalier not doubling damage like description says
 - Reenable Rahadoum Faithless background from the base game, should show up in the Regional backgrounds. 
+- Fix Chexlian Diva's ability TragedyOfFalseHope to correctly have Mind descriptor
+- Fix Arcane Rider's ability Enduring Blade breaking when mounted on a pet
