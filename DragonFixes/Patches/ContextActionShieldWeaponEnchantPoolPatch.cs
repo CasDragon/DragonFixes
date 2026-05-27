@@ -12,19 +12,20 @@ using UnityEngine;
 
 namespace DragonFixes.Patches
 {
-    [HarmonyPatch]
+    //[HarmonyPatch]
     public static class ContextActionShieldWeaponEnchantPoolPatch
     {
-        [HarmonyTranspiler]
-        [HarmonyPatch(typeof(ContextActionShieldWeaponEnchantPool), nameof(ContextActionShieldWeaponEnchantPool.RunAction))]
+        //[HarmonyTranspiler]
+        //[HarmonyPatch(typeof(ContextActionShieldWeaponEnchantPool), nameof(ContextActionShieldWeaponEnchantPool.RunAction))]
+        //[HarmonyDebug]
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             var codeMatcher = new CodeMatcher(instructions);
             var originalMethod = typeof(MechanicsContext).GetProperty(nameof(MechanicsContext.MaybeCaster)).GetMethod;
             var newMethod = typeof(MechanicsContext).GetProperty(nameof(MechanicsContext.MainTarget)).GetMethod;
 
-            var groupMethod = typeof(EntityDataBase).GetMethod(nameof(EntityDataBase.Ensure)).MakeGenericMethod([typeof(UnitPartEnchantPoolData)]);
-            var bondMethod = typeof(UnitEntityData).GetMethod(nameof(UnitEntityData.Buffs.SelectFactComponents));
+            var groupMethod = typeof(UnitPartActivatableAbility).GetMethod(nameof(UnitPartActivatableAbility.GetGroupSize));
+            var bondMethod = typeof(ContextDurationValue).GetMethod(nameof(ContextDurationValue.Calculate));
 
             codeMatcher.MatchStartForward(
                 CodeMatch.Calls(originalMethod))
@@ -35,13 +36,14 @@ namespace DragonFixes.Patches
 
             if (codeMatcher.IsValid)
             {
-                codeMatcher.MatchStartBackwards(CodeMatch.IsLdloc());
-                if (codeMatcher.IsValid)
+                codeMatcher.Advance(-4);
+                if (codeMatcher.Instruction.IsLdloc())
                 {
-                    var newcode = new CodeInstruction(OpCodes.Call, SymbolExtensions.GetMethodInfo(() => GetMaybeCaster));
+                    var newcode = new CodeInstruction(OpCodes.Call, SymbolExtensions.GetMethodInfo((ContextAction action) => GetMaybeCaster(action)));
                     newcode.MoveLabelsFrom(codeMatcher.Instruction);
                     codeMatcher.RemoveInstruction();
                     codeMatcher.Insert(newcode);
+                    codeMatcher.Insert(new CodeInstruction(OpCodes.Ldarg_0));
                 }
             }
 
@@ -50,13 +52,14 @@ namespace DragonFixes.Patches
 
             if (codeMatcher.IsValid)
             {
-                codeMatcher.MatchStartBackwards(CodeMatch.IsLdloc());
-                if (codeMatcher.IsValid)
+                codeMatcher.Advance(2);
+                if (codeMatcher.Instruction.IsLdloc())
                 {
-                    var newc = new CodeInstruction(OpCodes.Call, SymbolExtensions.GetMethodInfo(() => GetMaybeCaster));
+                    var newc = new CodeInstruction(OpCodes.Call, SymbolExtensions.GetMethodInfo((ContextAction action) => GetMaybeCaster(action)));
                     newc.MoveLabelsFrom(codeMatcher.Instruction);
                     codeMatcher.RemoveInstruction();
                     codeMatcher.Insert(newc);
+                    codeMatcher.Insert(new CodeInstruction(OpCodes.Ldarg_0));
                 }
             }
 
