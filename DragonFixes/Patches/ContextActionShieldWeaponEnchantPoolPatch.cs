@@ -12,11 +12,11 @@ using UnityEngine;
 
 namespace DragonFixes.Patches
 {
-    //[HarmonyPatch]
+    [HarmonyPatch]
     public static class ContextActionShieldWeaponEnchantPoolPatch
     {
-        //[HarmonyTranspiler]
-        //[HarmonyPatch(typeof(ContextActionShieldWeaponEnchantPool), nameof(ContextActionShieldWeaponEnchantPool.RunAction))]
+        [HarmonyTranspiler]
+        [HarmonyPatch(typeof(ContextActionShieldWeaponEnchantPool), nameof(ContextActionShieldWeaponEnchantPool.RunAction))]
         //[HarmonyDebug]
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
