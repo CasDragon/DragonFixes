@@ -57,7 +57,9 @@ namespace DragonFixes.Fixes.Classes
             [HarmonyPatch(nameof(AdditionalDiceOnDamage.FullCheck)), HarmonyPostfix]
             public static void FullCheck_Postfix(AdditionalDiceOnDamage __instance, RuleDealDamage evt, ref bool __result)
             {
-                if (__instance?.OwnerBlueprint?.AssetGuid == FeatureRefs.AlchemistBombsFeature.Reference.Guid && (evt?.Reason?.Context?.MainTarget != evt.Target))
+                if ((__instance?.OwnerBlueprint?.AssetGuid == FeatureRefs.AlchemistBombsFeature.Reference.Guid 
+                    || __instance?.OwnerBlueprint?.AssetGuid == FeatureSelectionRefs.ArcaneBombSelection.Reference.Guid)
+                    && (evt?.Reason?.Context?.MainTarget != evt.Target))
                 {
                     __result = false;
                 }
