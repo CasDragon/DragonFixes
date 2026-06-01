@@ -1,10 +1,17 @@
 ﻿using HarmonyLib;
+using Kingmaker.Blueprints.Items.Ecnchantments;
+using Kingmaker.Designers;
 using Kingmaker.EntitySystem;
 using Kingmaker.EntitySystem.Entities;
+using Kingmaker.Items;
 using Kingmaker.PubSubSystem;
+using Kingmaker.UnitLogic.ActivatableAbilities.Restrictions;
+using Kingmaker.UnitLogic.FactLogic;
 using Kingmaker.UnitLogic.Mechanics;
 using Kingmaker.UnitLogic.Mechanics.Actions;
 using Kingmaker.UnitLogic.Parts;
+using Kingmaker.Utility;
+using Owlcat.Runtime.Core.Logging;
 using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
@@ -15,7 +22,7 @@ namespace DragonFixes.Patches
     [HarmonyPatch]
     public static class ContextActionShieldWeaponEnchantPoolPatch
     {
-        [HarmonyTranspiler]
+        /*[HarmonyTranspiler]
         [HarmonyPatch(typeof(ContextActionShieldWeaponEnchantPool), nameof(ContextActionShieldWeaponEnchantPool.RunAction))]
         //[HarmonyDebug]
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -69,12 +76,56 @@ namespace DragonFixes.Patches
         public static UnitEntityData GetMaybeCaster(ContextAction action)
         {
             return action.Context.MaybeCaster;
-        }
-        /*[HarmonyPrefix]
+        }*/
+        [HarmonyPrefix]
         [HarmonyPatch(typeof(ContextActionShieldWeaponEnchantPool), nameof(ContextActionShieldWeaponEnchantPool.RunAction))]
         public static bool RunAction_Patch(ContextActionShieldWeaponEnchantPool __instance)
         {
 
-        }*/
+            UnitEntityData maybeCaster = __instance.Context.MaybeCaster;
+            var target = __instance.Context.MainTarget.Unit;
+            if (maybeCaster == null || target == null)
+            {
+                return false;
+            }
+            UnitPartEnchantPoolData unitPartEnchantPoolData = target.Ensure<UnitPartEnchantPoolData>();
+            unitPartEnchantPoolData.ClearEnchantPool(__instance.EnchantPool);
+            ItemEntityWeapon itemEntityWeapon;
+            if (!RestrictionsHelper.CheckHasShield(target))
+            {
+                itemEntityWeapon = null;
+            }
+            else
+            {
+                ItemEntityShield maybeShield = target.Body.SecondaryHand.MaybeShield;
+                itemEntityWeapon = ((maybeShield != null) ? maybeShield.WeaponComponent : null);
+            }
+            ItemEntityWeapon itemEntityWeapon2 = itemEntityWeapon;
+            if (itemEntityWeapon2 == null)
+            {
+                return false;
+            }
+            int num = maybeCaster.Ensure<UnitPartActivatableAbility>().GetGroupSize(__instance.Group);
+            if (itemEntityWeapon2.Enchantments.Any<ItemEnchantment>())
+            {
+                num += GameHelper.GetItemEnhancementBonus(itemEntityWeapon2);
+            }
+            Rounds rounds = __instance.DurationValue.Calculate(__instance.Context);
+            foreach (AddBondProperty addBondProperty in maybeCaster.Buffs.SelectFactComponents<AddBondProperty>())
+            {
+                if (addBondProperty.EnchantPool == __instance.EnchantPool && !itemEntityWeapon2.HasEnchantment(addBondProperty.Enchant))
+                {
+                    num -= addBondProperty.Enchant.EnchantmentCost;
+                    unitPartEnchantPoolData.AddEnchant(itemEntityWeapon2, __instance.EnchantPool, addBondProperty.Enchant, __instance.Context, rounds);
+                }
+            }
+            int num2 = Math.Min(5, num);
+            if (num2 > 0)
+            {
+                BlueprintItemEnchantment blueprintItemEnchantment = __instance.DefaultEnchantments[num2 - 1];
+                unitPartEnchantPoolData.AddEnchant(itemEntityWeapon2, __instance.EnchantPool, blueprintItemEnchantment, __instance.Context, rounds);
+            }
+            return false;
+        }
     }
 }
