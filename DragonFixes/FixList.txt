@@ -76,3 +76,4 @@
 - Fix Chexlian Diva's ability TragedyOfFalseHope to correctly have Mind descriptor
 - Fix Arcane Rider's ability Enduring Blade breaking when mounted on a pet (maybe?)
 - Arcane Bomber, the Wizard archetype also now also benefits from my bomb fix
+- Extend buff on Dawnflower's Kiss (Good) to actually be able to be used
