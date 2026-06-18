@@ -77,3 +77,5 @@
 - Fix Arcane Rider's ability Enduring Blade breaking when mounted on a pet (maybe?)
 - Arcane Bomber, the Wizard archetype also now also benefits from my bomb fix
 - Extend buff on Dawnflower's Kiss (Good) to actually be able to be used
+- Fix Force Reality ability to use correct dispel DC instead of caster level / 4. 
+- Fix Bite of the Vampire (Bloodseeker feature) to work on sneak attacks
