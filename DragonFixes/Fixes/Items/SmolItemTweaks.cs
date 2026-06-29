@@ -1,16 +1,13 @@
-﻿using BlueprintCore.Actions.Builder;
-using BlueprintCore.Actions.Builder.ContextEx;
-using BlueprintCore.Blueprints.CustomConfigurators.Classes;
+﻿using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
-using BlueprintCore.Utils.Types;
 using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
-using Kingmaker.UnitLogic.Mechanics.Actions;
 using Kingmaker.UnitLogic.Mechanics.Components;
 using DragonLibrary.BPCoreExtensions;
+using DragonLibrary.NewComponents;
 using Kingmaker.Blueprints.Items.Equipment;
 
 namespace DragonFixes.Fixes.Items
@@ -37,11 +34,11 @@ namespace DragonFixes.Fixes.Items
             AddInitiatorAttackWithWeaponTrigger z = y.GetComponent<AddInitiatorAttackWithWeaponTrigger>();
             DragonHelpers.RemoveComponent(y, z);
             FeatureConfigurator.For(y)
-                .AddSneakAttackRollTrigger(z.Action)
+                .AddSneakAttackRollTrigger(z!.Action)
                 .Configure();
             BuffConfigurator.For(x)
                 .RemoveFromFlags(BlueprintBuff.Flags.HiddenInUi | BlueprintBuff.Flags.RemoveOnRest)
-                .SetIcon(BuffRefs.ShamanHexFlameCurseBuff.Reference.Get().Icon)
+                .SetIcon(BuffRefs.ShamanHexFlameCurseBuff.Reference.Get().Icon!)
                 .SetDisplayName(item.m_DisplayNameText)
                 .SetDescription(item.m_DescriptionText)
                 .Configure();

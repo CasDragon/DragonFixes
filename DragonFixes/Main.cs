@@ -32,15 +32,9 @@ namespace DragonFixes
         {
             entry = modEntry;
             log = modEntry.Logger;
-            modEntry.OnGUI = OnGUI;
             HarmonyInstance = new Harmony(modEntry.Info.Id);
             HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
             return true;
-        }
-
-        public static void OnGUI(UnityModManager.ModEntry modEntry)
-        {
-
         }
         [HarmonyPatch(typeof(BlueprintsCache))]
         public static class BlueprintsCaches_Patch

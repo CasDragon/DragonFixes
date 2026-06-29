@@ -79,7 +79,7 @@ namespace DragonFixes.Fixes
                 .Conditional(x,
                     ifTrue: ActionsBuilder.New()
                         .ApplyBuffPermanentFixed(BuffRefs.NecromancersStaffBuff.Reference.Get(), asChild: true)).Build();
-            mob.AfterSpawn.Actions = [ .. mob.AfterSpawn.Actions , y.Actions[0] ];
+            mob!.AfterSpawn.Actions = [ .. mob.AfterSpawn.Actions , y.Actions[0] ];
         }
         [DragonConfigure]
         public static void PatchSpindleInfusion()
