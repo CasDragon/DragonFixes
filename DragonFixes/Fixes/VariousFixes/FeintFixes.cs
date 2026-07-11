@@ -1,18 +1,13 @@
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using BlueprintCore.Utils;
+using BlueprintCore.Blueprints.References;
 using DragonFixes.Util;
 using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
 using Kingmaker.Designers.EventConditionActionSystem.Actions;
-using Kingmaker.ElementsSystem;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
-using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.UnitLogic.Mechanics.Actions;
 using Kingmaker.UnitLogic.Mechanics.Conditions;
-using Kingmaker.UnitLogic.Mechanics.Properties;
-using TabletopTweaks.Core.Utilities;
+using static DragonFixes.Util.TTTHelpers;
 
 namespace DragonFixes.Fixes.VariousFixes;
 
@@ -33,7 +28,7 @@ public class FeintFixes
         // CheckForCaster = true makes the caster of the ability roll the check, not the target.
         // Notably, this only happened For enemies that were more perceptive than BAB+Wis,
         // but that's most of them...
-        var ability = BlueprintTool.Get<BlueprintAbility>(Guids.FeintAbility);
+        BlueprintAbility ability = AbilityRefs.FeintAbility.Reference.Get();
         foreach (var check in ability.FlattenAllActions().OfType<ContextActionSkillCheck>())
         {
             check.CheckForCaster = true;
@@ -59,9 +54,9 @@ public class FeintFixes
         // There's a lot of branches here though, so we need to be highly specific about which one
         // to swap. Even then, we need to recurse deeper still.
 
-        var ability = BlueprintTool.Get<BlueprintAbility>(Guids.FeintAbility);
-        var ordinaryMarker = BlueprintTool.Get<BlueprintBuff>(Guids.FeintMarkerBuff);
-        var finalFeintMarker = BlueprintTool.Get<BlueprintBuff>(Guids.FinalFeintMarkerBuff)
+        var ability = AbilityRefs.FeintAbility.Reference.Get();
+        var ordinaryMarker = BuffRefs.FeintBuffEnemy.Reference.Get();
+        var finalFeintMarker = BuffRefs.FeintBuffEnemyFinalFeintEnemyBuff.Reference.Get()
             .ToReference<BlueprintBuffReference>();
 
         var swaps = 0;
@@ -97,8 +92,8 @@ public class FeintFixes
         // The comparison is done correctly, but when Perception is the higher of the two the check
         // still rolls against the 10+BAB+Wis property, making feints ~6 points easier than intended.
         // Retarget the DC in that (IfFalse) branch to the Perception property.
-        var ability = BlueprintTool.Get<BlueprintAbility>(Guids.FeintAbility);
-        var perceptionDc = BlueprintTool.Get<BlueprintUnitProperty>(Guids.FeintDcPerceptionProperty)
+        var ability = AbilityRefs.FeintAbility.Reference.Get();
+        var perceptionDc = UnitPropertyRefs.FeintPropertyPerception.Reference.Get()
             .ToReference<BlueprintUnitPropertyReference>();
 
         var swaps = 0;
@@ -110,7 +105,7 @@ public class FeintFixes
             foreach (var check in FlattenActions(gate.IfFalse).OfType<ContextActionSkillCheck>()
                          .Where(c => c.UseCustomDC
                                      && c.CustomDC?.m_CustomProperty != null
-                                     && c.CustomDC.m_CustomProperty.deserializedGuid == Guids.FeintDcBabProperty))
+                                     && c.CustomDC.m_CustomProperty.deserializedGuid == UnitPropertyRefs.FeintPropertyBAB.ToString()))
             {
                 check.CustomDC.m_CustomProperty = perceptionDc;
                 swaps++;
@@ -133,7 +128,7 @@ public class FeintFixes
         return conditional.ConditionsChecker?.Conditions != null
                && conditional.ConditionsChecker.Conditions
                    .OfType<ContextConditionCasterHasFact>()
-                   .Any(c => !c.Not && c.m_Fact != null && c.m_Fact.deserializedGuid == Guids.FinalFeintFact);
+                   .Any(c => !c.Not && c.m_Fact != null && c.m_Fact.deserializedGuid == FeatureRefs.FinalFeint.ToString());
     }
 
     // This predicates a CheckCondition that accepts the BAB/Per arguments
@@ -144,35 +139,7 @@ public class FeintFixes
                    .OfType<ContextConditionCompare>()
                    .Any(c => c.CheckValue?.m_CustomProperty != null
                              && c.TargetValue?.m_CustomProperty != null
-                             && c.CheckValue.m_CustomProperty.deserializedGuid == Guids.FeintDcBabProperty
-                             && c.TargetValue.m_CustomProperty.deserializedGuid == Guids.FeintDcPerceptionProperty);
-    }
-
-    // Equivalent to TTT's FlattenAllActions but startable from an arbitrary subtree
-    // (FlattenAllActions' recursive overload is not public).
-    private static IEnumerable<GameAction> FlattenActions(ActionList list)
-    {
-        if (list?.Actions == null)
-        {
-            yield break;
-        }
-        foreach (var action in list.Actions)
-        {
-            if (action == null)
-            {
-                continue;
-            }
-            yield return action;
-            foreach (var field in action.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance))
-            {
-                if (field.FieldType == typeof(ActionList))
-                {
-                    foreach (var nested in FlattenActions(field.GetValue(action) as ActionList))
-                    {
-                        yield return nested;
-                    }
-                }
-            }
-        }
+                             && c.CheckValue.m_CustomProperty.deserializedGuid == UnitPropertyRefs.FeintPropertyBAB.ToString()
+                             && c.TargetValue.m_CustomProperty.deserializedGuid == UnitPropertyRefs.FeintPropertyPerception.ToString());
     }
 }
