@@ -15,5 +15,7 @@ namespace DragonFixes.Util
         public const string FinalFeintFact = "32429740d6a5470aaaa02f20d61e43d3";
         public const string FeintMarkerBuff = "e14f5e333e0e42fbbb7d7791c6072e7b";
         public const string FinalFeintMarkerBuff = "05c9dfa1595d48748c74316df97433c8";
+        public const string FeintDcBabProperty = "e7b2296d485e4c25b4c745d5a7fe42cb";
+        public const string FeintDcPerceptionProperty = "72fa876e4698445ca0dcb34ad390abab";
     }
 }

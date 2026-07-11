@@ -11,11 +11,15 @@ using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.UnitLogic.Mechanics.Actions;
 using Kingmaker.UnitLogic.Mechanics.Conditions;
+using Kingmaker.UnitLogic.Mechanics.Properties;
 using TabletopTweaks.Core.Utilities;
 
 namespace DragonFixes.Fixes.VariousFixes;
 
-public class SlayersFeintFix
+// All of these fixes edit the single shared FeintAbility blueprint. The first two are gated behind
+// the "slayerfeintfix" toggle because they only change behaviour for Slayer's Feint; the third
+// (FixFeintDcUsesPerceptionWhenHigher) is a general feint fix and has its own toggle.
+public class FeintFixes
 {
     [DragonConfigure]
     public static void FixFeintCheckForCaster()
@@ -81,6 +85,48 @@ public class SlayersFeintFix
         }
     }
 
+    [DragonConfigure]
+    public static void FixFeintDcUsesPerceptionWhenHigher()
+    {
+        if (!Settings.GetSetting<bool>("feintdcfix"))
+        {
+            Main.log.Log("Feint DC patch disabled, skipping.");
+            return;
+        }
+        // The feint DC is meant to be the higher of two properties: 10+BAB+Wis and 10+Perception.
+        // The comparison is done correctly, but when Perception is the higher of the two the check
+        // still rolls against the 10+BAB+Wis property, making feints ~6 points easier than intended.
+        // Retarget the DC in that (IfFalse) branch to the Perception property.
+        var ability = BlueprintTool.Get<BlueprintAbility>(Guids.FeintAbility);
+        var perceptionDc = BlueprintTool.Get<BlueprintUnitProperty>(Guids.FeintDcPerceptionProperty)
+            .ToReference<BlueprintUnitPropertyReference>();
+
+        var swaps = 0;
+        foreach (var gate in ability.FlattenAllActions().OfType<Conditional>().Where(IsFeintDcComparison))
+        {
+            // The comparison is "BAB-DC >= Perception-DC"; its IfFalse branch is the "Perception is
+            // higher" case, whose checks wrongly use the BAB-DC property. Only that branch is walked,
+            // and only the check's DC is touched, so the comparison operands stay intact.
+            foreach (var check in FlattenActions(gate.IfFalse).OfType<ContextActionSkillCheck>()
+                         .Where(c => c.UseCustomDC
+                                     && c.CustomDC?.m_CustomProperty != null
+                                     && c.CustomDC.m_CustomProperty.deserializedGuid == Guids.FeintDcBabProperty))
+            {
+                check.CustomDC.m_CustomProperty = perceptionDc;
+                swaps++;
+            }
+        }
+
+        if (swaps == 6)
+        {
+            Main.log.Log("Fixed feint DC to use Perception when it is higher (swapped 6 checks).");
+        }
+        else
+        {
+            Main.log.Error($"Feint DC fix: expected to swap 6 DCs but swapped {swaps}.");
+        }
+    }
+
     // Final Feint is the top level of its subtree
     private static bool IsFinalFeintGate(Conditional conditional)
     {
@@ -88,6 +134,18 @@ public class SlayersFeintFix
                && conditional.ConditionsChecker.Conditions
                    .OfType<ContextConditionCasterHasFact>()
                    .Any(c => !c.Not && c.m_Fact != null && c.m_Fact.deserializedGuid == Guids.FinalFeintFact);
+    }
+
+    // This predicates a CheckCondition that accepts the BAB/Per arguments
+    private static bool IsFeintDcComparison(Conditional conditional)
+    {
+        return conditional.ConditionsChecker?.Conditions != null
+               && conditional.ConditionsChecker.Conditions
+                   .OfType<ContextConditionCompare>()
+                   .Any(c => c.CheckValue?.m_CustomProperty != null
+                             && c.TargetValue?.m_CustomProperty != null
+                             && c.CheckValue.m_CustomProperty.deserializedGuid == Guids.FeintDcBabProperty
+                             && c.TargetValue.m_CustomProperty.deserializedGuid == Guids.FeintDcPerceptionProperty);
     }
 
     // Equivalent to TTT's FlattenAllActions but startable from an arbitrary subtree
