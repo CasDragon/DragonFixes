@@ -12,5 +12,8 @@ namespace DragonFixes.Util
         public const string EbruptEndBuff = "A1E8FCB5-ECBD-43B1-B3B2-A5DF9B4E0E42";
         public const string DevitalizerBuff = "F39A6005-CF54-4C13-96EB-423FBE1EF7CB";
         public const string FeintAbility = "1bb6f0b196aa457ba80bdb312dc64952";
+        public const string FinalFeintFact = "32429740d6a5470aaaa02f20d61e43d3";
+        public const string FeintMarkerBuff = "e14f5e333e0e42fbbb7d7791c6072e7b";
+        public const string FinalFeintMarkerBuff = "05c9dfa1595d48748c74316df97433c8";
     }
 }
