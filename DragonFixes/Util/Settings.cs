@@ -41,6 +41,8 @@ namespace DragonFixes.Util
                         Toggle.New(GetKey("scalykind"), defaultValue: true, CreateString("scalykind-toggle", "Include Scalykind domain in the second domain selection")))
                     .AddToggle(
                         Toggle.New(GetKey("scalykinddomain"), defaultValue: true, CreateString("scalykinddomain-toggle", "Fix Domain Zealot to work with Scalykind domain")))
+                    .AddToggle(
+                        Toggle.New(GetKey("feintcheckforcaster"), defaultValue: true, CreateString("feintcheckforcaster-toggle", "Fix Slayer's Feint so the caster rolls the skill check against the target's DC, instead of the target rolling against itself")))
                     .AddAnotherSettingsGroup(GetKey("kabfixes"), CreateString(GetKey("kab-fixes-title"), "Kab's Fixes"))
                     .AddToggle(
                         Toggle.New(GetKey("stinkycloud"), defaultValue: true, CreateString(GetKey("stinkycloud-toggle"), "Fix Stinking Cloud to only call for 1 save with TTT installed"))));

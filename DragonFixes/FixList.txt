@@ -81,3 +81,4 @@
 - Fix Bite of the Vampire (Bloodseeker feature) to work on sneak attacks
 - Shadowblood now applies -4 compulusion effect correctly
 - Fix Favored Terrain from not applying after first loading a save
+- Fix Slayer's Feint not working: its skill checks were rolled by the target instead of the caster (CheckForCaster was false)
