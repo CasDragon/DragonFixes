@@ -81,3 +81,5 @@
 - Fix Bite of the Vampire (Bloodseeker feature) to work on sneak attacks
 - Shadowblood now applies -4 compulusion effect correctly
 - Fix Favored Terrain from not applying after first loading a save
+- Fix Slayer's Feint not working: its skill checks were rolled by the target instead of the caster (CheckForCaster was false), and the Mobility path applied the wrong marker so Final Feint never triggered on it
+- Fix the Feint DC to use the target's Perception-based DC when it is higher than the BAB-based DC, instead of always using the lower BAB DC (affects all feints; makes feinting appropriately harder)
