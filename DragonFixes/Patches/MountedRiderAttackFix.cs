@@ -28,9 +28,6 @@ namespace DragonFixes.Patches
         // A tiny ~10cm leniency for mounted combat to avoid floating-point boundary misses
         private const float MountedReachEpsilon = 0.1f;
 
-        private static readonly AccessTools.FieldRef<UnitAttack, float?> OverrideApproachRadius =
-            AccessTools.FieldRefAccess<UnitAttack, float?>("m_OverrideApproachRadius");
-
         [HarmonyPatch(typeof(SaddledUnitController), "TickDelegateMountToRider"), HarmonyPostfix]
         private static void TickDelegateMountToRider_Postfix(UnitPartSaddled mountPart)
         {
@@ -64,7 +61,7 @@ namespace DragonFixes.Patches
                 // Property is what the path-commit reads; the override field stops
                 // UnitAttack.UpdateTarget from recomputing it away mid-approach
                 mountAttack.ApproachRadius = riderRadius;
-                OverrideApproachRadius(mountAttack) = riderRadius;
+                mountAttack.m_OverrideApproachRadius = riderRadius;
             }
             catch (Exception e)
             {
