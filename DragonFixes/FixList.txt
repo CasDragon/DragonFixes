@@ -85,3 +85,4 @@
 - Fix the Feint DC to use the target's Perception-based DC when it is higher than the BAB-based DC, instead of always using the lower BAB DC (affects all feints; makes feinting appropriately harder) -Fix from Tia
 - Code fix that should help stop mounted attacks from dropping -Fix from Tia
 - Add additional spacing for mounted characters interacting with objects/traps (should stop accidental trap triggers?) -Fix from Tia
+- Skald Inciter: Insult now calculates its save DC through the rules engine, so caster DC bonuses of any kind now affect it (previously they did not). Caustic Ridicule and the Hit a Nerve capstone ride the same save and are covered too. -Fix from Tia
