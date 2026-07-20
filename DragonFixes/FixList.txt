@@ -87,3 +87,4 @@
 - Add additional spacing for mounted characters interacting with objects/traps (should stop accidental trap triggers?) -Fix from Tia
 - Skald Inciter: Insult now calculates its save DC through the rules engine, so caster DC bonuses of any kind now affect it (previously they did not). Caustic Ridicule and the Hit a Nerve capstone ride the same save and are covered too. -Fix from Tia
 - IncreaseSpellDescriptorDC: Corrects rare cases where aura/buff-type effects should benefit from spell descriptors (e.g. mind-affecting, boost poison DC etc) but don't because they were not coded using the BlueprintAbility path. -Fix from Tia
+- Fix touch spells padding up to unarmed melee ranges so that they are not dropped erroneously. -Fix from Tia

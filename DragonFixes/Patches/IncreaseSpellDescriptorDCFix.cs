@@ -8,21 +8,23 @@ using Kingmaker.Utility;
 
 namespace DragonFixes.Patches
 {
-    // IncreaseSpellDescriptorDC (Glass Amulet of Clarity, Aspect of the Asp, etc.) reads spell
-    // descriptors (Mind-affection, poison, etc) from evt.Spell is declared as a BlueprintAbility.
-    // However some abilities are not defined using BlueprintAbility. Examples:
-    // * Auras
-    //   * Thundercaller - Storm Call (not buffed by elec descriptors)
-    //   * Thundercaller/Skald - Incite Rage (not buffed by mind-affecting)
-    //   * Skald - Insult/Caustic Ridicule/Hit a Nerve (mind-affecting again)
-    //   * Aivu - Frightful Presence Aura
-    //   * Druid - Auras on elemental shifts
-    // * Buffs (this are _quite_ niche)
-    //   * Flesheater - poison enemies after eating
-    //   * Alchemist - Nauseating Flesh
-    //
-    // The evt.Spell was effectively null in these cases. We fallback to Blueprint here to help
-    // fix this problem
+    /// <summary>
+    /// IncreaseSpellDescriptorDC (Glass Amulet of Clarity, Aspect of the Asp, etc.) reads spell
+    /// descriptors (Mind-affection, poison, etc) from evt.Spell is declared as a BlueprintAbility.
+    /// However some abilities are not defined using BlueprintAbility. Examples:
+    /// * Auras
+    ///   * Thundercaller - Storm Call (not buffed by elec descriptors)
+    ///   * Thundercaller/Skald - Incite Rage (not buffed by mind-affecting)
+    ///   * Skald - Insult/Caustic Ridicule/Hit a Nerve (mind-affecting again)
+    ///   * Aivu - Frightful Presence Aura
+    ///   * Druid - Auras on elemental shifts
+    /// * Buffs (this are _quite_ niche)
+    ///   * Flesheater - poison enemies after eating
+    ///   * Alchemist - Nauseating Flesh
+    ///
+    /// The evt.Spell was effectively null in these cases. We fallback to Blueprint here to help
+    /// fix this problem
+    /// </summary>
     [HarmonyPatch]
     internal class IncreaseSpellDescriptorDCFix
     {
