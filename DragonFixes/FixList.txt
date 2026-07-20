@@ -65,6 +65,7 @@
 - Minor woljif dialog change that fixes his shop for some people? (Idk the specifics, ask Whiterock) 
 - Amulet of Jousting now actually works
 - Vorpal/Unholy enchants now prefix correctly
+- Fix Elemental Rampager's Chain Discharge to actually chain
 - Fix Herbal Ring having the wrong enchantment
 - Fix Avenging Ring to proc on all AoOs and not just ones that hit you
 - Fix some Mythic spells to properly be labeled as "Harmful to enemies" (This helps with the "AoE spells don't harm allies" Toybox cheat, I don't think it does anything for the base game. It's still technically fixing a wrong field on the blueprint, so... )
