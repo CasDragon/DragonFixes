@@ -90,3 +90,5 @@
 - IncreaseSpellDescriptorDC: Corrects rare cases where aura/buff-type effects should benefit from spell descriptors (e.g. mind-affecting, boost poison DC etc) but don't because they were not coded using the BlueprintAbility path. -Fix from Tia
 - Fix touch spells padding up to unarmed melee ranges so that they are not dropped erroneously. -Fix from Tia
 - Kinetic Sharpshooter: Bow blasts no longer have their crit multiplier silently capped at x4. -Fix from Tia
+- Fix Fire/Air Elemental Bloodline Arcana to remove descriptors, this fixes the buff not being applied correctly
+- Fix Broken Phylactery item to not convert your damage to Fire and also increase your attack bonus
