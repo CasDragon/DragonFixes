@@ -92,3 +92,4 @@
 - Kinetic Sharpshooter: Bow blasts no longer have their crit multiplier silently capped at x4. -Fix from Tia
 - Fix Fire/Air Elemental Bloodline Arcana to remove descriptors, this fixes the buff not being applied correctly
 - Fix Broken Phylactery item to not convert your damage to Fire and also increase your attack bonus
+- Fix Lesser Celestial Totem from proc-ing off 0 hp heals (toggeable in settings, because I am merciful today)
