@@ -46,13 +46,10 @@ namespace DragonFixes.Fixes
         [DragonConfigure]
         public static void PatchAbundantArcanePool()
         {
-            if (Settings.GetSetting<bool>("abundantarcanepool"))
-            {
-                Main.log.Log("Patching Abundant Arcane Pool for Spell Dancer");
-                FeatureConfigurator.For(FeatureRefs.AbundantArcanePool)
-                    .AddPrerequisiteFeature(FeatureRefs.SpellDanceFeature.Reference.Get(), false, Prerequisite.GroupType.Any, false)
-                    .Configure();
-            }
+            Main.log.Log("Patching Abundant Arcane Pool for Spell Dancer");
+            FeatureConfigurator.For(FeatureRefs.AbundantArcanePool)
+                .AddPrerequisiteFeature(FeatureRefs.SpellDanceFeature.Reference.Get(), false, Prerequisite.GroupType.Any, false)
+                .Configure();
         }
         [DragonConfigure]
         public static void PatchMartialProf()
@@ -331,40 +328,6 @@ namespace DragonFixes.Fixes
                 .Configure();
         }
         [DragonConfigure]
-        public static void PatchStinkingCloud()
-        {
-            if (Settings.GetSetting<bool>("stinkycloud"))
-            {
-                Main.log.Log("Patching StinkingCloudArea to actually trigger");
-                AbilityAreaEffectConfigurator.For(AbilityAreaEffectRefs.StinkingCloudArea)
-                    .EditComponent<AbilityAreaEffectRunAction>(c =>
-                        c.UnitEnter.Actions.OfType<Conditional>().FirstOrDefault()
-                            .ConditionsChecker.Conditions.OfType<ContextConditionHasBuff>().FirstOrDefault()
-                            .Not = true)
-                    .Configure();
-            }
-        }
-        [DragonConfigure]
-        public static void PatchLeadBladesBuff()
-        {
-            Main.log.Log("Patching LeafBladeBuff to include Sawtooth Sabre.");
-            BuffConfigurator.For(BuffRefs.LeafBladesBuff)
-                .EditComponent<IncreaseDiceSizeOnAttack>(c => c.Categories = [.. c.Categories, WeaponCategory.SawtoothSabre])
-                .Configure();
-        }
-        [DragonConfigure]
-        public static void PatchUncannyDodgeTalent()
-        {
-            Main.log.Log("Removing circular logic from UncannyDodgeTalent.");
-            BlueprintFeature x = FeatureRefs.UncannyDodgeTalent.Reference.Get();
-            DragonHelpers.RemoveComponent<RecalculateOnFactsChange>(x);
-            DragonHelpers.RemoveComponent<AddFeatureIfHasFact>(x);
-            DragonHelpers.RemoveComponent<AddFeatureIfHasFact>(x);
-            FeatureConfigurator.For(x)
-                .AddFacts([FeatureRefs.UncannyDodgeChecker.Reference.Get()])
-                .Configure();
-        }
-        [DragonConfigure]
         public static void PatchIroriFeature()
         {
             Main.log.Log("Patching IroriFeature to include SlayerClass for Deliverer.");
@@ -373,22 +336,6 @@ namespace DragonFixes.Fixes
                 .Configure();
         }
 
-        [DragonConfigure]
-        public static void PatchUndeadImmunities()
-        {
-            Main.log.Log("Patching UndeadImmunities to include RecalculateOnStatChange component.");
-            FeatureConfigurator.For(FeatureRefs.UndeadImmunities)
-                .AddRecalculateOnStatChange(stat: StatType.Charisma)
-                .Configure();
-        }
-        [DragonConfigure]
-        public static void PatchConstrucImmunities()
-        {
-            Main.log.Log("Patching ConstructImmunities to include immunity to energy dragin component.");
-            FeatureConfigurator.For(FeatureRefs.ConstructImmunities)
-                .AddImmunityToEnergyDrain()
-                .Configure();
-        }
 
         public const string breetypo =
             "The silver dragon Terendelev fell in battle — hardly surprising, as she had to fight the demon lord Deskari himself. He willed the land to part and swallow all who dared to stand in his way. But the war was still far from over.";

@@ -9,7 +9,7 @@ using Kingmaker.UnitLogic.Mechanics.Actions;
 using Kingmaker.UnitLogic.Mechanics.Conditions;
 using static DragonFixes.Util.TTTHelpers;
 
-namespace DragonFixes.Fixes.VariousFixes;
+namespace DragonFixes.Fixes.UnitFeatures;
 
 // All of these fixes edit the single shared FeintAbility blueprint. The first two are gated behind
 // the "slayerfeintfix" toggle because they only change behaviour for Slayer's Feint; the third
@@ -19,11 +19,6 @@ public class FeintFixes
     [DragonConfigure]
     public static void FixFeintCheckForCaster()
     {
-        if (!Settings.GetSetting<bool>("slayerfeintfix"))
-        {
-            Main.log.Log("Slayer's Feint patch disabled, skipping.");
-            return;
-        }
         Main.log.Log("Fixing Slayer's Feint skill checks to roll for the caster instead of the target.");
         // CheckForCaster = true makes the caster of the ability roll the check, not the target.
         // Notably, this only happened For enemies that were more perceptive than BAB+Wis,
@@ -38,11 +33,6 @@ public class FeintFixes
     [DragonConfigure]
     public static void FixFinalFeintMobilityMarker()
     {
-        if (!Settings.GetSetting<bool>("slayerfeintfix"))
-        {
-            Main.log.Log("Slayer's Feint patch disabled, skipping.");
-            return;
-        }
         // On the "Final Feint = true -> Slayer's Feint -> Mobility" path, FeintAbility applies the
         // ordinary feint marker instead of the Final Feint marker, so the target is never made
         // flat-footed to all attackers and the Final Feint benefit silently fails on that path
@@ -83,11 +73,6 @@ public class FeintFixes
     [DragonConfigure]
     public static void FixFeintDcUsesPerceptionWhenHigher()
     {
-        if (!Settings.GetSetting<bool>("feintdcfix"))
-        {
-            Main.log.Log("Feint DC patch disabled, skipping.");
-            return;
-        }
         // The feint DC is meant to be the higher of two properties: 10+BAB+Wis and 10+Perception.
         // The comparison is done correctly, but when Perception is the higher of the two the check
         // still rolls against the 10+BAB+Wis property, making feints ~6 points easier than intended.

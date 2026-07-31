@@ -3,13 +3,8 @@ using BlueprintCore.Blueprints.References;
 using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
 using Kingmaker.UnitLogic.Mechanics.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DragonFixes.Fixes.VariousFixes
+namespace DragonFixes.Fixes.Classes
 {
     internal class RogueTalents
     {

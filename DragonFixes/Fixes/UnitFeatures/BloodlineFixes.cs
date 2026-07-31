@@ -1,18 +1,13 @@
 ﻿using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
-using DragonLibrary.Utils;
-using Kingmaker.UnitLogic.FactLogic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BlueprintCore.Utils;
+using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes.Spells;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
+using Kingmaker.UnitLogic.FactLogic;
 
-namespace DragonFixes.Fixes
+namespace DragonFixes.Fixes.UnitFeatures
 {
     internal class BloodlineFixes
     {

@@ -8,7 +8,7 @@ using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.UnitLogic.FactLogic;
 
-namespace DragonFixes.Fixes.VariousFixes;
+namespace DragonFixes.Fixes.UnitFeatures;
 
 public class FavoredTerrainFix
 {

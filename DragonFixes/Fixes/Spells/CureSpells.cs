@@ -12,10 +12,13 @@ namespace DragonFixes.Fixes.Spells
 {
     internal class CureSpells
     {
+        private const string settingname = "curespellstargetfix";
+        private const string settingdescription = "Fixes several healing spells (Like Heal and Cure Light Wounds) to target enemies";
         [DragonConfigure]
+        [DragonSetting(SettingCategories.None, settingname, settingdescription)]
         public static void TargetEnemiesPatch()
         {
-            if (Settings.GetSetting<bool>("curespellstargetfix"))
+            if (SettingsAction.GetSetting<bool>(settingname))
             {
                 Main.log.Log("Patching cure spells to target enemies.");
                 AbilityConfigurator.For(AbilityRefs.CureLightWounds)

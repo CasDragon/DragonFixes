@@ -1,4 +1,4 @@
-﻿using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
+﻿using System.Linq;
 using BlueprintCore.Blueprints.References;
 using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
@@ -6,13 +6,8 @@ using Kingmaker.Enums;
 using Kingmaker.UnitLogic.Abilities.Components;
 using Kingmaker.UnitLogic.Mechanics.Actions;
 using Kingmaker.UnitLogic.Mechanics.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DragonFixes.Fixes.VariousFixes
+namespace DragonFixes.Fixes.MythicStuff
 {
     internal class AeonFirstAscensionAbility
     {

@@ -14,10 +14,13 @@ namespace DragonFixes.Fixes.Classes
 {
     internal class Oracle
     {
+        private const string settingname = "oracleapsurestrictionremoval";
+        private const string settingdescription = "Allow Oracle to select Apsu as a deity";
         [DragonConfigure]
+        [DragonSetting(SettingCategories.None, settingname, settingdescription)]
         public static void RemoveApsuRestriction()
         {
-            if (Settings.GetSetting<bool>("oracleapsurestrictionremoval"))
+            if (SettingsAction.GetSetting<bool>(settingname))
             {
                 Main.log.Log("Removing Apsu restriction from Oracle");
                 CharacterClassConfigurator.For(CharacterClassRefs.OracleClass)

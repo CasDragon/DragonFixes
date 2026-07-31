@@ -2,13 +2,8 @@
 using BlueprintCore.Blueprints.References;
 using DragonLibrary.Utils;
 using Kingmaker.Blueprints.Classes.Prerequisites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DragonFixes.Fixes.VariousFixes
+namespace DragonFixes.Fixes.UnitFeatures
 {
     internal class WeaponTraining
     {

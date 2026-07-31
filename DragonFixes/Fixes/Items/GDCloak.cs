@@ -1,14 +1,8 @@
-﻿using BlueprintCore.Blueprints.CustomConfigurators.Classes;
-using BlueprintCore.Blueprints.References;
+﻿using BlueprintCore.Blueprints.References;
 using DragonLibrary.Utils;
 using Kingmaker.UnitLogic.Mechanics.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DragonFixes.Fixes.VariousFixes
+namespace DragonFixes.Fixes.Items
 {
     internal class GDCloak
     {

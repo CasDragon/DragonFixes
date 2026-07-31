@@ -47,27 +47,20 @@ namespace DragonFixes
             {
                 try
                 {
-                    //if (!ModCompat.tttbase)
-                    //{
-                        if (Initialized)
-                        {
-                            log.Log("Already initialized blueprints cache.");
-                            return;
-                        }
-                        Initialized = true;
-                        log.Log("Generating localization file");
-                        LocalizedStringHelper.CreateLocalizationFile(LocalizedStringHelper.GetModFolderPath(entry), entry);
-                        LocalizationTool.LoadLocalizationPacks(Path.Combine(LocalizedStringHelper.GetModFolderPath(entry), "LocalizedStrings.json"));
-                        log.Log("Adding DragonFix settings");
-                        Settings.InitializeSettings();
-                        log.Log("Patching blueprints.");
-                        DragonConfigureAction.DoPatches(entry);
-                    /*}
-                    else
+                    if (Initialized)
                     {
-                        log.Log("TTT Base is found, delaying blueprint changes until StartGameLoader.LoadPackTOC. Suffer Toybox users.");
-                        delayConfig = true;
-                    }*/
+                        log.Log("Already initialized blueprints cache.");
+                        return;
+                    }
+                    Initialized = true;
+                    log.Log("Generating localization file");
+                    LocalizedStringHelper.CreateLocalizationFile(LocalizedStringHelper.GetModFolderPath(entry), entry);
+                    LocalizationTool.LoadLocalizationPacks(Path.Combine(LocalizedStringHelper.GetModFolderPath(entry), "LocalizedStrings.json"));
+                    log.Log("Adding DragonFix settings");
+                    //Settings.InitializeSettings();
+                    SettingsAction.InitializeSettings("dragonfixes", "DragonFixes", entry);
+                    log.Log("Patching blueprints.");
+                    DragonConfigureAction.DoPatches(entry);
                 }
                 catch (Exception e)
                 {
@@ -75,38 +68,5 @@ namespace DragonFixes
                 }
             }
         }
-        /*[HarmonyPatch(typeof(StartGameLoader))]
-        public static class StartGameLoader_Patch
-        {
-            private static bool Initialized = false;
-
-            [HarmonyAfter("DragonLibrary")]
-            [HarmonyPatch(nameof(StartGameLoader.LoadPackTOC)), HarmonyPostfix]
-            public static void Init_Postfix()
-            {
-                if (delayConfig)
-                {
-                    try
-                    {
-                        if (Initialized)
-                        {
-                            log.Log("Already initialized blueprints cache.");
-                            return;
-                        }
-                        Initialized = true;
-                        log.Log("Generating localization file");
-                        LocalizedStringHelper.CreateLocalizationFile(LocalizedStringHelper.GetModFolderPath(entry), entry);
-                        log.Log("Adding DragonFix settings");
-                        Settings.InitializeSettings();
-                        log.Log("Patching blueprints.");
-                        DragonConfigureAction.DoPatches(entry);
-                    }
-                    catch (Exception e)
-                    {
-                        log.Log(string.Concat("Failed to initialize.", e));
-                    }
-                }
-            }
-        }*/
     }
 }
