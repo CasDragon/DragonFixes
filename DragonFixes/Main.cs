@@ -47,8 +47,8 @@ namespace DragonFixes
             {
                 try
                 {
-                    if (!ModCompat.tttbase)
-                    {
+                    //if (!ModCompat.tttbase)
+                    //{
                         if (Initialized)
                         {
                             log.Log("Already initialized blueprints cache.");
@@ -62,12 +62,12 @@ namespace DragonFixes
                         Settings.InitializeSettings();
                         log.Log("Patching blueprints.");
                         DragonConfigureAction.DoPatches(entry);
-                    }
+                    /*}
                     else
                     {
                         log.Log("TTT Base is found, delaying blueprint changes until StartGameLoader.LoadPackTOC. Suffer Toybox users.");
                         delayConfig = true;
-                    }
+                    }*/
                 }
                 catch (Exception e)
                 {
@@ -75,7 +75,7 @@ namespace DragonFixes
                 }
             }
         }
-        [HarmonyPatch(typeof(StartGameLoader))]
+        /*[HarmonyPatch(typeof(StartGameLoader))]
         public static class StartGameLoader_Patch
         {
             private static bool Initialized = false;
@@ -107,6 +107,6 @@ namespace DragonFixes
                     }
                 }
             }
-        }
+        }*/
     }
 }

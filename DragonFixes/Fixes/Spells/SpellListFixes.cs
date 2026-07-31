@@ -32,7 +32,7 @@ namespace DragonFixes.Fixes.Spells
                     DragonHelpers.RemoveComponent<SpellListComponent>(spell);
                 }
                 DragonHelpers.RemoveComponent<CraftInfoComponent>(spell);
-                if (ModCompat.tttbase)
+                /*if (ModCompat.tttbase)
                 {
                     Main.log.Log("Dupe Finger of Death remains due to TTT-Base, changing name so people know");
                     AbilityConfigurator.For(spell)
@@ -40,7 +40,7 @@ namespace DragonFixes.Fixes.Spells
                         .SetDescription(Main.tttbrokendescription)
                         .SetHidden(true)
                         .Configure();
-                }
+                }*/
             }
         }
         [DragonConfigure]
@@ -57,14 +57,14 @@ namespace DragonFixes.Fixes.Spells
                     DragonHelpers.RemoveComponent<SpellListComponent>(spell);
                 }
                 DragonHelpers.RemoveComponent<CraftInfoComponent>(spell);
-                if (ModCompat.tttbase)
+                /*if (ModCompat.tttbase)
                 {
                     Main.log.Log("Breath of Flies remains in wrong spell list due to TTT-Base, changing name so people know");
                     AbilityConfigurator.For(spell)
                         .SetDisplayName(Main.tttbrokenname)
                         .SetDescription(Main.tttbrokendescription)
                         .Configure();
-                }
+                }*/
             }
         }
     }
