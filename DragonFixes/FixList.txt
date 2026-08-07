@@ -94,3 +94,4 @@
 - Fix Broken Phylactery item to not convert your damage to Fire and also increase your attack bonus
 - Fix Lesser Celestial Totem from proc-ing off 0 hp heals (toggeable in settings, because I am merciful today)
 - Add Clear Mind and Come And Get Me features to the Lich's skeleton pet's barbarian selection
+- Fix Mask Of Nothing making your TrueSeeing buffs not work on enemies
