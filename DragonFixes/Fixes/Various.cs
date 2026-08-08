@@ -2,42 +2,25 @@
 using BlueprintCore.Actions.Builder;
 using BlueprintCore.Actions.Builder.ContextEx;
 using BlueprintCore.Blueprints.Configurators.DialogSystem;
-using BlueprintCore.Blueprints.Configurators.Items.Armors;
-using BlueprintCore.Blueprints.Configurators.Items.Ecnchantments;
-using BlueprintCore.Blueprints.Configurators.Items.Equipment;
-using BlueprintCore.Blueprints.Configurators.Items.Weapons;
 using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
-using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
-using BlueprintCore.Conditions.Builder;
-using BlueprintCore.Conditions.Builder.ContextEx;
-using BlueprintCore.Utils;
 using BlueprintCore.Utils.Types;
-using DragonFixes.Util;
 using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Blueprints.Classes.Spells;
-using Kingmaker.Blueprints.Items.Ecnchantments;
-using Kingmaker.Designers.EventConditionActionSystem.Actions;
 using Kingmaker.Designers.Mechanics.Facts;
-using Kingmaker.ElementsSystem;
-using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums;
 using Kingmaker.RuleSystem;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Abilities.Components;
-using Kingmaker.UnitLogic.Abilities.Components.AreaEffects;
 using Kingmaker.UnitLogic.Abilities.Components.TargetCheckers;
-using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.UnitLogic.FactLogic;
 using Kingmaker.UnitLogic.Mechanics;
 using Kingmaker.UnitLogic.Mechanics.Actions;
 using Kingmaker.UnitLogic.Mechanics.Components;
-using Kingmaker.UnitLogic.Mechanics.Conditions;
-using Kingmaker.Utility;
 
 namespace DragonFixes.Fixes
 {
@@ -75,13 +58,6 @@ namespace DragonFixes.Fixes
                 .Configure();
         }
         [DragonConfigure]
-        public static void PatchBestialRags()
-        {
-            Main.log.Log("Patching bestial rags");
-            BlueprintBuff bp = BuffRefs.BestialRagsBuff.Reference.Get();
-            DragonHelpers.RemoveComponent(bp, bp.GetComponent<SpellDescriptorComponent>());
-        }
-        [DragonConfigure]
         public static void PatchInspiringCommand()
         {
             Main.log.Log("Patching Inspiring Command");
@@ -90,33 +66,6 @@ namespace DragonFixes.Fixes
                 .Configure();
             AbilityConfigurator.For(AbilityRefs.NobilityDomainBaseAbilitySeparatist)
                 .SetType(AbilityType.Supernatural)
-                .Configure();
-        }
-        [DragonConfigure]
-        public static void PatchNeophyteGloves()
-        {
-            Main.log.Log("Patching the Gloves of the Neophyte to add the missing spells");
-            BlueprintFeature bp = FeatureRefs.GlovesOfNeophyteFeature.Reference.Get();
-            DragonHelpers.RemoveComponent(bp, bp.GetComponent<DiceDamageBonusOnSpell>());
-            FeatureConfigurator.For(bp)
-                .AddDiceDamageBonusOnSpell(spells: [
-                    AbilityRefs.ShockingGraspEffect.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                    AbilityRefs.IncendiaryRunes.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                    AbilityRefs.AcidSplash.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                    AbilityRefs.Jolt.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                    AbilityRefs.RayOfFrost.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                    AbilityRefs.BurningHands.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                    AbilityRefs.CorrosiveTouch.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                    AbilityRefs.CureLightWoundsDamage.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                    AbilityRefs.EarPiercingScream.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                    AbilityRefs.FirebellyAbility.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                    AbilityRefs.MagicMissile.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                    AbilityRefs.Snowball.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                    AbilityRefs.DivineZap.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                    AbilityRefs.Ignition.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                    AbilityRefs.InflictLightWoundsDamage.Reference.Get().ToReference<BlueprintAbilityReference>()
-                    ], 
-                    mergeBehavior: BlueprintCore.Blueprints.CustomConfigurators.ComponentMerge.Replace)
                 .Configure();
         }
 
@@ -169,95 +118,7 @@ namespace DragonFixes.Fixes
                         type: AbilityType.Spell)
                 .Configure();
         }
-        internal const string abruptendbuffname = "Abrupt End";
-        internal const string abruptendbuffdescription = "+2 Insight bonus to attack rolls.";
-        [DragonLocalizedString(abruptendbuffnamekey, abruptendbuffname)]
-        internal const string abruptendbuffnamekey = "abruptendbuff.name";
-        [DragonLocalizedString(abruptendbuffdescriptionkey, abruptendbuffdescription, true)]
-        internal const string abruptendbuffdescriptionkey = "abruptendbuff.description";
 
-        [DragonConfigure]
-        public static void PatchAbruptEndEnchant()
-        {
-            Main.log.Log("Patching Abrupt End to actually work?");
-            BlueprintBuff buff = BuffConfigurator.New("abruptendbuff", Guids.EbruptEndBuff)
-                .SetDisplayName(abruptendbuffnamekey)
-                .SetDescription(abruptendbuffdescriptionkey)
-                .AddContextStatBonus(StatType.AdditionalAttackBonus, ContextValues.Constant(2), ModifierDescriptor.Insight)
-                .AddRemoveBuffOnAttack()
-                .Configure();
-            BlueprintWeaponEnchantment enchant = WeaponEnchantmentConfigurator.For(WeaponEnchantmentRefs.AbruptEndEnchantment)
-                .AddInitiatorAttackWithWeaponTrigger(onlyHit: true, action:
-                    ActionsBuilder.New()
-                            .ApplyBuff(buff, new ContextDurationValue()
-                            {
-                                Rate = DurationRate.Rounds,
-                                DiceType = DiceType.Zero,
-                                DiceCountValue = ContextValues.Constant(0),
-                                BonusValue = ContextValues.Constant(1)
-                            },
-                            asChild: true, toCaster: true), triggerBeforeAttack: true)
-                .Configure();
-        }
-        internal const string devitalizerbuffname = "Devitalizer";
-        internal const string devitalizerbuffdescription = "+2 Circumstance bonus to attack and damage rolls against Exhausted enemies.";
-        [DragonLocalizedString(devitalizerbuffnamekey, devitalizerbuffname)]
-        internal const string devitalizerbuffnamekey = "devitalizerbuff.name";
-        [DragonLocalizedString(devitalizerbuffdescriptionkey, devitalizerbuffdescription, true)]
-        internal const string devitalizerbuffdescriptionkey = "devitalizerbuff.description";
-        [DragonConfigure]
-        public static void PatchDevitalizer()
-        {
-            Main.log.Log("Patching Devitalizer to actually work?");
-            BlueprintBuff buff = BuffConfigurator.New("devitalizerbuff", Guids.DevitalizerBuff)
-                .SetDisplayName(devitalizerbuffnamekey)
-                .SetDescription(devitalizerbuffdescriptionkey)
-                .AddContextStatBonus(StatType.AdditionalAttackBonus, ContextValues.Constant(2), ModifierDescriptor.Circumstance)
-                .AddContextStatBonus(StatType.AdditionalDamage, ContextValues.Constant(2), ModifierDescriptor.Circumstance)
-                .AddRemoveBuffOnAttack()
-                .Configure();
-            BlueprintWeaponEnchantment enchant = WeaponEnchantmentRefs.DevitalizerEnchantment.Reference.Get();
-            DragonHelpers.RemoveComponent(enchant, enchant.GetComponent<AddInitiatorAttackWithWeaponTrigger>());
-            WeaponEnchantmentConfigurator.For(enchant)
-                .AddInitiatorAttackWithWeaponTrigger(onlyHit: true, action:
-                    ActionsBuilder.New()
-                        .Conditional(ConditionsBuilder.New()
-                            .HasBuffWithDescriptor(spellDescriptor: SpellDescriptor.Exhausted),
-                            ifTrue:
-                                ActionsBuilder.New()
-                                    .ApplyBuff(buff, new ContextDurationValue()
-                                    {
-                                        Rate = DurationRate.Rounds,
-                                        DiceType = DiceType.Zero,
-                                        DiceCountValue = ContextValues.Constant(0),
-                                        BonusValue = ContextValues.Constant(1)
-                                    },
-                                    asChild: true, toCaster: true)),
-                    triggerBeforeAttack: true)
-                .Configure();
-        }
-
-        [DragonConfigure]
-        public static void PatchFreeRein()
-        {
-            if (ModCompat.tttbase && TTTSettingChecker.CheckSpellsFixes("FreedomOfMovement"))
-            {
-                Main.log.Log("TTT installed and stagger setting is enabled, disabling Free Rein fix");
-                return;
-            }
-            Main.log.Log("Patching Free Rein and Freest Rein");
-            BlueprintBuff buff = BuffConfigurator.For(BuffRefs.BootsOfFreereinBuff)
-                .AddBuffDescriptorImmunity(false, SpellDescriptor.Staggered)
-                .Configure();
-            BlueprintFeature bp = FeatureRefs.BootsOfFreestReinFeature.Reference.Get();
-            DragonHelpers.RemoveComponent(bp, bp.GetComponent<AddFactContextActions>());
-            FeatureConfigurator.For(bp)
-                .AddFactContextActions(activated: ActionsBuilder.New()
-                            .ApplyBuffPermanent(buff, true),
-                        deactivated: ActionsBuilder.New()
-                            .RemoveBuff(buff))
-                .Configure();
-        }
         [DragonConfigure]
         public static void PatchFighterFinessDamageFeature()
         {
@@ -289,42 +150,11 @@ namespace DragonFixes.Fixes
             DragonHelpers.RemoveComponent<AbilityTargetHasFact>(halt);
         }
         [DragonConfigure]
-        public static void PatchDeadlyFascination()
-        {
-            Main.log.Log("Patching MantisZealotDeadlyFascinationAbility to include MindEffecting descriptor.");
-            AbilityConfigurator.For(AbilityRefs.MantisZealotDeadlyFascinationAbility)
-                .SetSpellDescriptor(SpellDescriptor.MindAffecting | SpellDescriptor.Charm | SpellDescriptor.Daze)
-                .Configure();
-        }
-        [DragonConfigure]
         public static void PatchTieflingHeritageDemodand()
         {
             Main.log.Log("Patching TieflingHeritageDemodand to remove AND condition.");
             FeatureConfigurator.For(FeatureRefs.TieflingHeritageDemodand)
                 .EditComponent<AttackBonusConditional>(c => c.Conditions.Operation = Kingmaker.ElementsSystem.Operation.Or)
-                .Configure();
-        }
-        [DragonConfigure]
-        public static void PatchCursedArmor()
-        {
-            Main.log.Log("Patching cursed armor");
-            BuffConfigurator.For(BuffRefs.CursedDelameresArmorBuff)
-                .EditComponent<ContextSetAbilityParams>(c => c.CasterLevel.Value = 7)
-                .Configure();
-            BuffConfigurator.For(BuffRefs.CursedDelameresBowCurse)
-                .EditComponent<ContextSetAbilityParams>(c => c.CasterLevel.Value = 7)
-                .Configure();
-            BuffConfigurator.For(BuffRefs.MaskOfNothingBuff)
-                .EditComponent<ContextSetAbilityParams>(c => c.CasterLevel.Value = 10)
-                .Configure();
-            BuffConfigurator.For(BuffRefs.StorytellerAreshkaMaskBuff)
-                .EditComponent<ContextSetAbilityParams>(c => c.CasterLevel.Value = 10)
-                .Configure();
-            BuffConfigurator.For(BuffRefs.TheTyranyOfMindCurseBuff)
-                .EditComponent<ContextSetAbilityParams>(c => c.CasterLevel.Value = 4)
-                .Configure();
-            BuffConfigurator.For(BuffRefs.WickedKukriBuff)
-                .EditComponent<ContextSetAbilityParams>(c => c.CasterLevel.Value = 9)
                 .Configure();
         }
         [DragonConfigure]
