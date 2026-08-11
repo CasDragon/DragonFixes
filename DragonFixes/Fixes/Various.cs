@@ -167,17 +167,13 @@ namespace DragonFixes.Fixes
         }
 
 
-        public const string breetypo =
-            "The silver dragon Terendelev fell in battle — hardly surprising, as she had to fight the demon lord Deskari himself. He willed the land to part and swallow all who dared to stand in his way. But the war was still far from over.";
 
-        [DragonLocalizedString(breetypokey, breetypo)]
-        public const string breetypokey = "bree_typo.one";
 
         [DragonConfigure]
         public static void LocalizationNonsense()
         {
             CueConfigurator.For("0df3b5e250906534eac207b3dc5a5d07")
-                .SetText(breetypokey)
+                .SetText(Main.breetypokey)
                 .Configure();
         }
     }

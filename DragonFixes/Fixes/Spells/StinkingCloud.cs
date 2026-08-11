@@ -13,6 +13,7 @@ public class StinkingCloud
     private const string settingname = "stinkycloud";
     private const string settingdescription = "Fix Stinking Cloud to only call for 1 save with TTT installed";
     [DragonConfigure]
+    [DragonSetting(SettingCategories.None, settingname, settingdescription)]
     public static void PatchStinkingCloud()
     {
         if (SettingsAction.GetSetting<bool>(settingname))

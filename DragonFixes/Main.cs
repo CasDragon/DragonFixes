@@ -26,7 +26,11 @@ namespace DragonFixes
         [DragonLocalizedString(tttbrokenname, "BROKEN")]
         internal const string tttbrokenname = "vekbrokethis.name";
         [DragonLocalizedString(tttbrokendescription, "TTT-Base breaks the fix for this, do not use!")]
-        internal const string tttbrokendescription = "vekbrokethis.description";
+        internal const string tttbrokendescription = "vekbrokethis.description";        
+        internal const string breetypo =
+            "The silver dragon Terendelev fell in battle — hardly surprising, as she had to fight the demon lord Deskari himself. He willed the land to part and swallow all who dared to stand in his way. But the war was still far from over.";
+        [DragonLocalizedString(breetypokey, breetypo)]
+        internal const string breetypokey = "bree_typo.one";
 
         public static bool Load(UnityModManager.ModEntry modEntry)
         {
