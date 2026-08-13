@@ -45,7 +45,7 @@ namespace DragonFixes
         {
             private static bool Initialized = false;
 
-            [HarmonyAfter("DragonLibrary")]
+            [HarmonyAfter("DragonLibrary", "TabletopTweaks-Base")]
             [HarmonyPatch(nameof(BlueprintsCache.Init)), HarmonyPostfix]
             public static void Init_Postfix()
             {
