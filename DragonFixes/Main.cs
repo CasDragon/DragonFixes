@@ -61,7 +61,6 @@ namespace DragonFixes
                     LocalizedStringHelper.CreateLocalizationFile(LocalizedStringHelper.GetModFolderPath(entry), entry);
                     LocalizationTool.LoadLocalizationPacks(Path.Combine(LocalizedStringHelper.GetModFolderPath(entry), "LocalizedStrings.json"));
                     log.Log("Adding DragonFix settings");
-                    //Settings.InitializeSettings();
                     SettingsAction.InitializeSettings("dragonfixes", "DragonFixes", entry);
                     log.Log("Patching blueprints.");
                     DragonConfigureAction.DoPatches(entry);
