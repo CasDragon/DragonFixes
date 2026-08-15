@@ -1,20 +1,15 @@
-﻿using BlueprintCore.Blueprints.Configurators.AreaLogic.Etudes;
+﻿using System.Linq;
 using BlueprintCore.Blueprints.Configurators.DialogSystem;
 using BlueprintCore.Utils;
-using DragonFixes.Util;
 using DragonLibrary.Utils;
 using Kingmaker.AreaLogic.Etudes;
 using Kingmaker.Blueprints;
-using Kingmaker.Designers.EventConditionActionSystem.Conditions;
-using Kingmaker.Designers.EventConditionActionSystem.Evaluators;
 using Kingmaker.Designers.EventConditionActionSystem.Events;
 using Kingmaker.ElementsSystem;
 using Kingmaker.UnitLogic.FactLogic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using CompanionInParty = Kingmaker.Designers.EventConditionActionSystem.Conditions.CompanionInParty;
 
-namespace DragonFixes.Fixes.Whiterock
+namespace DragonFixes.Fixes.Dialog
 {
     internal class Dialog
     {
@@ -89,17 +84,15 @@ namespace DragonFixes.Fixes.Whiterock
         {
             Main.log.Log("Patching etude Chapter03 for whiterock nonsense");
             BlueprintEtude x = BlueprintTool.Get<BlueprintEtude>("15e0048c7daf0ac4999c2313b58df0e3");
-            EtudePlayTrigger y = x.GetComponents<EtudePlayTrigger>()
-                .Where(c => 
-                    c.Conditions.Conditions
-                        .OfType<Kingmaker.Designers.EventConditionActionSystem.Conditions.CompanionInParty>()
-                        .Any() 
-                    &&
-                    c.Actions.Actions
-                        .OfType<AddVendorItemsAction>()
-                        .Any()
-                    )
-                .FirstOrDefault();
+            EtudePlayTrigger y = x
+                .GetComponents<EtudePlayTrigger>()
+                .FirstOrDefault(c => c.Conditions.Conditions
+                                         .OfType<CompanionInParty>()
+                                         .Any() 
+                                     &&
+                                     c.Actions.Actions
+                                         .OfType<AddVendorItemsAction>()
+                                         .Any());
             if (y is null)
                 return;
             AddVendorItemsAction z = (AddVendorItemsAction)y.Actions.Actions[0];

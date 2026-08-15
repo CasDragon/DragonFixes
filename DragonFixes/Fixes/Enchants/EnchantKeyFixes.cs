@@ -1,13 +1,8 @@
 ﻿using BlueprintCore.Blueprints.Configurators.Items.Ecnchantments;
 using BlueprintCore.Blueprints.References;
 using DragonLibrary.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DragonFixes.Fixes.Whiterock
+namespace DragonFixes.Fixes.Enchants
 {
     internal class EnchantKeyFixes
     {

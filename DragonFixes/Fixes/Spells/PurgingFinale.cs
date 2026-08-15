@@ -9,7 +9,7 @@ using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Abilities.Components;
 using Kingmaker.UnitLogic.Mechanics.Actions;
 
-namespace DragonFixes.Fixes.UnitFeatures;
+namespace DragonFixes.Fixes.Spells;
 
 public class PurgingFinale
 {

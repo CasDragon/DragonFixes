@@ -18,15 +18,14 @@ namespace DragonFixes.Fixes
         {
             Main.log.Log("Patching 'OtherNaturalAttack' nonsense for Clutch of Corruption");
             FeatureConfigurator.For(FeatureRefs.ClutchOfCorruptionFeature)
-                .EditComponent<AddInitiatorAttackWithWeaponTrigger>(c => stuff(c))
+                .EditComponent<AddInitiatorAttackWithWeaponTrigger>(stuff)
                 .Configure();
             Main.log.Log("Patching 'OtherNaturalAttack' nonsense for Cobra Pads");
             FeatureConfigurator.For(FeatureRefs.CobraPadsFeature)
-                .EditComponent<AddInitiatorAttackWithWeaponTrigger>(c => stuff(c))
+                .EditComponent<AddInitiatorAttackWithWeaponTrigger>(stuff)
                 .Configure();
             Main.log.Log("Patching 'OtherNaturalAttack' nonsense for AncientWoodFeature");
             BlueprintFeature bp = FeatureConfigurator.For(FeatureRefs.AncientWoodFeature)
-                //.RemoveComponents(c => c is ACBonusAgainstWeaponCategory)
                 .AddACBonusAgainstWeaponGroup(armorClassBonus: 3, descriptor: ModifierDescriptor.Competence, fighterGroup: WeaponFighterGroup.Natural)
                 .Configure();
             DragonHelpers.RemoveComponent(bp, bp.GetComponent<ACBonusAgainstWeaponCategory>());

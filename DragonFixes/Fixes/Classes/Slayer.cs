@@ -7,8 +7,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using Kingmaker.Blueprints;
+using Kingmaker.Designers.EventConditionActionSystem.Actions;
 using Kingmaker.Designers.Mechanics.Facts;
+using Kingmaker.ElementsSystem;
+using Kingmaker.UnitLogic.Mechanics.Conditions;
 
 namespace DragonFixes.Fixes.Classes
 {
@@ -30,6 +34,25 @@ namespace DragonFixes.Fixes.Classes
             FeatureConfigurator.For(FeatureRefs.IroriFeature)
                 .EditComponent<AddFeatureOnClassLevel>(c => c.m_AdditionalClasses = [.. c.m_AdditionalClasses, 
                     CharacterClassRefs.SlayerClass.Reference.Get().ToReference<BlueprintCharacterClassReference>()])
+                .Configure();
+        }
+
+        [DragonConfigure]
+        public static void PatchStudyTarget()
+        {
+            Main.log.Log("Patching SlayerStudyTargetBuff to correctly use AND logic");
+            BuffConfigurator.For(BuffRefs.SlayerStudyTargetBuff)
+                .EditComponent<AddFactContextActions>(c => c.Activated.Actions
+                        .OfType<Conditional>()
+                        .First(x => x.ConditionsChecker.Conditions
+                            .OfType<ContextConditionCasterHasFact>()
+                            .First()
+                            .m_Fact.deserializedGuid == FeatureRefs.ExecutionerFocusedKiller.Reference.deserializedGuid)
+                        .IfTrue.Actions
+                        .OfType<Conditional>()
+                        .First()
+                        .ConditionsChecker.Operation = Operation.And
+                )
                 .Configure();
         }
     }
