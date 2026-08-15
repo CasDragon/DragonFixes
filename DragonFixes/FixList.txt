@@ -97,3 +97,4 @@
 - Fix Mask Of Nothing making your TrueSeeing buffs not work on enemies
 - Fix mythic monsters from not getting their bonus to Will saves (they previously got 2 bonuses to Reflex saves)
 - Fix Purging Finale to work as intended. Yes, this is a massive nerf, no, I don't care
+- Fix Tortured Crusader's Last Man Standing feature from gaining bonuses from summoned spiders (Owlcat hates this archetype and nerfed it into the ground, so I shall follow their lead, no fun allowed!)
