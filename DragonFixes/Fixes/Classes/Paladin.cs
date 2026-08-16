@@ -31,11 +31,12 @@ public class Paladin
             Faction = FactionRefs.Summoned.Reference.Get(),
             Not = true
         };
+        var zzzz = new ConditionIsSummon();
         var runAction = AbilityAreaEffectRefs.LastManAreaEffect.Reference.Get()
             .GetComponent<AbilityAreaEffectRunAction>();
         var condition1 = runAction!.UnitEnter.Actions.First(c => c is Conditional) as Conditional;
-        condition1!.ConditionsChecker.Conditions = [.. condition1.ConditionsChecker.Conditions, x, y, z];
+        condition1!.ConditionsChecker.Conditions = [.. condition1.ConditionsChecker.Conditions, x, y, z, zzzz];
         var condition2 = runAction!.Round.Actions.First(c => c is Conditional) as Conditional;
-        condition2!.ConditionsChecker.Conditions = [.. condition2.ConditionsChecker.Conditions, x, y, z];
+        condition2!.ConditionsChecker.Conditions = [.. condition2.ConditionsChecker.Conditions, x, y, z, zzzz];
     }
 }
