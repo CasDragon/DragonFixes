@@ -21,15 +21,21 @@ public class Paladin
             m_Buff = BuffRefs.ClemencyOfShadowsExclusionBuff.Reference.Get().ToReference<BlueprintBuffReference>(),
             Not = true
         };
+        var z = new ContextConditionHasBuff()
+        {
+            m_Buff = BuffRefs.NaturalAllyCreatureVisual.Reference.Get().ToReference<BlueprintBuffReference>(),
+            Not = true
+        };
         var y = new ConditionIsFaction()
         {
-            Faction = FactionRefs.Summoned.Reference.Get()
+            Faction = FactionRefs.Summoned.Reference.Get(),
+            Not = true
         };
         var runAction = AbilityAreaEffectRefs.LastManAreaEffect.Reference.Get()
             .GetComponent<AbilityAreaEffectRunAction>();
         var condition1 = runAction!.UnitEnter.Actions.First(c => c is Conditional) as Conditional;
-        condition1!.ConditionsChecker.Conditions = [.. condition1.ConditionsChecker.Conditions, x, y];
+        condition1!.ConditionsChecker.Conditions = [.. condition1.ConditionsChecker.Conditions, x, y, z];
         var condition2 = runAction!.Round.Actions.First(c => c is Conditional) as Conditional;
-        condition2!.ConditionsChecker.Conditions = [.. condition2.ConditionsChecker.Conditions, x, y];
+        condition2!.ConditionsChecker.Conditions = [.. condition2.ConditionsChecker.Conditions, x, y, z];
     }
 }
