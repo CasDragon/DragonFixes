@@ -101,3 +101,5 @@
 - Fix Tortured Crusader's Alone in the Dark feature from gaining bonuses from any summons? Different fix, this one I didn't test
 - Chain Lightning: Intensified Spell now actually raises its damage dice cap. The blueprint had the Intensified flag on a rank config the damage never read, so the metamagic did nothing at any caster level. -Fix from Tia
 - Vampiric Touch and Corrosive Touch can now take the metamagics they were always built for. Both spells are two blueprints and only the spellbook half is checked for metamagic (and was never kept in sync). Therefore, Intensified and Piercing (plus Extend on Vampiric Touch) were never available. -Fix from Tia
+- Kineticist: Ice Blast now deals composite blast damage. It was set to simple blast dice with a halved Constitution bonus, so it hit like a basic blast while charging composite burn. Kinetic Blade and Fragmentation versions are fixed too. -Fix from Tia
+- Kineticist: Metal Blast's Deadly Earth (both the normal and Rare Metal versions) was halving its damage twice, so the area dealt a quarter of what it should. Compare Mud's Deadly Earth, which is built identically and was correct. -Fix from Tia
