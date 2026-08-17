@@ -99,3 +99,4 @@
 - Fix Purging Finale to work as intended. Yes, this is a massive nerf, no, I don't care
 - Fix Tortured Crusader's Alone in the Dark feature from gaining bonuses from summoned spiders (Owlcat hates this archetype and nerfed it into the ground, so I shall follow their lead, no fun allowed!)
 - Fix Tortured Crusader's Alone in the Dark feature from gaining bonuses from any summons? Different fix, this one I didn't test
+- Chain Lightning: Intensified Spell now actually raises its damage dice cap. The blueprint had the Intensified flag on a rank config the damage never read, so the metamagic did nothing at any caster level. -Fix from Tia
