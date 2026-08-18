@@ -46,7 +46,7 @@ namespace DragonFixes.Fixes.Classes
                     resource: AbilityResourceRefs.ScaledFistPowerResource.Reference.Get(),
                     value: 2)
                 .AddFeatureTagsComponent(FeatureTag.ClassSpecific)
-                .AddPrerequisiteFeature(FeatureRefs.DrunkenKiPoisonFeature.Reference.Get(),
+                .AddPrerequisiteFeature(FeatureRefs.KiPowerDrunkenFeature.Reference.Get(),
                     group: Prerequisite.GroupType.Any)
                 .Configure();
         }
