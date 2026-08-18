@@ -41,7 +41,7 @@ namespace DragonFixes.Patches
         private static readonly ConditionalWeakTable<UnitAttack, StrongBox<TimeSpan>> BlockedSince =
             new ConditionalWeakTable<UnitAttack, StrongBox<TimeSpan>>();
 
-        [HarmonyPatch(typeof(UnitCommandController), "ShouldStartCommand"), HarmonyPostfix]
+        [HarmonyPatch(typeof(UnitCommandController), nameof(UnitCommandController.ShouldStartCommand)), HarmonyPostfix]
         private static void ShouldStartCommand_Postfix(UnitCommand command, ref bool __result)
         {
             try

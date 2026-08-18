@@ -28,9 +28,14 @@ namespace DragonFixes.Patches
 
         private const string SettingName = "chargeaoodefer";
         private const string SettingDescription =
-            "Charge: a free attack granted mid-charge waits for the charge to land first;
+            "Charge: a free attack granted mid-charge waits for the charge to land first";
 
-        [DragonSetting(SettingCategories.None, SettingName, SettingDescription)]
+        public static void Test(bool enabled)
+        {
+            //
+        }
+
+        [DragonSetting(SettingCategories.None, SettingName, SettingDescription, typeof(ChargeAooDeferFix), nameof(Test))]
         private static bool Enabled()
         {
             return SettingsAction.GetSetting<bool>(SettingName);
@@ -169,9 +174,9 @@ namespace DragonFixes.Patches
 
         private static bool IsAlreadyDeferred(UnitEntityData attacker, UnitEntityData target)
         {
-            for (int i = 0; i < Deferred.Count; i++)
+            foreach (var t in Deferred)
             {
-                if (Deferred[i].Attacker == attacker && Deferred[i].Target == target)
+                if (t.Attacker == attacker && t.Target == target)
                     return true;
             }
 
