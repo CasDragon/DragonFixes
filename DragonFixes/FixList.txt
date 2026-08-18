@@ -108,3 +108,4 @@
 - Fix for Two Weapon Fighting not working with 2 unarmed attacks, untested
 - Fix Extra Ki not working more than once
 - Fix Extra Reservoir not working more than once  
+- Whiterock bullied me into ~~buffing~~ "fixing" Extra Ki so that Drunken Monks can take it. Very sus

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using Kingmaker.Blueprints;
+using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Blueprints.Classes.Selection;
 using Kingmaker.UnitLogic.FactLogic;
 
@@ -45,6 +46,8 @@ namespace DragonFixes.Fixes.Classes
                     resource: AbilityResourceRefs.ScaledFistPowerResource.Reference.Get(),
                     value: 2)
                 .AddFeatureTagsComponent(FeatureTag.ClassSpecific)
+                .AddPrerequisiteFeature(FeatureRefs.DrunkenKiPoisonFeature.Reference.Get(),
+                    group: Prerequisite.GroupType.Any)
                 .Configure();
         }
     }
