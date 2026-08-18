@@ -20,9 +20,8 @@ namespace DragonFixes
     public static class Main
     {
         internal static Harmony HarmonyInstance;
-        internal static UnityModManager.ModEntry.ModLogger log;
+        internal static ModEntry.ModLogger log;
         internal static ModEntry entry;
-        internal static bool delayConfig = false;
         [DragonLocalizedString(tttbrokenname, "BROKEN")]
         internal const string tttbrokenname = "vekbrokethis.name";
         [DragonLocalizedString(tttbrokendescription, "TTT-Base breaks the fix for this, do not use!")]
@@ -32,7 +31,7 @@ namespace DragonFixes
         [DragonLocalizedString(breetypokey, breetypo)]
         internal const string breetypokey = "bree_typo.one";
 
-        public static bool Load(UnityModManager.ModEntry modEntry)
+        public static bool Load(ModEntry modEntry)
         {
             entry = modEntry;
             log = modEntry.Logger;

@@ -7,12 +7,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DragonLibrary.Utils;
 
 namespace DragonFixes.Patches
 {
-    /*[HarmonyPatch]
+    [HarmonyPatch]
+    [HarmonyPatchCategory("emergencyareaetudethingy")]
     public static class EtudeStatusNonsense
     {
+        private const string SettingName = "emergencyareaetudethingy";
+
+        private const string SettingDescription =
+            "DO NOT ENABLE WITHOUT BEING TOLD TO, THIS WILL BREAK OTHER THINGS!!!!!\nThis is a workaround for edge cases where "
+            + "an area is loaded before the etude it is looking for loads. The only known time this has happened so far is "
+            + "with the Act 3 Demon mythic quest, where you are supposed to be kidnapped. To use, toggle on, load into the "
+            + "area effected, and then toggle this setting off.\n"
+            + "AGAIN, DO NOT ENABLE WITHOUT BEING TOLD TO, IT BREAKS OTHER THINGS";
+
+        public static void ChangePatchStatus(bool enabled)
+        {
+            if (enabled)
+            {
+                Main.log.Log("EtudeStatusNonsense enabled");
+                Main.HarmonyInstance.PatchCategory("emergencyareaetudethingy");
+            }
+            else
+            {
+                Main.log.Log("EtudeStatusNonsense disabled");
+                Main.HarmonyInstance.UnpatchCategory("emergencyareaetudethingy");
+            }
+        }
+
+        [DragonSetting(SettingCategories.None, SettingName, SettingDescription, typeof(EtudeStatusNonsense), nameof(ChangePatchStatus), false)]
+        [DragonConfigure]
+        private static void ApplyPatch()
+        {
+            ChangePatchStatus(false);
+            SettingsAction.SetSettingToggle(SettingName, false);
+        }
+        
         [HarmonyPatch(typeof(EtudeStatus), nameof(EtudeStatus.CheckCondition)), HarmonyTranspiler]
         private static IEnumerable<CodeInstruction> Trans(IEnumerable<CodeInstruction> instructions)
         {
@@ -65,5 +98,5 @@ namespace DragonFixes.Patches
                 return ret;
             }
         }
-    }*/
+    }
 }

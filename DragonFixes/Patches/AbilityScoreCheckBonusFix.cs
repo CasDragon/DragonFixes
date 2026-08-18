@@ -15,26 +15,21 @@ namespace DragonFixes.Patches
     [HarmonyPatch]
     internal class AbilityScoreCheckBonusFix
     {
-
         // From ADDB 
         [HarmonyPatch(typeof(AbilityScoreCheckBonus), nameof(AbilityScoreCheckBonus.OnEventAboutToTrigger)), HarmonyPrefix]
         private static bool OnEventAboutToTrigger(RuleRollD20 evt, AbilityScoreCheckBonus __instance)
         {
-            RuleSkillCheck ruleSkillCheck = Rulebook.CurrentContext.PreviousEvent as RuleSkillCheck;
-            if (ruleSkillCheck != null && ruleSkillCheck.StatType == __instance.Stat)
+            if (Rulebook.CurrentContext.PreviousEvent is not RuleSkillCheck ruleSkillCheck ||
+                ruleSkillCheck.StatType != __instance.Stat) return false;
+            var stat = ruleSkillCheck.Initiator.Stats.GetStat(__instance.Stat);
+            if (stat == null) return false;
+            int bonus = __instance.Bonus.Calculate(__instance.Context);
+            if (__instance.Stat.IsAttribute())
             {
-                var stat = ruleSkillCheck.Initiator.Stats.GetStat(__instance.Stat);
-                if (stat != null)
-                {
-                    int bonus = __instance.Bonus.Calculate(__instance.Context);
-                    if (StatTypeHelper.IsAttribute(__instance.Stat))
-                    {
-                        bonus *= 2;
-                    }
-                    ruleSkillCheck.AddTemporaryModifier(stat.AddModifier(bonus, __instance.Runtime, __instance.Descriptor));
-                    ruleSkillCheck.UpdateValues();
-                }
+                bonus *= 2;
             }
+            ruleSkillCheck.AddTemporaryModifier(stat.AddModifier(bonus, __instance.Runtime, __instance.Descriptor));
+            ruleSkillCheck.UpdateValues();
             return false;
         }
     }

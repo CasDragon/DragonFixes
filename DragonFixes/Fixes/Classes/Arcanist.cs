@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
 using BlueprintCore.Utils.Types;
 using DragonFixes.Util;
 using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
+using Kingmaker.Blueprints.Classes.Selection;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.UnitLogic.FactLogic;
 using Kingmaker.UnitLogic.Mechanics.Components;
@@ -24,7 +26,7 @@ namespace DragonFixes.Fixes.Classes
             AddContextStatBonus x = BuffRefs.FakeInspireHeroicsEffectBuff.Reference.Get()
                 .GetComponents<AddContextStatBonus>()
                     .FirstOrDefault(c => c.Multiplier is 1);
-            x.Multiplier = -1;
+            x!.Multiplier = -1;
         }
         [DragonConfigure]
         public static void PatchMDInhibitCourage()
@@ -35,6 +37,20 @@ namespace DragonFixes.Fixes.Classes
             BuffConfigurator.For(x)
                 .AddContextRankConfig(ContextRankConfigs.MaxClassLevelWithArchetype(["52dbfd8505e22f84fad8d702611f60b7"], ["5c77110cd0414e7eb4c2e485659c9a46"],
                     max: 20, min: 0).WithDivStepProgression(-5))
+                .Configure();
+        }
+        
+        [DragonConfigure]
+        public static void PatchExtraReservoir()
+        {
+            Main.log.Log("Patching ExtraReservoir to use IncreaseResourceAmount, fixing it not working multiple times");
+            var x = FeatureRefs.ExtraReservoir.Reference.Get();
+            DragonHelpers.RemoveComponent<IncreaseResourceAmountBySharedValue>(x);
+            FeatureConfigurator.For(x)
+                .AddIncreaseResourceAmount(
+                    resource: AbilityResourceRefs.KiPowerResource.Reference.Get(),
+                    value: 3)
+                .AddFeatureTagsComponent(FeatureTag.ClassSpecific)
                 .Configure();
         }
     }

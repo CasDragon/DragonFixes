@@ -19,6 +19,7 @@ namespace DragonFixes.Patches
     /// every AoO source funnels through.
     /// </summary>
     [HarmonyPatch]
+    [HarmonyPatchCategory("chargeaoodefer")]
     internal static class ChargeAooDeferFix
     {
         // A backstop. Tick_Prefix below normally releases the reaction as soon as the charge
@@ -28,17 +29,27 @@ namespace DragonFixes.Patches
 
         private const string SettingName = "chargeaoodefer";
         private const string SettingDescription =
-            "Charge: a free attack granted mid-charge waits for the charge to land first";
+            "When using Charge, a free attack granted mid-charge waits for the charge to land first (Base game stops the charge immediately)";
 
-        public static void Test(bool enabled)
+        public static void ChangePatchStatus(bool enabled)
         {
-            //
+            if (enabled)
+            {
+                Main.log.Log("ChargeAooDeferFix enabled");
+                Main.HarmonyInstance.PatchCategory("chargeaoodefer");
+            }
+            else
+            {
+                Main.log.Log("ChargeAooDeferFix disabled");
+                Main.HarmonyInstance.UnpatchCategory("chargeaoodefer");
+            }
         }
 
-        [DragonSetting(SettingCategories.None, SettingName, SettingDescription, typeof(ChargeAooDeferFix), nameof(Test))]
-        private static bool Enabled()
+        [DragonSetting(SettingCategories.None, SettingName, SettingDescription, typeof(ChargeAooDeferFix), nameof(ChangePatchStatus))]
+        [DragonConfigure]
+        private static void ApplyPatch()
         {
-            return SettingsAction.GetSetting<bool>(SettingName);
+            ChangePatchStatus( SettingsAction.GetSetting<bool>(SettingName));
         }
 
         private sealed class PendingAoO
@@ -77,8 +88,8 @@ namespace DragonFixes.Patches
                 if (attacker == null || target == null)
                     return true;
 
-                if (!Enabled())
-                    return true;
+                //if (!Enabled())
+                //    return true;
 
                 if (!HasPendingChargeAttack(attacker))
                     return true;
