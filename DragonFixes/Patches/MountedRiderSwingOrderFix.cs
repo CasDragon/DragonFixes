@@ -20,7 +20,6 @@ namespace DragonFixes.Patches
     /// check to the mount side, holding the mount until the rider's half has started.
     /// </summary>
     [HarmonyPatch]
-    [HarmonyPatchCategory("mountedriderswingorder")]
     internal class MountedRiderSwingOrderFix
     {
         // A timeout so a stuck rider command can never stall the mount for good. Kept short
@@ -32,32 +31,17 @@ namespace DragonFixes.Patches
 
         private const string SettingName = "mountedriderswingorder";
         private const string SettingDescription = "When attacking on a mount, the rider attacks first. (Base game makes the mount attack first)";
-        
-        public static void ChangePatchStatus(bool enabled)
-        {
-            if (enabled)
-            {
-                Main.log.Log("MountedRiderSwingOrderFix enabled");
-                Main.HarmonyInstance.PatchCategory("chargeaoodefer");
-            }
-            else
-            {
-                Main.log.Log("MountedRiderSwingOrderFix disabled");
-                Main.HarmonyInstance.UnpatchCategory("chargeaoodefer");
-            }
-        }
 
-        [DragonSetting(SettingCategories.None, SettingName, SettingDescription, typeof(MountedRiderSwingOrderFix), nameof(ChangePatchStatus))]
-        [DragonConfigure]
-        private static void ApplyPatch()
+        [DragonSetting(SettingCategories.None, SettingName, SettingDescription)]
+        private static bool Enabled()
         {
-             ChangePatchStatus(SettingsAction.GetSetting<bool>(SettingName));
+            return SettingsAction.GetSetting<bool>(SettingName);
         }
 
         private static readonly ConditionalWeakTable<UnitAttack, StrongBox<TimeSpan>> BlockedSince =
             new ConditionalWeakTable<UnitAttack, StrongBox<TimeSpan>>();
 
-        [HarmonyPatch(typeof(UnitCommandController), nameof(UnitCommandController.ShouldStartCommand)), HarmonyPostfix]
+        [HarmonyPatch(typeof(UnitCommandController), "ShouldStartCommand"), HarmonyPostfix]
         private static void ShouldStartCommand_Postfix(UnitCommand command, ref bool __result)
         {
             try
@@ -68,8 +52,8 @@ namespace DragonFixes.Patches
                 if (!(command is UnitAttack mountAttack))
                     return;
 
-                //if (!Enabled())
-                //    return;
+                if (!Enabled())
+                    return;
 
                 UnitAttack riderAttack = command.RiderCommand as UnitAttack ?? FindUnlinkedRiderAttack(mountAttack);
                 if (riderAttack == null)
