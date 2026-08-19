@@ -1,10 +1,18 @@
 ﻿using BlueprintCore.Utils;
+using DragonFixes.Fixes;
+using DragonFixes.Util;
 using DragonLibrary.Utils;
 using HarmonyLib;
+using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.JsonSystem;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using UnityModManagerNet;
 using static UnityModManagerNet.UnityModManager;
 
 namespace DragonFixes

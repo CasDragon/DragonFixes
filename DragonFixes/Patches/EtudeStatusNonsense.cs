@@ -11,7 +11,7 @@ using DragonLibrary.Utils;
 
 namespace DragonFixes.Patches
 {
-    /*[HarmonyPatch]
+    [HarmonyPatch]
     [HarmonyPatchCategory("emergencyareaetudethingy")]
     public static class EtudeStatusNonsense
     {
@@ -98,5 +98,5 @@ namespace DragonFixes.Patches
                 return ret;
             }
         }
-    }*/
+    }
 }

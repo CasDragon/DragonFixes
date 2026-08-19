@@ -19,6 +19,7 @@ namespace DragonFixes.Patches
     /// every AoO source funnels through.
     /// </summary>
     [HarmonyPatch]
+    [HarmonyPatchCategory("chargeaoodefer")]
     internal static class ChargeAooDeferFix
     {
         // A backstop. Tick_Prefix below normally releases the reaction as soon as the charge
@@ -30,10 +31,25 @@ namespace DragonFixes.Patches
         private const string SettingDescription =
             "When using Charge, a free attack granted mid-charge waits for the charge to land first (Base game stops the charge immediately)";
 
-        [DragonSetting(SettingCategories.None, SettingName, SettingDescription)]
-        private static bool Enabled()
+        public static void ChangePatchStatus(bool enabled)
         {
-            return SettingsAction.GetSetting<bool>(SettingName);
+            if (enabled)
+            {
+                Main.log.Log("ChargeAooDeferFix enabled");
+                Main.HarmonyInstance.PatchCategory("chargeaoodefer");
+            }
+            else
+            {
+                Main.log.Log("ChargeAooDeferFix disabled");
+                Main.HarmonyInstance.UnpatchCategory("chargeaoodefer");
+            }
+        }
+
+        [DragonSetting(SettingCategories.None, SettingName, SettingDescription, typeof(ChargeAooDeferFix), nameof(ChangePatchStatus))]
+        [DragonConfigure]
+        private static void ApplyPatch()
+        {
+            ChangePatchStatus( SettingsAction.GetSetting<bool>(SettingName));
         }
 
         private sealed class PendingAoO
@@ -72,8 +88,8 @@ namespace DragonFixes.Patches
                 if (attacker == null || target == null)
                     return true;
 
-                if (!Enabled())
-                    return true;
+                //if (!Enabled())
+                //    return true;
 
                 if (!HasPendingChargeAttack(attacker))
                     return true;
@@ -169,9 +185,9 @@ namespace DragonFixes.Patches
 
         private static bool IsAlreadyDeferred(UnitEntityData attacker, UnitEntityData target)
         {
-            for (int i = 0; i < Deferred.Count; i++)
+            foreach (var t in Deferred)
             {
-                if (Deferred[i].Attacker == attacker && Deferred[i].Target == target)
+                if (t.Attacker == attacker && t.Target == target)
                     return true;
             }
 
