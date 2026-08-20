@@ -33,11 +33,8 @@ public class Domains
         FeatureSelectionConfigurator.For(FeatureSelectionRefs.SecondDomainsSelection)
             .AddToAllFeatures(ProgressionRefs.ScalykindDomainProgressionSecondary.Reference.Get())
             .Configure();
-        FeatureSelectionConfigurator.For(FeatureSelectionRefs.SecondDomainsSeparatistSelection)
-            .AddToAllFeatures(ProgressionRefs.ScalykindDomainProgressionSeparatist.Reference.Get())
-            .Configure();
         FeatureSelectionConfigurator.For(FeatureSelectionRefs.ExtraDomain)
-            .AddToAllFeatures(ProgressionRefs.ScalykindDomainProgressionSeparatist.Reference.Get())
+            .AddToAllFeatures(ProgressionRefs.ScalykindDomainProgressionSecondary.Reference.Get())
             .Configure();
     }
 

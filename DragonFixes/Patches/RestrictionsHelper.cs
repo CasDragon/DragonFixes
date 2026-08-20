@@ -13,8 +13,18 @@ public class RestrictionsHelperPatches
     {
         if (__result)
             return;
-        var x = unit.Body.PrimaryHand.MaybeWeapon == unit.Body.EmptyHandWeapon;
-        var y = unit.Body.SecondaryHand.MaybeWeapon == unit.Body.EmptyHandWeapon;
+        var weapon1 = unit.Body.PrimaryHand.MaybeWeapon;
+        var weapon2 = unit.Body.SecondaryHand.MaybeWeapon;
+        var x = weapon1 == unit.Body.EmptyHandWeapon;
+        var y = weapon2 == unit.Body.EmptyHandWeapon;
+        var z = false;
+        if (weapon1 != null)
+            z = weapon1.Blueprint.IsNatural;
+        var v = false;
+        if (weapon2 != null)
+            v = weapon2.Blueprint.IsNatural;
+        if (z || v)
+            return;
         __result = x && y;
     }
 }
