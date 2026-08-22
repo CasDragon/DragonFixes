@@ -32,7 +32,7 @@ public class ModifiableValuePatch
         }
     }
 
-    [DragonSetting(SettingCategories.None, SettingName, SettingDescription, typeof(ModifiableValuePatch), nameof(IsModifierValidPostfix))]
+    [DragonSetting(SettingCategories.None, SettingName, SettingDescription, typeof(ModifiableValuePatch), nameof(ChangePatchStatus))]
     [DragonConfigure]
     private static void ApplyPatch()
     {
@@ -40,8 +40,8 @@ public class ModifiableValuePatch
     }
     
     [HarmonyPatch(typeof(ModifiableValue), nameof(ModifiableValue.IsModifierValid))]
-    [HarmonyPostfix]
-    public static void IsModifierValidPostfix(ref bool __result, UnitDescriptor owner, ModifiableValue.Modifier mod)
+    [HarmonyPrefix]
+    public static bool IsModifierValidPostfix(ref bool __result, UnitDescriptor owner, ModifiableValue.Modifier mod)
     {
         ItemEntity itemSource = mod.ItemSource;
         if (itemSource != null)
@@ -49,17 +49,18 @@ public class ModifiableValuePatch
             if (itemSource is ItemEntityUsable)
             {
                 __result = true;
-                return;
+                return false;
             }
             if (itemSource.Collection != owner.Inventory || owner != itemSource.Wielder)
             {
                 __result = false;
-                return;
+                return false;
             }
         }
         __result = mod.Source == null || (mod.Source.Active && (mod.Source is ItemEnchantment || owner.HasFact(mod.Source)) 
                             && (string.IsNullOrWhiteSpace(mod.SourceComponent) || 
                             mod.Source.SelectComponents((BlueprintComponent c) 
                                 => c.name == mod.SourceComponent).Any()));
+        return false;
     }
 }
