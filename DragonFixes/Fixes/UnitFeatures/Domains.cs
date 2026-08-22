@@ -43,7 +43,7 @@ public class Domains
     {
         Main.log.Log("Patching Domain Zealot for Scalykind");
         FeatureConfigurator.For(FeatureRefs.DomainMastery)
-            .EditComponent<AutoMetamagic>(c => addstuff(c))
+            .EditComponent<AutoMetamagic>(addstuff)
             .Configure();
     }
 

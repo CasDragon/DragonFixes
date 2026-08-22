@@ -1,5 +1,8 @@
+using BlueprintCore.Blueprints.References;
 using HarmonyLib;
+using Kingmaker.Blueprints.Classes;
 using Kingmaker.EntitySystem.Entities;
+using Kingmaker.UnitLogic;
 using Kingmaker.UnitLogic.ActivatableAbilities.Restrictions;
 
 namespace DragonFixes.Patches;
@@ -7,11 +10,17 @@ namespace DragonFixes.Patches;
 [HarmonyPatch]
 public class RestrictionsHelperPatches
 {
+    private static readonly BlueprintFeature flurry = FeatureRefs.FlurryOfBlows.Reference.Get();
+    
     [HarmonyPostfix]
     [HarmonyPatch(typeof(RestrictionsHelper), nameof(RestrictionsHelper.CheckHasTwoWeapon))]
     public static void CheckHasTwoWeapons_Postfix(ref bool __result, UnitEntityData unit)
     {
         if (__result)
+            return;
+        if (unit == null)
+            return;
+        if (unit.GetFeature(flurry) is not null)
             return;
         var weapon1 = unit.Body.PrimaryHand.MaybeWeapon;
         var weapon2 = unit.Body.SecondaryHand.MaybeWeapon;
