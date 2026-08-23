@@ -10,8 +10,10 @@ using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
 using Kingmaker.Designers.EventConditionActionSystem.Actions;
 using Kingmaker.Enums;
+using Kingmaker.UnitLogic.Abilities;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Class.Kineticist;
+using Kingmaker.UnitLogic.Mechanics;
 using Kingmaker.UnitLogic.Mechanics.Actions;
 using Kingmaker.UnitLogic.Mechanics.Components;
 using Kingmaker.UnitLogic.Mechanics.Properties;
@@ -44,13 +46,28 @@ public class Kineticist
             .AddClassLevelGetter(clazz: CharacterClassRefs.KineticistClass.ToString(),
                 settings: new PropertySettings()
                 {
-                    m_Progression = PropertySettings.Progression.OnePlusDiv2
+                    m_Progression = PropertySettings.Progression.OnePlusDiv2,
+                    m_StartLevel = 0,
+                    m_StepLevel = 0,
+                    m_Negate = false
                 })
             .AddKineticistMainStatBonusPropertyGetter()
             .SetBaseValue(10)
+            .SetOperationOnComponents(BlueprintUnitProperty.MathOperation.Sum)
             .Configure();
 
-        saving!.CustomDC = ContextValues.CustomProperty(property, true);
+        var x = new ContextValue()
+        {
+            ValueType =  ContextValueType.CasterCustomProperty,
+            Value = 0,
+            ValueRank = AbilityRankType.Default,
+            ValueShared = AbilitySharedValue.Damage,
+            Property = UnitProperty.None,
+            m_CustomProperty = property.ToReference<BlueprintUnitPropertyReference>(),
+            m_AbilityParameter = AbilityParameterType.Level
+        };
+
+        saving!.CustomDC = x;
     }
     
     [DragonConfigure]
