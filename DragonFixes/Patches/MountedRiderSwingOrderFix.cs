@@ -20,7 +20,10 @@ namespace DragonFixes.Patches
     /// carries .RiderCommand back. ShouldStartCommand only ever gates on .MountCommand, holding
     /// the rider until the linked mount command stops approaching. The mount side has no
     /// equivalent gate, so it swings the instant its own approach finishes. This adds the missing
-    /// check to the mount side, holding the mount until the rider's half has started.
+    /// check to the mount side, holding the mount until the rider has actually swung.
+    /// To fix, we release the mount on the rider's OnAction rather than on Start. Releasing on
+    /// Start alone still let the mount through first - the two commands take a different number of
+    /// frames to go from Start to swing, and the mount's windup seems to be the shorter one.
     /// </summary>
     [HarmonyPatch]
     [HarmonyPatchCategory("mountedriderswingorder")]
@@ -41,12 +44,12 @@ namespace DragonFixes.Patches
             if (enabled)
             {
                 Main.log.Log("MountedRiderSwingOrderFix enabled");
-                Main.HarmonyInstance.PatchCategory("chargeaoodefer");
+                Main.HarmonyInstance.PatchCategory("mountedriderswingorder");
             }
             else
             {
                 Main.log.Log("MountedRiderSwingOrderFix disabled");
-                Main.HarmonyInstance.UnpatchCategory("chargeaoodefer");
+                Main.HarmonyInstance.UnpatchCategory("mountedriderswingorder");
             }
         }
 
@@ -59,6 +62,24 @@ namespace DragonFixes.Patches
 
         private static readonly ConditionalWeakTable<UnitAttack, StrongBox<TimeSpan>> BlockedSince =
             new ConditionalWeakTable<UnitAttack, StrongBox<TimeSpan>>();
+
+        // Marks the moment a rider's attack actually swings, as opposed to when its command merely
+        // starts.
+        private static readonly ConditionalWeakTable<UnitAttack, StrongBox<bool>> HasSwung =
+            new ConditionalWeakTable<UnitAttack, StrongBox<bool>>();
+
+        [HarmonyPatch(typeof(UnitAttack), "OnAction"), HarmonyPrefix]
+        private static void RiderAttack_OnAction_Prefix(UnitAttack __instance)
+        {
+            try
+            {
+                HasSwung.GetOrCreateValue(__instance).Value = true;
+            }
+            catch (Exception e)
+            {
+                Main.log.Log("MountedRiderSwingOrderFix error: " + e);
+            }
+        }
 
         [HarmonyPatch(typeof(UnitCommandController), nameof(UnitCommandController.ShouldStartCommand)), HarmonyPostfix]
         private static void ShouldStartCommand_Postfix(UnitCommand command, ref bool __result)
@@ -81,7 +102,7 @@ namespace DragonFixes.Patches
                     if (!RiderChargeInFlight(mountAttack))
                         return;
                 }
-                else if (riderAttack.IsStarted || riderAttack.Result != UnitCommand.ResultType.None)
+                else if (HasActuallySwung(riderAttack) || riderAttack.Result != UnitCommand.ResultType.None)
                 {
                     BlockedSince.Remove(mountAttack);
                     return;
@@ -113,6 +134,11 @@ namespace DragonFixes.Patches
             {
                 Main.log.Log("MountedRiderSwingOrderFix error: " + e);
             }
+        }
+
+        private static bool HasActuallySwung(UnitAttack attack)
+        {
+            return HasSwung.TryGetValue(attack, out StrongBox<bool> box) && box.Value;
         }
 
         // AbilityCustomCharge only links the two halves when the rider already holds an attack
