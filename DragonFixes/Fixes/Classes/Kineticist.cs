@@ -46,7 +46,7 @@ public class Kineticist
             .AddClassLevelGetter(clazz: CharacterClassRefs.KineticistClass.ToString(),
                 settings: new PropertySettings()
                 {
-                    m_Progression = PropertySettings.Progression.OnePlusDiv2,
+                    m_Progression = PropertySettings.Progression.AsIs,
                     m_StartLevel = 0,
                     m_StepLevel = 0,
                     m_Negate = false

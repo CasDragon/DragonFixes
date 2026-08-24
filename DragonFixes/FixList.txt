@@ -111,3 +111,4 @@
 - Whiterock bullied me into ~~buffing~~ "fixing" Extra Ki so that Drunken Monks can take it. Very sus
 - Code fix for scroll/potion buffs not counting as valid for features such as Master Shapeshifter after a save/load.
 - Grappling Infusion now has proper DC?
+- Fix application of metamagics so that the default cost isn't checked for when applying metamagic, only the adjusted cost (So you can apply Persistent to Weird assuming you have Favorite Metamagic or Completely Normal Spell)
