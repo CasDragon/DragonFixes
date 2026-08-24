@@ -31,6 +31,16 @@ public class ComeAndGetMe
                 .ToReference<BlueprintUnitFactReference>(),
             Not = false
         };
+        if (condtion.ConditionsChecker.Conditions.Any(c => 
+                c is ContextConditionHasFact x
+                && x.m_Fact.deserializedGuid == 
+                    BuffRefs.InspiredRageEffectBuffBeforeMasterSkald.Reference.deserializedGuid))
+        {
+            Main.log.Log("ComeAndGetMeSwitchBuff already has condition checking for InspiredRageEffectBuffBeforeMasterSkald"
+                + ", not patching");
+            return;
+        }
+
         condtion.ConditionsChecker.Conditions = [.. condtion.ConditionsChecker.Conditions, newcomp];
     }
 }
