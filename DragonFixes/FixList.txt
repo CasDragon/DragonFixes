@@ -114,3 +114,4 @@
 - Fix application of metamagics so that the default cost isn't checked for when applying metamagic, only the adjusted cost (So you can apply Persistent to Weird assuming you have Favorite Metamagic or Completely Normal Spell)
 - Fix Cloak of Bloodscent to work with skald rage (same fix as Call to Violence)
 - Fix Come and Get Me not working with Skald correctly (same fix as Call to Violence)
+- Fix Azata's Incredible Might from getting double damage/AB bonus 
