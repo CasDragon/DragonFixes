@@ -26,7 +26,7 @@ namespace DragonFixes.Patches
     /// frames to go from Start to swing, and the mount's windup seems to be the shorter one.
     /// </summary>
     [HarmonyPatch]
-    [HarmonyPatchCategory("mountedriderswingorder")]
+    [HarmonyPatchCategory(SettingName)]
     internal class MountedRiderSwingOrderFix
     {
         // A timeout so a stuck rider command can never stall the mount for good. Kept short
@@ -38,18 +38,18 @@ namespace DragonFixes.Patches
 
         private const string SettingName = "mountedriderswingorder";
         private const string SettingDescription = "When attacking on a mount, the rider attacks first. (Base game makes the mount attack first)";
-        
+
         public static void ChangePatchStatus(bool enabled)
         {
             if (enabled)
             {
                 Main.log.Log("MountedRiderSwingOrderFix enabled");
-                Main.HarmonyInstance.PatchCategory("mountedriderswingorder");
+                Main.HarmonyInstance.PatchCategory(SettingName);
             }
             else
             {
                 Main.log.Log("MountedRiderSwingOrderFix disabled");
-                Main.HarmonyInstance.UnpatchCategory("mountedriderswingorder");
+                Main.HarmonyInstance.UnpatchCategory(SettingName);
             }
         }
 
