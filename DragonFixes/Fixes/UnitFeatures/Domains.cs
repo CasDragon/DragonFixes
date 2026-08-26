@@ -6,11 +6,23 @@ using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
 using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
+using Kingmaker.UnitLogic.FactLogic;
 
 namespace DragonFixes.Fixes.UnitFeatures;
 
 public class Domains
 {
+    // Death Domain
+    [DragonConfigure]
+    public static void PatchDeathDomainAllowedSeparatist()
+    {
+        Main.log.Log("Patching DeathDomainAllowedSeparatist to remove AddSpecialSpellListForArchetype");
+        var feat = FeatureRefs.DeathDomainAllowedSeparatist.Reference.Get();
+        var comp = feat.GetComponent<AddSpecialSpellListForArchetype>();
+        if (comp != null)
+            DragonHelpers.RemoveComponent(feat, comp);
+    }
+    
     // Nobility Domain
     [DragonConfigure]
     public static void PatchInspiringCommand()

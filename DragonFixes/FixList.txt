@@ -115,3 +115,4 @@
 - Fix Cloak of Bloodscent to work with skald rage (same fix as Call to Violence)
 - Fix Come and Get Me not working with Skald correctly (same fix as Call to Violence)
 - Fix Azata's Incredible Might from getting double damage/AB bonus 
+- Fix DeathDomainAllowedSeparatist by removing special spell list addition component
