@@ -1,6 +1,7 @@
 using System;
 using HarmonyLib;
 using Kingmaker.Controllers.Units;
+using Kingmaker.UnitLogic;
 using Kingmaker.UnitLogic.Commands;
 using Kingmaker.UnitLogic.Commands.Base;
 using Kingmaker.UnitLogic.Parts;
@@ -69,8 +70,10 @@ namespace DragonFixes.Patches
             }
         }
 
-        // Fix 2: forgive a small floating point boundary miss when the attacker is a mounted rider,
-        // so an attack that stops flush against the target isn't dropped
+        // Fix 2: forgive a small floating point boundary miss when the attacker is either half of
+        // a mounted pair, so an attack that stops flush against the target isn't dropped. A waiting
+        // mount attack with only a tiny margin could also be interrupted outright by a stray
+        // closeness flicker while it waited on the rider, so this padding covers the mount too.
         [HarmonyPatch(typeof(UnitCommand), nameof(UnitCommand.IsUnitCloseEnough), new Type[0]), HarmonyPostfix]
         private static void IsUnitCloseEnough_Postfix(UnitCommand __instance, ref bool __result)
         {
@@ -80,7 +83,8 @@ namespace DragonFixes.Patches
                     return;
 
                 var exec = __instance.Executor;
-                if (exec?.RiderPart == null || !CombatController.IsInTurnBasedCombat())
+                bool isMountedPairMember = exec != null && (exec.RiderPart != null || exec.GetRider() != null);
+                if (!isMountedPairMember || !CombatController.IsInTurnBasedCombat())
                     return;
 
                 // Re-run the game's own check with a slightly padded radius (maintaining

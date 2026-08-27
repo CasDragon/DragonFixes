@@ -19,7 +19,7 @@ namespace DragonFixes.Patches
     /// every AoO source funnels through.
     /// </summary>
     [HarmonyPatch]
-    [HarmonyPatchCategory("chargeaoodefer")]
+    [HarmonyPatchCategory(SettingName)]
     internal static class ChargeAooDeferFix
     {
         // A backstop. Tick_Prefix below normally releases the reaction as soon as the charge
@@ -36,12 +36,12 @@ namespace DragonFixes.Patches
             if (enabled)
             {
                 Main.log.Log("ChargeAooDeferFix enabled");
-                Main.HarmonyInstance.PatchCategory("chargeaoodefer");
+                Main.HarmonyInstance.PatchCategory(SettingName);
             }
             else
             {
                 Main.log.Log("ChargeAooDeferFix disabled");
-                Main.HarmonyInstance.UnpatchCategory("chargeaoodefer");
+                Main.HarmonyInstance.UnpatchCategory(SettingName);
             }
         }
 

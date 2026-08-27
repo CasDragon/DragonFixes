@@ -1,4 +1,4 @@
-﻿- Eldritch Scion (magus archetype) - Arcane Accuracy now correctly scales off CHA instead of INT
+- Eldritch Scion (magus archetype) - Arcane Accuracy now correctly scales off CHA instead of INT
 - Extra Arcana (feat) - Now includes the Eldritch Scion versions of the arcanas, so Eldritch Scion can pick arcanas that work for them
 - Eldritch Scion (magus archetype) - Prescient Strike, which used to last only 1 round and now correctly lasts 2
 - Apsu (deity) - Can now be selected with the Oracle class (toggeable, default is On)
@@ -107,12 +107,14 @@
 - Charge: A free attack granted while you are mid-charge (Outflank off your mount's critical hit being most likely) no longer cuts in front of the charge itself. It now waits and lands straight after, so your charge attack keeps its bonus damage instead of the free swing taking it. You now gain both attacks, whereas previously you might lose them. -Fix from Tia
 - Fix for Two Weapon Fighting not working with 2 unarmed attacks, untested
 - Fix Extra Ki not working more than once
-- Fix Extra Reservoir not working more than once  
+- Fix Extra Reservoir not working more than once
 - Whiterock bullied me into ~~buffing~~ "fixing" Extra Ki so that Drunken Monks can take it. Very sus
 - Code fix for scroll/potion buffs not counting as valid for features such as Master Shapeshifter after a save/load.
 - Grappling Infusion now has proper DC?
 - Fix application of metamagics so that the default cost isn't checked for when applying metamagic, only the adjusted cost (So you can apply Persistent to Weird assuming you have Favorite Metamagic or Completely Normal Spell)
 - Fix Cloak of Bloodscent to work with skald rage (same fix as Call to Violence)
 - Fix Come and Get Me not working with Skald correctly (same fix as Call to Violence)
-- Fix Azata's Incredible Might from getting double damage/AB bonus 
+- Fix Azata's Incredible Might from getting double damage/AB bonus
 - Fix DeathDomainAllowedSeparatist by removing special spell list addition component
+- When a charge is what starts the fight, the attack no longer lands a frame before the game marks anyone as engaged in melee. Outflank, Opportunist and other teamwork feats now see the charging rider and mount as engaged for that first attack instead of silently not firing. -Fix from Tia
+- Bolstered Spell's splash damage to nearby enemies are now affected by elemental conversion. It used to keep the spell's original element no matter your conversion. -Fix from Tia
