@@ -26,6 +26,7 @@ public class Kineticist
     [DragonConfigure]
     public static void PatchGrapplingInfusionBuff()
     {
+        if (ModCompat.pp) return;
         // Apparently DC currently is 10 + CHA? 
         Main.log.Log("Patching Grappling Infusion Buff to have actual DC");
         BuffConfigurator.For(BuffRefs.GrapplingInfusionBuff)

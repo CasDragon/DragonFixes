@@ -1,27 +1,22 @@
+using System.Linq;
 using BlueprintCore.Blueprints.CustomConfigurators.Classes;
-using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
 using DragonLibrary.Utils;
-using Kingmaker.UnitLogic;
+using Kingmaker.Blueprints;
+using Kingmaker.Designers.EventConditionActionSystem.Actions;
+using Kingmaker.UnitLogic.Mechanics.Components;
+using Kingmaker.UnitLogic.Mechanics.Conditions;
 
 namespace DragonFixes.Fixes.Items;
 
-public class CloakOfBloodscent
+public class BadTemper
 {
     [DragonConfigure]
-    public static void PatchCloakOfBloodscentFeature()
+    public static void PatchFeature()
     {
-        Main.log.Log("Patching CloakOfBloodscentFeature to include Skald rage.");
-        var buff = BuffRefs.CloakOfBloodScentBuff.ToString();
-        FeatureConfigurator.For(FeatureRefs.CloakOfBloodScentFeature)
-            .AddBuffExtraEffects(
-                checkedBuff: BuffRefs.InspiredRageEffectBuffMythic.ToString(),
-                extraEffectBuff: buff
-            )
-            .AddBuffExtraEffects(
-                checkedBuff: BuffRefs.StandartFocusedRageBuff.ToString(),
-                extraEffectBuff: buff
-            )
+        Main.log.Log("Patching BadTemperFeature to include more rages");
+        var buff = BuffRefs.BadTemperBuff.ToString();
+        FeatureConfigurator.For(FeatureRefs.BadTemperFeature)
             .AddBuffExtraEffects(
                 checkedBuff: BuffRefs.InciteRageEffectBuff.ToString(),
                 extraEffectBuff: buff
@@ -40,6 +35,10 @@ public class CloakOfBloodscent
             )
             .AddBuffExtraEffects(
                 checkedBuff: BuffRefs.Gorum_Buff.ToString(),
+                extraEffectBuff: buff
+            )
+            .AddBuffExtraEffects(
+                checkedBuff: BuffRefs.InspiredRageEffectBuffMythic.ToString(),
                 extraEffectBuff: buff
             )
             .Configure();

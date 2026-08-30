@@ -12,17 +12,38 @@ namespace DragonFixes.Fixes.Items
     internal class CallToViolence
     {
         [DragonConfigure]
-        public static void Patch()
+        public static void PatchRages()
         {
-            Main.log.Log("Patching  to include Skald rage.");
+            Main.log.Log("Patching  to include more rage effects.");
+            var buff = BuffRefs.CallToViolenceEffectBuff.ToString();
             BuffConfigurator.For(BuffRefs.CallToViolenceBuff)
                 .AddBuffExtraEffects(
-                    checkedBuff: BuffRefs.InspiredRageEffectBuffBeforeMasterSkald.Reference.Get(),
-                    extraEffectBuff: BuffRefs.CallToViolenceEffectBuff.Reference.Get()
+                    checkedBuff: BuffRefs.InspiredRageEffectBuffMythic.ToString(),
+                    extraEffectBuff: buff
                 )
                 .AddBuffExtraEffects(
-                    checkedBuff: BuffRefs.InspiredRageEffectBuffMythic.Reference.Get(),
-                    extraEffectBuff: BuffRefs.CallToViolenceEffectBuff.Reference.Get()
+                    checkedBuff: BuffRefs.RageBuff.ToString(),
+                    extraEffectBuff: buff
+                )
+                .AddBuffExtraEffects(
+                    checkedBuff: BuffRefs.InciteRageEffectBuff.ToString(),
+                    extraEffectBuff: buff
+                )
+                .AddBuffExtraEffects(
+                    checkedBuff: BuffRefs.ElementalRampagerRampageBuff.ToString(),
+                    extraEffectBuff: buff
+                )
+                .AddBuffExtraEffects(
+                    checkedBuff: BuffRefs.RageshaperDevastatingFormBuff.ToString(),
+                    extraEffectBuff: buff
+                )
+                .AddBuffExtraEffects(
+                    checkedBuff: BuffRefs.RageSpellBuff.ToString(),
+                    extraEffectBuff: buff
+                )
+                .AddBuffExtraEffects(
+                    checkedBuff: BuffRefs.Gorum_Buff.ToString(),
+                    extraEffectBuff: buff
                 )
                 .Configure();
         }

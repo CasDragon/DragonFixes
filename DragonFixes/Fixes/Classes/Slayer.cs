@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlueprintCore.Blueprints.CustomConfigurators.Classes.Selection;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using Kingmaker.Blueprints;
 using Kingmaker.Designers.EventConditionActionSystem.Actions;
@@ -18,6 +19,20 @@ namespace DragonFixes.Fixes.Classes
 {
     internal class Slayer
     {
+        [DragonConfigure]
+        public static void PatchSlayerTalents()
+        {
+            Main.log.Log("Adding PetrifyingStrike to Slayer Talents");
+            FeatureSelectionConfigurator.For(FeatureSelectionRefs.SlayerTalentSelection2)
+                .AddToAllFeatures(FeatureRefs.PetrifyingStrike.ToString())
+                .Configure();
+            FeatureSelectionConfigurator.For(FeatureSelectionRefs.SlayerTalentSelection6)
+                .AddToAllFeatures(FeatureRefs.PetrifyingStrike.ToString())
+                .Configure();
+            FeatureSelectionConfigurator.For(FeatureSelectionRefs.SlayerTalentSelection10)
+                .AddToAllFeatures(FeatureRefs.PetrifyingStrike.ToString())
+                .Configure();
+        }
         [DragonConfigure]
         public static void PatchBiteofthevampireffect()
         {

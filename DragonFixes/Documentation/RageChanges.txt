@@ -1,0 +1,27 @@
+Fang of Malice - now works on all rage effects
+Call to Violence - now works on all rage effects
+Cloak of Blood Scent - now works on all rage effects
+Demonic Resentment - now works on all rage effects
+Mangling Frenzy - now works on all rage effects
+Lawbringer - now removes all rage effects
+Furious - now works on all rage effects
+
+Come and Get Me - now correctly works with Mythic Inspiration for Skald
+Guarded Stance - now correctly works with Mythic Inspiration for Skald
+Lethal Stance - now correctly works with Mythic Inspiration for Skald
+Powerful Stance - now correctly works with Mythic Inspiration for Skald
+Reckless Stance - now correctly works with Mythic Inspiration for Skald
+
+Inspired Rage - now removes most rage effects
+Inspire Tranquility - now suppresses most rage effects
+
+Devastating Form - now correctly can not be activated when you have most of rage effects
+
+Devour Flesh - now works on all rage effects
+Power from Flesh - now works on all rage effects
+Unbound Rage - now works on all rage effects
+
+Raging Brutality - now works on all rage effects
+Crystal Mind - now removes most rage effects
+
+Instinctual Warrior now correctly benefits from all Celestial and Daemon totem features

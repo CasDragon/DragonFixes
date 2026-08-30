@@ -119,3 +119,4 @@
 - When a charge is what starts the fight, the attack no longer lands a frame before the game marks anyone as engaged in melee. Outflank, Opportunist and other teamwork feats now see the charging rider and mount as engaged for that first attack instead of silently not firing. -Fix from Tia
 - Bolstered Spell's splash damage to nearby enemies are now affected by elemental conversion. It used to keep the spell's original element no matter your conversion. -Fix from Tia
 - Planar Navigator now correctly maximizes summon spells as the description states
+- Fix a TON of Rage related bugs, see Documentation folder -> RageChanges.txt file on Github (Because Whiterock hates me)

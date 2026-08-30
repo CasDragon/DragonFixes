@@ -9,13 +9,13 @@ using Kingmaker.UnitLogic.Mechanics.Conditions;
 
 namespace DragonFixes.Fixes.UnitFeatures;
 
-public class ComeAndGetMe
+public class PowerfulStance
 {
     [DragonConfigure]
-    public static void PatchComeAndGetMeSwitchBuff()
+    public static void PatchLethalStanceSwitchBuff()
     {
-        Main.log.Log("Patching ComeAndGetMeSwitchBuff to include more rages.");
-        BuffConfigurator.For(BuffRefs.ComeAndGetMeSwitchBuff)
+        Main.log.Log("Patching LethalStanceSwitchBuff to include more rages.");
+        BuffConfigurator.For(BuffRefs.LethalStanceSwitchBuff)
             .EditComponent<AddFactContextActions>(DoThing)
             .Configure();
     }
@@ -36,7 +36,7 @@ public class ComeAndGetMe
                 && x.m_Fact.deserializedGuid == 
                 BuffRefs.InspiredRageEffectBuffMythic.Reference.deserializedGuid))
         {
-            Main.log.Log("ComeAndGetMeSwitchBuff already has condition checking for InspiredRageEffectBuffMythic"
+            Main.log.Log("LethalStanceSwitchBuff already has condition checking for InspiredRageEffectBuffMythic"
                          + ", not patching");
             return;
         }
