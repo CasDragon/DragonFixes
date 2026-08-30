@@ -124,3 +124,4 @@
 - Fix Unholy Blight/Chaos Hammer/Holy Smite/Order's Wrath not getting damage riders. (Only main target will show correct maths, every other target will show the result of the main target + damage riders that don't actually get added)
 - Fix some Oracle revelations to correctly be removed upon respec
 - Fix some Mythic abilities to correctly be removed upon respec
+- Switching your Kineticist substance infusion (Bowling, Burning, etc.) while a Wall, Cloud or Deadly Earth is already up no longer retroactively changes that area's behavior to the new infusion, and a standing area no longer keeps applying its own infusion to your other, unrelated blasts. Each area now sticks to whichever infusion was active when it was cast, like it should. -Fix from Tia
