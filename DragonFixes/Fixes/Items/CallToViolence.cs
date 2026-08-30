@@ -19,7 +19,11 @@ namespace DragonFixes.Fixes.Items
                 .AddBuffExtraEffects(
                     checkedBuff: BuffRefs.InspiredRageEffectBuffBeforeMasterSkald.Reference.Get(),
                     extraEffectBuff: BuffRefs.CallToViolenceEffectBuff.Reference.Get()
-                    )
+                )
+                .AddBuffExtraEffects(
+                    checkedBuff: BuffRefs.InspiredRageEffectBuffMythic.Reference.Get(),
+                    extraEffectBuff: BuffRefs.CallToViolenceEffectBuff.Reference.Get()
+                )
                 .Configure();
         }
     }

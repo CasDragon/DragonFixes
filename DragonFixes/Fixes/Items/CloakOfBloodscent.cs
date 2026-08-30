@@ -17,6 +17,10 @@ public class CloakOfBloodscent
                 checkedBuff: BuffRefs.InspiredRageEffectBuffBeforeMasterSkald.ToString(),
                 extraEffectBuff: BuffRefs.CloakOfBloodScentBuff.ToString()
             )
+            .AddBuffExtraEffects(
+                checkedBuff: BuffRefs.InspiredRageEffectBuffMythic.Reference.Get(),
+                extraEffectBuff: BuffRefs.CloakOfBloodScentBuff.Reference.Get()
+            )
             .Configure();
     }
 }

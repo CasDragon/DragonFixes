@@ -1,5 +1,6 @@
 using System.Linq;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
+using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
 using DragonFixes.Util;
 using DragonLibrary.Utils;
@@ -31,6 +32,7 @@ public class SkaldInciterInsultFix
         {
             save.HasCustomDC = false;
         }
+        DragonHelpers.RemoveComponent<SpellDescriptorComponent>(BuffRefs.InsultAreaBuff.Reference.Get());
         AbilityAreaEffectConfigurator.For(area)
             .AddSpellDescriptorComponent(SpellDescriptor.Sonic | SpellDescriptor.MindAffecting | SpellDescriptor.Emotion)
             .AddContextCalculateAbilityParamsBasedOnClass(

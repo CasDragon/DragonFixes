@@ -34,13 +34,28 @@ public class ComeAndGetMe
         if (condtion.ConditionsChecker.Conditions.Any(c => 
                 c is ContextConditionHasFact x
                 && x.m_Fact.deserializedGuid == 
-                    BuffRefs.InspiredRageEffectBuffBeforeMasterSkald.Reference.deserializedGuid))
+                BuffRefs.InspiredRageEffectBuffBeforeMasterSkald.Reference.deserializedGuid))
         {
             Main.log.Log("ComeAndGetMeSwitchBuff already has condition checking for InspiredRageEffectBuffBeforeMasterSkald"
-                + ", not patching");
+                         + ", not patching");
+            return;
+        }
+        var newcomp2 = new ContextConditionHasFact()
+        {
+            m_Fact = BuffRefs.InspiredRageEffectBuffMythic.Reference.Get()
+                .ToReference<BlueprintUnitFactReference>(),
+            Not = false
+        };
+        if (condtion.ConditionsChecker.Conditions.Any(c => 
+                c is ContextConditionHasFact x
+                && x.m_Fact.deserializedGuid == 
+                BuffRefs.InspiredRageEffectBuffMythic.Reference.deserializedGuid))
+        {
+            Main.log.Log("ComeAndGetMeSwitchBuff already has condition checking for InspiredRageEffectBuffMythic"
+                         + ", not patching");
             return;
         }
 
-        condtion.ConditionsChecker.Conditions = [.. condtion.ConditionsChecker.Conditions, newcomp];
+        condtion.ConditionsChecker.Conditions = [.. condtion.ConditionsChecker.Conditions, newcomp, newcomp2];
     }
 }
