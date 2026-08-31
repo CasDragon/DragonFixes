@@ -59,7 +59,9 @@ namespace DragonFixes.Fixes.MythicStuff
                 { m_Buff = BuffRefs.InspiredRageEffectBuff.Reference.Get().ToReference<BlueprintBuffReference>() };
             var c8 = new ContextActionRemoveBuff()
                 { m_Buff = BuffRefs.DemonRageBuff.Reference.Get().ToReference<BlueprintBuffReference>() };
-            component.Actions.Actions = [.. component.Actions.Actions, c1, c2, c3, c4, c5, c6, c7, c8];
+            var c9 = new ContextActionRemoveBuff()
+                { m_Buff = BuffRefs.RageSpellBuff.Reference.Get().ToReference<BlueprintBuffReference>() };
+            component.Actions.Actions = [.. component.Actions.Actions, c1, c2, c3, c4, c5, c6, c7, c8, c9];
         }
     }
 }

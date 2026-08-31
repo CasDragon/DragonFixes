@@ -34,10 +34,6 @@ namespace DragonFixes.Fixes.Items
                     extraEffectBuff: buff
                 )
                 .AddBuffExtraEffects(
-                    checkedBuff: BuffRefs.RageshaperDevastatingFormBuff.ToString(),
-                    extraEffectBuff: buff
-                )
-                .AddBuffExtraEffects(
                     checkedBuff: BuffRefs.RageSpellBuff.ToString(),
                     extraEffectBuff: buff
                 )

@@ -40,7 +40,7 @@ public class Shifter
             BuffRefs.StandartFocusedRageBuff.Reference.Get().ToReference<BlueprintUnitFactReference>(),
             BuffRefs.InciteRageEffectBuff.Reference.Get().ToReference<BlueprintUnitFactReference>(),
             BuffRefs.ElementalRampagerRampageBuff.Reference.Get().ToReference<BlueprintUnitFactReference>(),
-            BuffRefs.RageshaperDevastatingFormBuff.Reference.Get().ToReference<BlueprintUnitFactReference>(),
+            BuffRefs.RageBuff.Reference.Get().ToReference<BlueprintUnitFactReference>(),
             BuffRefs.RageSpellBuff.Reference.Get().ToReference<BlueprintUnitFactReference>(),
             BuffRefs.InspiredRageEffectBuff.Reference.Get().ToReference<BlueprintUnitFactReference>(),
             BuffRefs.InspiredRageEffectBuffMythic.Reference.Get().ToReference<BlueprintUnitFactReference>()
