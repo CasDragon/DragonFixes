@@ -120,3 +120,4 @@
 - Bolstered Spell's splash damage to nearby enemies are now affected by elemental conversion. It used to keep the spell's original element no matter your conversion. -Fix from Tia
 - Planar Navigator now correctly maximizes summon spells as the description states
 - Fix a TON of Rage related bugs, see Documentation folder -> RageChanges.txt file on Github (Because Whiterock hates me)
+- Slayer now can pick Petrifying Strike as a talent instead of just as an extra talent

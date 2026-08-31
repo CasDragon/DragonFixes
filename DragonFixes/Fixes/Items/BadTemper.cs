@@ -38,7 +38,7 @@ public class BadTemper
                 extraEffectBuff: buff
             )
             .AddBuffExtraEffects(
-                checkedBuff: BuffRefs.InspiredRageEffectBuffMythic.ToString(),
+                checkedBuff: BuffRefs.InspiredRageEffectBuffBeforeMasterSkald.ToString(),
                 extraEffectBuff: buff
             )
             .Configure();
