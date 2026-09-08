@@ -127,3 +127,4 @@
 - Switching your Kineticist substance infusion (Bowling, Burning, etc.) while a Wall, Cloud or Deadly Earth is already up no longer retroactively changes that area's behavior to the new infusion, and a standing area no longer keeps applying its own infusion to your other, unrelated blasts. Each area now sticks to whichever infusion was active when it was cast, like it should. -Fix from Tia
 - Composite Spindle / Exploding Arrows blasts now correctly cost extra burn on top of their infusion cost -Fix from Tia
 - Ring of Pyromania now correctly checks a spell's final, converted element instead of its original one. It used to miss its bonus fire damage on spells converted to Fire, and wrongly grant it on spells converted from Fire. -Fix from Tia
+- Fiery Body's fire damage healing now actually works, it always healed for 0 before. The Dragonblood Shifter's dragon-aspect elemental immunities heal the same way now too. -Fix from Tia
