@@ -128,3 +128,5 @@
 - Composite Spindle / Exploding Arrows blasts now correctly cost extra burn on top of their infusion cost -Fix from Tia
 - Ring of Pyromania now correctly checks a spell's final, converted element instead of its original one. It used to miss its bonus fire damage on spells converted to Fire, and wrongly grant it on spells converted from Fire. -Fix from Tia
 - Fiery Body's fire damage healing now actually works, it always healed for 0 before. The Dragonblood Shifter's dragon-aspect elemental immunities heal the same way now too. -Fix from Tia
+- Ley Line Guardian's Conduit Surge now actually boosts the caster level of your next spell. It used to apply the bonus one step too late to affect that cast, so you paid the resource and risked the backlash for nothing. -Fix from Tia
+- Ley Line Guardian's Conduit Surge no longer boosts every ability you use while it's active, only the next actual spell as intended, and scrolls/wands/potions (or a spell that fails to go off) no longer trigger its Fortitude save or wastes the charge. -Fix from Tia -Fix from Tia
