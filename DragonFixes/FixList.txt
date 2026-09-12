@@ -121,3 +121,4 @@
 - Planar Navigator now correctly maximizes summon spells as the description states
 - Fix a TON of Rage related bugs, see Documentation folder -> RageChanges.txt file on Github (Because Whiterock hates me)
 - Slayer now can pick Petrifying Strike as a talent instead of just as an extra talent
+- Fix Unholy Blight/Chaos Hammer/Holy Smite/Order's Wrath not getting damage riders. (Only main target will show correct maths, every other target will show the result of the main target + damage riders that don't actually get added)

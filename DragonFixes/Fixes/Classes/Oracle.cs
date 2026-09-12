@@ -9,6 +9,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
+using BlueprintCore.Utils;
+using Kingmaker.Blueprints;
+using Kingmaker.Blueprints.Classes;
+using Kingmaker.UnitLogic.Buffs.Blueprints;
 
 namespace DragonFixes.Fixes.Classes
 {
@@ -39,12 +44,36 @@ namespace DragonFixes.Fixes.Classes
         [DragonConfigure]
         public static void PatchOracleRevelations()
         {
-            Main.log.Log("Patching Fortune Revelation feature `isClassFeature`");
-            FeatureConfigurator.For(FeatureRefs.FortuneRevelationFeature)
-                .SetIsClassFeature(true)
-                .Configure();
-            Main.log.Log("Patching Mistfortune Revelation feature `isClassFeature`");
-            FeatureConfigurator.For(FeatureRefs.MisfortuneRevelationFeature)
+            Blueprint<BlueprintReference<BlueprintFeature>>[] toFixFeatures =
+            [
+                FeatureRefs.OracleRevelationChannel, FeatureRefs.OracleRevelationCombatHealer,
+                FeatureRefs.OracleRevelationEnhancedCures, FeatureRefs.OracleRevelationFluidNature,
+                FeatureRefs.OracleRevelationInvisibility, FeatureRefs.OracleRevelationInvisibilityGreater,
+                FeatureRefs.OracleRevelationLifesense, FeatureRefs.Lifesense, FeatureRefs.OracleRevelationSpiritBoost,
+                FeatureRefs.FortuneRevelationFeature, FeatureRefs.MisfortuneRevelationFeature
+            ];
+            Blueprint<BlueprintReference<BlueprintBuff>>[] toFixBuffs =
+            [
+                BuffRefs.OracleRevelationFriendToAnimalsBuff, BuffRefs.OracleRevelationTouchOfAcidBuff,
+                BuffRefs.OracleRevelationTouchOfElectricity11Buff, BuffRefs.OracleRevelationTouchOfFlame11Buff,
+                BuffRefs.OracleRevelationWintryTouch11Buff, BuffRefs.FortuneRevelationBuff, BuffRefs.MisfortuneRevelationBuff
+            ];
+            foreach (var x in toFixFeatures)
+            {
+                Main.log.Log($"Patching {x.Reference.NameSafe()} isClassFeature to true");
+                FeatureConfigurator.For(x)
+                    .SetIsClassFeature(true)
+                    .Configure();
+            }
+            foreach (var x in toFixBuffs)
+            {
+                Main.log.Log($"Patching {x.Reference.NameSafe()} isClassFeature to true");
+                BuffConfigurator.For(x)
+                    .SetIsClassFeature(true)
+                    .Configure();
+            }
+            Main.log.Log("Patching Form of Flame Revelation progression `isClassFeature` to true");
+            ProgressionConfigurator.For(ProgressionRefs.OracleRevelationFormOfFlame)
                 .SetIsClassFeature(true)
                 .Configure();
         }

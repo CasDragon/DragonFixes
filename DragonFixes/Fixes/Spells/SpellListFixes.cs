@@ -1,18 +1,9 @@
-﻿using BlueprintCore.Blueprints.CustomConfigurators.Classes.Spells;
-using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
-using BlueprintCore.Blueprints.References;
-using BlueprintCore.Utils;
-using DragonFixes.Util;
+﻿using BlueprintCore.Blueprints.References;
 using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes.Spells;
 using Kingmaker.Craft;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DragonFixes.Fixes.Spells
 {
