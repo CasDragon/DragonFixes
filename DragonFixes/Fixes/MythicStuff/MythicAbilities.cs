@@ -5,7 +5,7 @@ namespace DragonFixes.Fixes.MythicStuff;
 
 public class MythicAbilities
 {
-    public static void PatchMythicAbiltiies()
+    public static void PatchIsClassFeature()
     {
         Main.log.Log("Patching Perfect Cavalry mythic ability `isClassFeature`");
         FeatureConfigurator.For(FeatureRefs.PerfectCavalry)
