@@ -74,29 +74,62 @@ public class Kineticist
     [DragonConfigure]
     public static void PatchSpindleInfusion()
     {
-        Main.log.Log("Patching Spindle / Exploding Arrows infusions to use InfusionBurnCost instead of BlastBurnCost.");
-        Blueprint<BlueprintReference<BlueprintAbility>>[] abilities = [AbilityRefs.SpindleAirBlastAbility, AbilityRefs.SpindleBlizzardBlastAbility,
-            AbilityRefs.SpindleBloodBlastAbility, AbilityRefs.SpindleBlueFlameBlastAbility, AbilityRefs.SpindleChargedWaterBlastAbility,
-            AbilityRefs.SpindleColdBlastAbility, AbilityRefs.SpindleEarthBlastAbility, AbilityRefs.SpindleElectricBlastAbility,
-            AbilityRefs.SpindleFireBlastAbility, AbilityRefs.SpindleIceBlastAbility, AbilityRefs.SpindleMagmaBlastAbility,
-            AbilityRefs.SpindleMetalBlastAbility, AbilityRefs.SpindleMudBlastAbility, AbilityRefs.SpindlePlasmaBlastAbility,
-            AbilityRefs.SpindleSandstormBlastAbility, AbilityRefs.SpindleSteamBlastAbility, AbilityRefs.SpindleThunderstormBlastAbility,
-            AbilityRefs.SpindleWaterBlastAbility, AbilityRefs.ExplodingArrowsAirBlastAbility, AbilityRefs.ExplodingArrowsBlizzardBlastAbility,
-            AbilityRefs.ExplodingArrowsBlueFlameBlastAbility, AbilityRefs.ExplodingArrowsChargedWaterBlastAbility, AbilityRefs.ExplodingArrowsColdBlastAbility,
-            AbilityRefs.ExplodingArrowsEarthBlastAbility, AbilityRefs.ExplodingArrowsElectricBlastAbility, AbilityRefs.ExplodingArrowsFireBlastAbility,
-            AbilityRefs.ExplodingArrowsIceBlastAbility, AbilityRefs.ExplodingArrowsMagmaBlastAbility, AbilityRefs.ExplodingArrowsMetalBlastAbility,
-            AbilityRefs.ExplodingArrowsMudBlastAbility, AbilityRefs.ExplodingArrowsPlasmaBlastAbility, AbilityRefs.ExplodingArrowsSandstormBlastAbility,
-            AbilityRefs.ExplodingArrowsSteamBlastAbility, AbilityRefs.ExplodingArrowsThunderstormBlastAbility, AbilityRefs.ExplodingArrowsWaterBlastAbility];
-        foreach(var ability in abilities)
+        Main.log.Log(
+            "Patching Spindle / Exploding Arrows infusions to use InfusionBurnCost instead of BlastBurnCost, and restoring the missing composite blast surcharge.");
+        const int simpleBlastBurnCost = 0;
+        const int compositeBlastBurnCost = 2;
+        (Blueprint<BlueprintReference<BlueprintAbility>> Ability, int BlastBurnCost)[]
+            infusionAbilities =
+            [
+                (AbilityRefs.SpindleAirBlastAbility, simpleBlastBurnCost),
+                (AbilityRefs.SpindleColdBlastAbility, simpleBlastBurnCost),
+                (AbilityRefs.SpindleEarthBlastAbility, simpleBlastBurnCost),
+                (AbilityRefs.SpindleElectricBlastAbility, simpleBlastBurnCost),
+                (AbilityRefs.SpindleFireBlastAbility, simpleBlastBurnCost),
+                (AbilityRefs.SpindleWaterBlastAbility, simpleBlastBurnCost),
+                (AbilityRefs.ExplodingArrowsAirBlastAbility, simpleBlastBurnCost),
+                (AbilityRefs.ExplodingArrowsColdBlastAbility, simpleBlastBurnCost),
+                (AbilityRefs.ExplodingArrowsEarthBlastAbility, simpleBlastBurnCost),
+                (AbilityRefs.ExplodingArrowsElectricBlastAbility, simpleBlastBurnCost),
+                (AbilityRefs.ExplodingArrowsFireBlastAbility, simpleBlastBurnCost),
+                (AbilityRefs.ExplodingArrowsWaterBlastAbility, simpleBlastBurnCost),
+                (AbilityRefs.SpindleBlizzardBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.SpindleBloodBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.SpindleBlueFlameBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.SpindleChargedWaterBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.SpindleIceBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.SpindleMagmaBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.SpindleMetalBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.SpindleMudBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.SpindlePlasmaBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.SpindleSandstormBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.SpindleSteamBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.SpindleThunderstormBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.ExplodingArrowsBlizzardBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.ExplodingArrowsBlueFlameBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.ExplodingArrowsChargedWaterBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.ExplodingArrowsIceBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.ExplodingArrowsMagmaBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.ExplodingArrowsMetalBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.ExplodingArrowsMudBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.ExplodingArrowsPlasmaBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.ExplodingArrowsSandstormBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.ExplodingArrowsSteamBlastAbility, compositeBlastBurnCost),
+                (AbilityRefs.ExplodingArrowsThunderstormBlastAbility, compositeBlastBurnCost)
+            ];
+
+        foreach (var (ability, blastBurnCost) in infusionAbilities)
         {
             AbilityConfigurator.For(ability)
-                .EditComponent<AbilityKineticist>(changeinfusions)
+                .EditComponent<AbilityKineticist>(component =>
+                    ChangeInfusionBurnCost(component, blastBurnCost))
                 .Configure();
         }
     }
-    public static void changeinfusions(AbilityKineticist component)
+
+    private static void ChangeInfusionBurnCost(AbilityKineticist component, int blastBurnCost)
     {
-        component.BlastBurnCost = 0;
+        component.BlastBurnCost = blastBurnCost;
         component.InfusionBurnCost = 2;
     }
 
