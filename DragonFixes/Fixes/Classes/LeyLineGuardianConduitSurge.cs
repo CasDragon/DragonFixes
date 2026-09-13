@@ -2,6 +2,8 @@ using System.Linq;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
 using DragonFixes.Util;
+using DragonLibrary.BPCoreExtensions;
+using DragonLibrary.NewComponents;
 using DragonLibrary.Utils;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Facts;
@@ -20,6 +22,7 @@ using Kingmaker.UnitLogic.FactLogic;
 using Kingmaker.UnitLogic.Mechanics;
 using Kingmaker.UnitLogic.Mechanics.Components;
 using Kingmaker.Utility;
+using UnityEngine;
 
 namespace DragonFixes.Fixes.Classes;
 
@@ -31,28 +34,7 @@ namespace DragonFixes.Fixes.Classes;
 /// This matches Conduit Surge's own AfterCast removal trigger, so the bonus and the buff's
 /// removal stay in sync.
 /// </summary>
-[ComponentName("Increase spell CL while Conduit Surge is active")]
-[AllowedOn(typeof(BlueprintUnitFact), false)]
-[TypeId("d3d8b6f4b5f9481f8f5e5b6e5a6d0c11")]
-public class IncreaseCasterLevelForSpells : UnitFactComponentDelegate, IInitiatorRulebookHandler<RuleCalculateAbilityParams>
-{
-    public ContextValue Value;
-    public ModifierDescriptor Descriptor = ModifierDescriptor.UntypedStackable;
 
-    public void OnEventAboutToTrigger(RuleCalculateAbilityParams evt)
-    {
-        if (evt.Spell is not { Type: AbilityType.Spell })
-        {
-            return;
-        }
-
-        evt.AddBonusCasterLevel(Value.Calculate(Context), Descriptor);
-    }
-
-    public void OnEventDidTrigger(RuleCalculateAbilityParams evt)
-    {
-    }
-}
 
 /// <summary>
 /// Conduit Surge's own text boosts "her own spells" and staggers her "after performing a conduit
@@ -66,7 +48,9 @@ public class IncreaseCasterLevelForSpells : UnitFactComponentDelegate, IInitiato
 [TypeId("a7c19e4d5b2f4c3a9e6d1f8b2c4a6e01")]
 public class ConduitSurgeOnRealSpellCast : UnitFactComponentDelegate, IInitiatorRulebookHandler<RuleCastSpell>
 {
+    [SerializeField]
     public ContextValue Value;
+    [SerializeField]
     public BlueprintBuffReference Buff;
 
     public void OnEventAboutToTrigger(RuleCastSpell evt)
