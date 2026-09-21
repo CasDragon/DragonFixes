@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
 using BlueprintCore.Actions.Builder;
+using BlueprintCore.Actions.Builder.ContextEx;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
 using BlueprintCore.Blueprints.References;
 using BlueprintCore.Conditions.Builder;
 using BlueprintCore.Conditions.Builder.ContextEx;
-using DragonLibrary.BPCoreExtensions;
 using DragonLibrary.Utils;
 using Kingmaker.ElementsSystem;
 using Kingmaker.UnitLogic.Abilities.Components;
@@ -19,23 +19,21 @@ public class AnimateDead
     public static void PatchAnimateDead()
     {
         bool isDC = ModCompat.IsModEnabled("DarkCodex");
-        if (!isDC)
+        if (isDC) return;
+        try
         {
-            try
-            {
-                Main.log.Log("Patching AnimateDead (and Lesser) to include NecromancersStaffFeature buff");
-                AbilityConfigurator.For(AbilityRefs.AnimateDead)
-                    .EditComponent<AbilityEffectRunAction>(c => dothing(c))
-                    .Configure();
-                AbilityConfigurator.For(AbilityRefs.AnimateDeadLesser)
-                    .EditComponent<AbilityEffectRunAction>(c => dothing(c))
-                    .Configure();
-            }
-            catch (Exception e)
-            {
-                Main.log.Log("Error patching Animate Dead");
-                Main.log.LogException(e);
-            }
+            Main.log.Log("Patching AnimateDead (and Lesser) to include NecromancersStaffFeature buff");
+            AbilityConfigurator.For(AbilityRefs.AnimateDead)
+                .EditComponent<AbilityEffectRunAction>(dothing)
+                .Configure();
+            AbilityConfigurator.For(AbilityRefs.AnimateDeadLesser)
+                .EditComponent<AbilityEffectRunAction>(dothing)
+                .Configure();
+        }
+        catch (Exception e)
+        {
+            Main.log.Log("Error patching Animate Dead");
+            Main.log.LogException(e);
         }
     }
 
