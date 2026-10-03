@@ -16,9 +16,9 @@ namespace DragonFixes.Fixes.Items;
 public class GnawingMagic
 {
     [DragonConfigure]
-    public static void PatchGnawingHunger()
+    public static void PatchGnawingMagic()
     {
-        Main.log.Log("Patching Gnawing Hunger to actually apply debuff to enemy?");
+        Main.log.Log("Patching Gnawing Magic to actually apply debuff to enemy?");
         BlueprintFeature bp = FeatureRefs.GnawingMagicFeature.Reference.Get();
         DragonHelpers.RemoveComponent(bp, bp.GetComponent<AddAbilityUseTrigger>());
         FeatureConfigurator.For(bp)

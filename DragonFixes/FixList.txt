@@ -20,7 +20,7 @@
 - Study Target, Bane Living now correctly check for valid targets for the buff
 - Now Jernaugh correctly recognise PC race in Act 1
 - New batch of dialog fixes from Whiterock (adds 8 or so)
-- Fixes Free Rein, Cobra Pads, Clutch of Corruption, Ancient Wood, Gnawing Hunger
+- Fixes Free Rein, Cobra Pads, Clutch of Corruption, Ancient Wood, Gnawing Magic
 - Weapon enchantments now don't apply +1 enhancement levels. This should fix the +2 weapons somehow bypassing DR/Good for no reason (Fix from ADDB)
 - Fixes the Devitalizer weapon (not tested) (maybe tested by now? I'm just copy/pasting from my releases on Github)
 - Fixes Magic Deceiver's Inhibit Courage and Inhibit Heroes to actually debuff the enemy

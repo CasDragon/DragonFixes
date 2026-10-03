@@ -44,11 +44,11 @@ namespace DragonFixes.Fixes.Classes
         public static void PatchExtraReservoir()
         {
             Main.log.Log("Patching ExtraReservoir to use IncreaseResourceAmount, fixing it not working multiple times");
-            var x = FeatureRefs.ArcanistArcaneReservoirFeature.Reference.Get();
+            var x = FeatureRefs.ExtraReservoir.Reference.Get();
             DragonHelpers.RemoveComponent<IncreaseResourceAmountBySharedValue>(x);
             FeatureConfigurator.For(x)
                 .AddIncreaseResourceAmount(
-                    resource: AbilityResourceRefs.KiPowerResource.Reference.Get(),
+                    resource: AbilityResourceRefs.ArcanistArcaneReservoirResource.Reference.Get(),
                     value: 3)
                 .AddFeatureTagsComponent(FeatureTag.ClassSpecific)
                 .Configure();
