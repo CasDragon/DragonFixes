@@ -1,7 +1,9 @@
 using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.References;
 using DragonLibrary.Utils;
+using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
+using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Designers.Mechanics.Facts;
 
 namespace DragonFixes.Fixes.UnitFeatures;
@@ -18,6 +20,18 @@ public class UncannyDodge
         DragonHelpers.RemoveComponent<AddFeatureIfHasFact>(x);
         FeatureConfigurator.For(x)
             .AddFacts([FeatureRefs.UncannyDodgeChecker.Reference.Get()])
+            .Configure();
+    }
+
+    [DragonConfigure]
+    public static void AddArchetypes()
+    {
+        Main.log.Log("Adding Sylvan Trickster archetype to UncannyDodge.");
+        FeatureConfigurator.For(FeatureRefs.UncannyDodgeTalent)
+            .AddPrerequisiteArchetypeLevel(group: Prerequisite.GroupType.Any,
+                characterClass: CharacterClassRefs.RogueClass.ToString(),
+                archetype: ArchetypeRefs.SylvanTricksterArchetype.ToString(),
+                level: 4)
             .Configure();
     }
 }
