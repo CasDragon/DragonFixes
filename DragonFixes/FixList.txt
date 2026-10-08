@@ -138,3 +138,4 @@
 - Fix Two Handed Fighter's Piledriver feature from not removing the auto bullrush buff
 - Allow Sylvan Trickster to take Uncanny Dodge (Owlcat allows a bunch of classes to take Rogue talents and thus get Uncanny even though TT, they shouldn't. So this fix is just making sure the behavior lines up with their homebrew)
 - Blight Druid can now correctly take Ice domain
+- Songbird (DLC3) can no longer dispel features off you (same fix as Purging Finale)

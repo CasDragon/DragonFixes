@@ -1,5 +1,6 @@
 using System.Linq;
 using BlueprintCore.Blueprints.CustomConfigurators.Classes;
+using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
 using BlueprintCore.Blueprints.References;
 using DragonLibrary.Utils;
 using Kingmaker.Blueprints.Classes;
@@ -7,6 +8,7 @@ using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.UnitLogic.Mechanics.Actions;
 using Kingmaker.UnitLogic.Mechanics.Components;
 using DragonFixes.Util;
+using Kingmaker.UnitLogic.Abilities.Components;
 
 namespace DragonFixes.Fixes.Units;
 
@@ -32,5 +34,14 @@ public class FeatureFixes
             .Configure();
         DragonHelpers.RemoveComponent<ContextCalculateAbilityParams>(x);
         DragonHelpers.RemoveComponent<RecalculateOnStatChange>(x);
+    }
+
+    [DragonConfigure]
+    public static void PatchShatterScream()
+    {
+        Main.log.Log("Patching DLC3_FAB_ShatterScream_Stage2 to dispel correctly");
+        var x = AbilityRefs.DLC3_FAB_ShatterScream_Stage2.Reference.Get();
+        if (x.m_AllElements.First(a => a is ContextActionDispelMagic) is ContextActionDispelMagic dispel)
+            dispel.CheckSchoolOrDescriptor = false;
     }
 }
