@@ -139,5 +139,6 @@
 - Allow Sylvan Trickster to take Uncanny Dodge (Owlcat allows a bunch of classes to take Rogue talents and thus get Uncanny even though TT, they shouldn't. So this fix is just making sure the behavior lines up with their homebrew)
 - Blight Druid can now correctly take Ice domain
 - Songbird (DLC3) can no longer dispel features off you (same fix as Purging Finale)
-- Fix Convict crusade army to not make you lose morale on hit and make the enemy loss morale instead (Whiterock making me fix crusade units like anyone plays crusade mode :heresy:)
+- Fix Convict crusade army to not make you lose morale on hit and make the enemy loss morale instead (Whiterock making me fix crusade units like anyone plays crusade mode :heresy: )
 - Triceratops and Elk animal companions with the Powerful Charge feat now actually attack at the end of a Charge instead of running up to the enemy and stopping. -Fix from Tia
+- Possible fix for Crusader's Mounted Mastery feature, which was stacking indefinitely. 
