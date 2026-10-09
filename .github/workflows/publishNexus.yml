@@ -1,0 +1,45 @@
+name: Publish to Nexus Mods
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download zip from the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          gh release download "$TAG" \
+            --repo "${{ github.repository }}" \
+            --pattern "*.zip" \
+            --dir .
+          ls -l *.zip
+
+      - name: Get version from release tag
+        id: meta
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          echo "zip=$(ls *.zip | head -n 1)" >> "$GITHUB_OUTPUT"
+          echo "version=${TAG#v}" >> "$GITHUB_OUTPUT"   # v1.2.3 -> 1.2.3
+
+      - name: Upload to Nexus Mods
+        uses: Nexus-Mods/upload-action@v1.0.0-beta.9   # check the repo's releases for the newest tag
+        with:
+          api_key: ${{ secrets.NEXUS_API_KEY }}
+          file_id: 7957785
+          mod_id: ${{ secrets.MOD_ID }}
+          filename: ${{ steps.meta.outputs.zip }}
+          version: ${{ steps.meta.outputs.version }}
+          display_name: "DragonFixes ${{ steps.meta.outputs.version }}"
+          category: main
+          archive_existing_version: true
+          update_mod_version: true
+          changelog: ${{ github.event.release.body }}
