@@ -129,7 +129,7 @@
 - Ring of Pyromania now correctly checks a spell's final, converted element instead of its original one. It used to miss its bonus fire damage on spells converted to Fire, and wrongly grant it on spells converted from Fire. -Fix from Tia
 - Fiery Body's fire damage healing now actually works, it always healed for 0 before. The Dragonblood Shifter's dragon-aspect elemental immunities heal the same way now too. -Fix from Tia
 - Ley Line Guardian's Conduit Surge now actually boosts the caster level of your next spell. It used to apply the bonus one step too late to affect that cast, so you paid the resource and risked the backlash for nothing. -Fix from Tia
-- Ley Line Guardian's Conduit Surge no longer boosts every ability you use while it's active, only the next actual spell as intended, and scrolls/wands/potions (or a spell that fails to go off) no longer trigger its Fortitude save or wastes the charge. -Fix from Tia -Fix from Tia
+- Ley Line Guardian's Conduit Surge no longer boosts every ability you use while it's active, only the next actual spell as intended, and scrolls/wands/potions (or a spell that fails to go off) no longer trigger its Fortitude save or wastes the charge. -Fix from Tia
 - Leveling up sometimes silently skipped a class feature choice (Vivisectionist discoveries, Sorcerer/Bloodrager bloodline feats, Fighter's Advanced Weapon Training and similar) if a different character was selected in the party bar. It checked prerequisites against whoever was selected there instead of the character leveling up. -Fix from Tia
 - Fix Loremaster not accepting Intensified metamagic as a prereq
 - Living Grimoire now is probably blocked from spellcasting when their alignment isn't what deity allows
@@ -140,3 +140,4 @@
 - Blight Druid can now correctly take Ice domain
 - Songbird (DLC3) can no longer dispel features off you (same fix as Purging Finale)
 - Fix Convict crusade army to not make you lose morale on hit and make the enemy loss morale instead (Whiterock making me fix crusade units like anyone plays crusade mode :heresy:)
+- Triceratops and Elk animal companions with the Powerful Charge feat now actually attack at the end of a Charge instead of running up to the enemy and stopping. -Fix from Tia
