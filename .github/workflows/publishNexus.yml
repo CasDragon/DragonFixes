@@ -31,7 +31,7 @@ jobs:
           echo "version=${TAG#v}" >> "$GITHUB_OUTPUT"   # v1.2.3 -> 1.2.3
 
       - name: Upload to Nexus Mods
-        uses: Nexus-Mods/upload-action@v1.0.0-beta.9   # check the repo's releases for the newest tag
+        uses: Nexus-Mods/upload-action@v1.0.0-beta.9
         with:
           api_key: ${{ secrets.NEXUS_API_KEY }}
           file_id: 7957785
@@ -40,6 +40,6 @@ jobs:
           version: ${{ steps.meta.outputs.version }}
           display_name: "DragonFixes ${{ steps.meta.outputs.version }}"
           category: main
-          archive_existing_version: true
+          archive_existing_version: false
           update_mod_version: true
           changelog: ${{ github.event.release.body }}
