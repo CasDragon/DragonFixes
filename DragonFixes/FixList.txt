@@ -142,3 +142,4 @@
 - Fix Convict crusade army to not make you lose morale on hit and make the enemy loss morale instead (Whiterock making me fix crusade units like anyone plays crusade mode :heresy: )
 - Triceratops and Elk animal companions with the Powerful Charge feat now actually attack at the end of a Charge instead of running up to the enemy and stopping. -Fix from Tia
 - Possible fix for Crusader's Mounted Mastery feature, which was stacking indefinitely. 
+- Lethal Accuracy now applies it's crit multiplier to all weapons. (Lethal Stance specifics that it increases AB for melee and thrown weapons, but Lethal Accuracy just says "while you are in lethal stance", so instead of just fixing it to include throw weapons, by RAW, my fix is for all weapons)
