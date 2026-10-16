@@ -1,3 +1,4 @@
+using System.Linq;
 using BlueprintCore.Blueprints.Configurators.Classes;
 using BlueprintCore.Blueprints.References;
 using DragonLibrary.Utils;
@@ -16,5 +17,44 @@ public static class Loremaster
             .EditComponent<PrerequisiteFeaturesFromList>(c => c.m_Features = 
                 [..c.m_Features, FeatureRefs.IntensifiedSpell.Reference.Get().ToReference<BlueprintFeatureReference>()])
             .Configure();
+    }
+
+    [DragonConfigure]
+    public static void FixSpellbookProgression()
+    {
+        Main.log.Log("Fixing the Loremaster spellbook progression");
+        var hunterloremaster = ProgressionRefs.LoremasterHunterProgression.Reference.Get();
+        var hunterlevel = FeatureRefs.LoremasterHunterLevelUp.Reference.Get().ToReference<BlueprintFeatureBaseReference>();
+        var rangerlevel = FeatureRefs.LoremasterRangerLevelUp.ToString();
+        hunterloremaster.LevelEntries[12].m_Features =
+        [
+            .. hunterloremaster.LevelEntries[12].m_Features
+                .Where(f => f.guid == rangerlevel),
+            hunterlevel
+        ];
+        hunterloremaster.LevelEntries[17].m_Features =
+        [
+            .. hunterloremaster.LevelEntries[17].m_Features
+                .Where(f => f.guid == rangerlevel),
+            hunterlevel
+        ];
+        hunterloremaster.LevelEntries[18].m_Features =
+        [
+            .. hunterloremaster.LevelEntries[18].m_Features
+                .Where(f => f.guid == rangerlevel),
+            hunterlevel
+        ];
+        hunterloremaster.LevelEntries[19].m_Features =
+        [
+            .. hunterloremaster.LevelEntries[19].m_Features
+                .Where(f => f.guid == rangerlevel),
+            hunterlevel
+        ];
+        hunterloremaster.LevelEntries[20].m_Features =
+        [
+            .. hunterloremaster.LevelEntries[20].m_Features
+                .Where(f => f.guid == rangerlevel),
+            hunterlevel
+        ];
     }
 }
