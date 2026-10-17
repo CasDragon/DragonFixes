@@ -146,3 +146,4 @@
 - Partial fix for Lone Wolf's Cloak, fixes the damage bonus portion of it (will possibly remember to do the rest later)
 - Fix Hunter/Loremaster combination, where spellbook progression doesn't work correctly (5 levels of it were giving out Ranger spellbook progression instead of Hunter)
 - Battering Blast now gets it's final ray correctly (Game hard caps it at 7, even though it technically gets hardcapped at 8) 
+- Fix Living Grimoire's Blessed Script feature to actually increase your CL and spell DC after hitting an enemy
