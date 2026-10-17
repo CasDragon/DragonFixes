@@ -1,9 +1,13 @@
-﻿using BlueprintCore.Blueprints.Configurators.Items.Ecnchantments;
+﻿using System.Linq;
+using BlueprintCore.Blueprints.Configurators.Items.Ecnchantments;
 using BlueprintCore.Blueprints.Configurators.Items.Weapons;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
+using BlueprintCore.Utils;
 using DragonLibrary.Utils;
+using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Items.Ecnchantments;
+using Kingmaker.Blueprints.Items.Weapons;
 using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.Enums.Damage;
 using Kingmaker.RuleSystem;
@@ -103,193 +107,145 @@ namespace DragonFixes.Fixes.Enchants
         }
         public static void PatchRemoveOtherEnchants()
         {
-            ItemWeaponConfigurator.For(ItemWeaponRefs.BrutalDecayItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.RottenDissectorItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.RustedDawnItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.EyeGougerItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.MageSlayerItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.RovagugRelicScorpionBattlaxeItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.RovagugRelicScorpionBattlaxeItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.RovagugRelicScorpionGreataxeItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.RovagugRelicScorpionHandaxeItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.SpeedCorrosiveBusrtJavelinPlus5)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Corrosive.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.SacrificialElderCorrosiveBurstSpearPlus5)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.ElderCorrosive.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.DevitalizerItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.ElderCorrosive.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.ElderFlamingBurstLightCrossbowPlus5)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.ElderFlaming.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.TidebringerItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.ElderFrost.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.CruelElderShockingBurstDwarvenWaraxePlus5)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.ElderShock.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.ViciousElderShockingBurstLightPickPlus5)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.ElderShock.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.FlamingBurstAdamantineDwarvenUrgroshPlus3)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.FlamingBurstAdamantineDwarvenUrgroshSecondPlus3)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.IgnitionItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.BloodBoilerItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.AshmakerItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.RapscallionItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.SkyScorcherItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.ExplosiveFervorItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.FierySpellWeaverItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.SpitefulMockeryItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.NemaryStigmaBardiche_MagicSealingItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.NemaryStigmaSlingStaff_MagicSealingItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.NemaryStigmaTrident_MagicSealingItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Flaming.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.AdamantineFrostBurstStarknifePlus3)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Frost.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.BaneOutsiderChaoticIcyBurstJavelinPlus1)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Frost.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.FrostEmbraceItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Frost.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.HeartOfIcebergItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Frost.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.IcyBurstKeenColdIronBastardSwordPlus3Item)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Frost.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.FrostbiteItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Frost.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.NordicWelcomeItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Frost.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.BloodFreezerItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Frost.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.HandaxeThievesMagicPoisonousItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Shock.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.AbruptEndItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Shock.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.GlaringThunderItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Shock.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.PocketLightningItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Shock.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.IndomitablePunisherItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Shock.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.HeavyCrossbowOfDegradationItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Thundering.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.ScreamOfPainItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Thundering.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.ThunderingBurstDualswordPlus3Item)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Thundering.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.StormcallerItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Thundering.Reference.Get())
-                .Configure();
-
-            ItemWeaponConfigurator.For(ItemWeaponRefs.OakOfThunderItem)
-                .RemoveFromEnchantments(WeaponEnchantmentRefs.Thundering.Reference.Get())
-                .Configure();
+            // corrosive
+            var corrosive = WeaponEnchantmentRefs.Corrosive.ToString();
+            Blueprint<BlueprintReference<BlueprintItemWeapon>>[] corrosiveItems = 
+            [
+                ItemWeaponRefs.BrutalDecayItem, ItemWeaponRefs.RottenDissectorItem, ItemWeaponRefs.RustedDawnItem,
+                ItemWeaponRefs.EyeGougerItem, ItemWeaponRefs.MageSlayerItem, ItemWeaponRefs.RovagugRelicScorpionBattlaxeItem,
+                ItemWeaponRefs.RovagugRelicScorpionBattlaxeItem,ItemWeaponRefs.RovagugRelicScorpionGreataxeItem,
+                ItemWeaponRefs.RovagugRelicScorpionHandaxeItem, ItemWeaponRefs.SpeedCorrosiveBusrtJavelinPlus5
+            ];
+            foreach (var item in corrosiveItems)
+            {
+                var x = item.Reference.Get();
+                ItemWeaponConfigurator.For(item)
+                    .RemoveFromEnchantments(corrosive)
+                    .Configure();
+                x.m_Enchantments = [.. x.m_Enchantments.Where(e => e.deserializedGuid != corrosive)];
+            }
+            // elder corrosive
+            var elderCorrosive = WeaponEnchantmentRefs.ElderCorrosive.ToString();
+            Blueprint<BlueprintReference<BlueprintItemWeapon>>[] elderCorrosiveItems =
+            [
+                ItemWeaponRefs.SacrificialElderCorrosiveBurstSpearPlus5, ItemWeaponRefs.DevitalizerItem
+            ];
+            foreach (var item in elderCorrosiveItems)
+            {
+                var x = item.Reference.Get();
+                ItemWeaponConfigurator.For(item)
+                    .RemoveFromEnchantments(elderCorrosive)
+                    .Configure();
+                x.m_Enchantments = [.. x.m_Enchantments.Where(e => e.deserializedGuid != elderCorrosive)];
+            }
+            // elder flaming
+            var elderFlaming = WeaponEnchantmentRefs.ElderFlaming.ToString();
+            Blueprint<BlueprintReference<BlueprintItemWeapon>>[] elderFlamingItems =
+            [
+                ItemWeaponRefs.ElderFlamingBurstLightCrossbowPlus5
+            ];
+            foreach (var item in elderFlamingItems)
+            {
+                var x = item.Reference.Get();
+                ItemWeaponConfigurator.For(item)
+                    .RemoveFromEnchantments(elderFlaming)
+                    .Configure();
+                x.m_Enchantments = [.. x.m_Enchantments.Where(e => e.deserializedGuid != elderFlaming)];
+            }
+            // elder frost
+            var elderFrost = WeaponEnchantmentRefs.ElderFrost.ToString();
+            Blueprint<BlueprintReference<BlueprintItemWeapon>>[] elderFrostItems =
+            [
+                ItemWeaponRefs.TidebringerItem
+            ];
+            foreach (var item in elderFrostItems)
+            {
+                var x = item.Reference.Get();
+                ItemWeaponConfigurator.For(item)
+                    .RemoveFromEnchantments(elderFrost)
+                    .Configure();
+                x.m_Enchantments = [.. x.m_Enchantments.Where(e => e.deserializedGuid != elderFrost)];
+            }
+            // elder shock
+            var elderShock = WeaponEnchantmentRefs.ElderShock.ToString();
+            Blueprint<BlueprintReference<BlueprintItemWeapon>>[] elderShockItems =
+            [
+                ItemWeaponRefs.CruelElderShockingBurstDwarvenWaraxePlus5, ItemWeaponRefs.ViciousElderShockingBurstLightPickPlus5
+            ];
+            foreach (var item in elderShockItems)
+            {
+                var x = item.Reference.Get();
+                ItemWeaponConfigurator.For(item)
+                    .RemoveFromEnchantments(elderShock)
+                    .Configure();
+                x.m_Enchantments = [.. x.m_Enchantments.Where(e => e.deserializedGuid != elderShock)];
+            }
+            // flaming
+            var flaming = WeaponEnchantmentRefs.Flaming.ToString();
+            Blueprint<BlueprintReference<BlueprintItemWeapon>>[] flamingItems = 
+            [
+                ItemWeaponRefs.FlamingBurstAdamantineDwarvenUrgroshPlus3, ItemWeaponRefs.FlamingBurstAdamantineDwarvenUrgroshSecondPlus3,
+                ItemWeaponRefs.IgnitionItem, ItemWeaponRefs.BloodBoilerItem, ItemWeaponRefs.AshmakerItem,
+                ItemWeaponRefs.RapscallionItem, ItemWeaponRefs.SkyScorcherItem, ItemWeaponRefs.ExplosiveFervorItem,
+                ItemWeaponRefs.FierySpellWeaverItem, ItemWeaponRefs.SpitefulMockeryItem,
+                ItemWeaponRefs.NemaryStigmaBardiche_MagicSealingItem, ItemWeaponRefs.NemaryStigmaSlingStaff_MagicSealingItem,
+                ItemWeaponRefs.NemaryStigmaTrident_MagicSealingItem
+            ];
+            foreach (var item in flamingItems)
+            {
+                var x = item.Reference.Get();
+                ItemWeaponConfigurator.For(item)
+                    .RemoveFromEnchantments(flaming)
+                    .Configure();
+                x.m_Enchantments = [.. x.m_Enchantments.Where(e => e.deserializedGuid != flaming)];
+            }
+            // frost
+            var frost = WeaponEnchantmentRefs.Frost.ToString();
+            Blueprint<BlueprintReference<BlueprintItemWeapon>>[] frostItems = 
+            [
+                ItemWeaponRefs.AdamantineFrostBurstStarknifePlus3, ItemWeaponRefs.BaneOutsiderChaoticIcyBurstJavelinPlus1,
+                ItemWeaponRefs.FrostEmbraceItem, ItemWeaponRefs.HeartOfIcebergItem, ItemWeaponRefs.FrostbiteItem,
+                ItemWeaponRefs.IcyBurstKeenColdIronBastardSwordPlus3Item, ItemWeaponRefs.NordicWelcomeItem,
+                ItemWeaponRefs.BloodFreezerItem
+            ];
+            foreach (var item in frostItems)
+            {
+                var x = item.Reference.Get();
+                ItemWeaponConfigurator.For(item)
+                    .RemoveFromEnchantments(frost)
+                    .Configure();
+                x.m_Enchantments = [.. x.m_Enchantments.Where(e => e.deserializedGuid != frost)];
+            }
+            // shock
+            var shock = WeaponEnchantmentRefs.Shock.ToString();
+            Blueprint<BlueprintReference<BlueprintItemWeapon>>[] shockItems = 
+            [
+                ItemWeaponRefs.HandaxeThievesMagicPoisonousItem, ItemWeaponRefs.AbruptEndItem,
+                ItemWeaponRefs.GlaringThunderItem, ItemWeaponRefs.PocketLightningItem, ItemWeaponRefs.IndomitablePunisherItem
+            ];
+            foreach (var item in shockItems)
+            {
+                var x = item.Reference.Get();
+                ItemWeaponConfigurator.For(item)
+                    .RemoveFromEnchantments(shock)
+                    .Configure();
+                x.m_Enchantments = [.. x.m_Enchantments.Where(e => e.deserializedGuid != shock)];
+            }
+            // thundering
+            var thundering = WeaponEnchantmentRefs.Thundering.ToString();
+            Blueprint<BlueprintReference<BlueprintItemWeapon>>[] thunderingItems = 
+            [
+                ItemWeaponRefs.HeavyCrossbowOfDegradationItem, ItemWeaponRefs.ScreamOfPainItem, ItemWeaponRefs.OakOfThunderItem,
+                ItemWeaponRefs.ThunderingBurstDualswordPlus3Item, ItemWeaponRefs.StormcallerItem
+            ];
+            foreach (var item in thunderingItems)
+            {
+                var x = item.Reference.Get();
+                ItemWeaponConfigurator.For(item)
+                    .RemoveFromEnchantments(thundering)
+                    .Configure();
+                x.m_Enchantments = [.. x.m_Enchantments.Where(e => e.deserializedGuid != thundering)];
+            }
         }
     }
 }
