@@ -147,3 +147,4 @@
 - Fix Hunter/Loremaster combination, where spellbook progression doesn't work correctly (5 levels of it were giving out Ranger spellbook progression instead of Hunter)
 - Battering Blast now gets it's final ray correctly (Game hard caps it at 7, even though it technically gets hardcapped at 8) 
 - Fix Living Grimoire's Blessed Script feature to actually increase your CL and spell DC after hitting an enemy
+- Fix Angel's Piercing Ray ability to correctly scale (base game is (1 + MR)/2, when the description says 1 + MR/2)
