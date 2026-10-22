@@ -15,7 +15,8 @@ public class Demon
     {
         Main.log.Log("Patching to include all spells instead of all fire spells");
         var buff = BuffRefs.BrimorakAspectEffectBuff.Reference.Get();
-        var arcana = buff.Components.OfType<DraconicBloodlineArcana>().First();
+        var arcana = buff.Components.OfType<DraconicBloodlineArcana>().FirstOrDefault();
+        if (arcana == null)  return;
         BuffConfigurator.For(buff)
             .AddContextIncreaseSpellDamage(arcana.Value)
             .Configure();

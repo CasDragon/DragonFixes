@@ -21,7 +21,7 @@ public class Inquisitor
         foreach (var deity in deities)
         {
             if (deity.GetBlueprint() is not BlueprintFeature d) continue;
-            var forbid = d.Components.OfType<ForbidSpellbookOnAlignmentDeviation>().First();
+            var forbid = d.Components.OfType<ForbidSpellbookOnAlignmentDeviation>().FirstOrDefault();
             forbid?.m_Spellbooks = [..forbid.m_Spellbooks, livinggrim];
         }
     }
