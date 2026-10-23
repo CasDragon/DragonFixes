@@ -152,3 +152,4 @@
 - Fix Scorching Bracers charge amount, from 11 to 3
 - Fix Jinx weapon to only proc on weapon attacks (Whiterock wanted me to nerf this extremely powerful weapon, I guess)
 - Update Mass Invisibility description
+- Heartseeker weapon enchantment no longer ignores DR
