@@ -153,3 +153,4 @@
 - Fix Jinx weapon to only proc on weapon attacks (Whiterock wanted me to nerf this extremely powerful weapon, I guess)
 - Update Mass Invisibility description
 - Heartseeker weapon enchantment no longer ignores DR
+- Holy Blare now correctly adds it's unique enchant for it's ability 

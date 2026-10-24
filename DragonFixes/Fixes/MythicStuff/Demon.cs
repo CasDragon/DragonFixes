@@ -13,6 +13,7 @@ public class Demon
     [DragonConfigure]
     public static void AspectOfBrimorak()
     {
+        if (ModCompat.IsModEnabled("WOTR_PATH_OF_RAGE") || ModCompat.tttbase) return;
         Main.log.Log("Patching to include all spells instead of all fire spells");
         var buff = BuffRefs.BrimorakAspectEffectBuff.Reference.Get();
         var arcana = buff.Components.OfType<DraconicBloodlineArcana>().FirstOrDefault();
