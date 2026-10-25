@@ -32,7 +32,13 @@ public class HolyBlare
             .AddToEnchantments(enchant)
             .Configure();
         // fix enchant
-        var castSpell = enchant.m_AllElements.First(a => a is ContextActionCastSpell) as ContextActionCastSpell;
+        if (enchant.Components.FirstOrDefault(c => c is AddInitiatorAttackWithWeaponTrigger) 
+            is not AddInitiatorAttackWithWeaponTrigger comp)
+        {
+            Main.log.Log("no component on Holy Blare, skipping");
+            return;
+        }
+        var castSpell = comp!.Action.Actions.First(a => a is ContextActionCastSpell) as ContextActionCastSpell;
         castSpell?.m_Spell = ability.ToReference<BlueprintAbilityReference>();
         // fix ability
         var abilityRun = ability.Components.First(c => c is AbilityEffectRunAction) as AbilityEffectRunAction;
