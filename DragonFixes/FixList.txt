@@ -153,4 +153,6 @@
 - Fix Jinx weapon to only proc on weapon attacks (Whiterock wanted me to nerf this extremely powerful weapon, I guess)
 - Update Mass Invisibility description
 - Heartseeker weapon enchantment no longer ignores DR
-- Holy Blare now correctly adds it's unique enchant for it's ability 
+- Fix Holy Blare entirely (Owlcat really fucked it up lol)
+- Flames Will now has correct enchants
+- Fix duration of Power From Death (Lich)'s Haste buff (Honestly, this ability needs to be reworked to fix it the way I want, but this is a small fix until I find motivation to work on it)
