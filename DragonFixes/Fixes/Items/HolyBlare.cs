@@ -3,6 +3,7 @@ using BlueprintCore.Actions.Builder;
 using BlueprintCore.Actions.Builder.ContextEx;
 using BlueprintCore.Blueprints.Configurators.Items.Weapons;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
+using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
 using BlueprintCore.Conditions.Builder;
 using BlueprintCore.Conditions.Builder.ContextEx;
@@ -20,6 +21,13 @@ namespace DragonFixes.Fixes.Items;
 
 public class HolyBlare
 {
+    [DragonLocalizedString(abilityNameKey, "Holy Blare")] 
+    public const string abilityNameKey = "holyblareabilityname";
+    [DragonLocalizedString(abilityDescriptionKey, "All {g|Encyclopedia:Alignment}evil{/g} creatures in the 15-foot area must pass a {g|Encyclopedia:Saving_Throw}Will saving throw{/g} ({g|Encyclopedia:DC}DC{/g} 20) or be {g|ConditionConfusion}confused{/g} for {g|Encyclopedia:Dice}1d4{/g} {g|Encyclopedia:Combat_Round}rounds{/g} and suffer 1d4 {g|Encyclopedia:Energy_Damage}holy damage{/g} each round.")]
+    public const string abilityDescriptionKey = "holyblareabilitydescription";
+    [DragonLocalizedString(buffDescriptionKey, "This creature is {g|ConditionConfusion}confused{/g} for {g|Encyclopedia:Dice}1d4{/g} {g|Encyclopedia:Combat_Round}rounds{/g} and suffer 1d4 {g|Encyclopedia:Energy_Damage}holy damage{/g} each round.")]
+    public const string buffDescriptionKey = "holyblarebuffdescription";
+    
     [DragonConfigure]
     public static void AddEnchant()
     {
@@ -53,5 +61,14 @@ public class HolyBlare
                                     durationValue: ContextDuration.FixedDice(DiceType.D4, 1, rate: DurationRate.Rounds),
                                     asChild: true))).Build();
         abilityRun!.Actions = actions;
+        AbilityConfigurator.For(ability)
+            .SetDisplayName(abilityNameKey)
+            .SetDescription(abilityDescriptionKey)
+            .Configure();
+        BuffConfigurator.For(BuffRefs.HolyBlareBuff)
+            .SetDisplayName(abilityNameKey)
+            .SetDescription(buffDescriptionKey)
+            .SetFlags([])
+            .Configure();
     }
 }
