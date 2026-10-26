@@ -25,7 +25,7 @@ public class HolyBlare
     {
         Main.log.Log("Adding the enchant to Holy Blare.");
         var enchant =
-            WeaponEnchantmentRefs.EarthBreakerHolyEnchantment.Reference.Get();
+            WeaponEnchantmentRefs.HolyBlareEnchantment.Reference.Get();
         var ability = AbilityRefs.HolyBlareAbility.Reference.Get();
         // add enchant
         ItemWeaponConfigurator.For(ItemWeaponRefs.HolyBlareItem)
