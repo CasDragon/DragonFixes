@@ -1,8 +1,13 @@
 using System;
+using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
+using BlueprintCore.Utils.Types;
+using DragonLibrary.BPCoreExtensions;
 using DragonLibrary.Utils;
 using Kingmaker.Designers.Mechanics.Buffs;
 using Kingmaker.Designers.Mechanics.Facts;
+using Kingmaker.EntitySystem.Stats;
+using Kingmaker.UnitLogic.Mechanics.Properties;
 
 namespace DragonFixes.Fixes.MythicStuff;
 
@@ -29,5 +34,9 @@ public class Azata
         {
             Main.log.Log("Buff doesn't have that component");
         }
+
+        BuffConfigurator.For(buff)
+            .AddContextIncreaseSpellDamage(ContextValues.Property(UnitProperty.MythicLevel))
+            .Configure();
     }
 }

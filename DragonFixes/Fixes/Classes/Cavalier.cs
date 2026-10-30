@@ -1,6 +1,9 @@
-﻿using BlueprintCore.Blueprints.CustomConfigurators.Classes;
+﻿using BlueprintCore.Actions.Builder;
+using BlueprintCore.Actions.Builder.ContextEx;
+using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
+using BlueprintCore.Utils.Types;
 using DragonFixes.Util;
 using DragonLibrary.Utils;
 using Kingmaker.Blueprints.Classes;
@@ -42,7 +45,7 @@ namespace DragonFixes.Fixes.Classes
         {
             Main.log.Log("Patching MountedMastery to fix stacking buff.");
             var buff = BuffConfigurator.New("mountedmasterbuff", Guids.MountedMasterBuff)
-                .AddDerivativeStatBonus(StatType.AdditionalAttackBonus,
+                .AddDerivativeStatBonus(StatType.AdditionalDamage,
                     StatType.Strength,
                     ModifierDescriptor.UntypedStackable)
                 .Configure();
@@ -50,8 +53,8 @@ namespace DragonFixes.Fixes.Classes
             BlueprintFeature x = FeatureRefs.CavalierMountedMastery.Reference.Get();
             DragonHelpers.RemoveComponent<CavalierMountedMastery>(x);
             FeatureConfigurator.For(x)
-                .AddBuffExtraEffects(BuffRefs.ChargeBuff.ToString(),
-                    extraEffectBuff: buff)
+                .AddInitiatorAttackWithWeaponTrigger(ActionsBuilder.New().ApplyBuff(buff, ContextDuration.Fixed(1)),
+                    onCharge: true)
                 .Configure();
         }
     }
