@@ -158,3 +158,4 @@
 - Fix duration of Power From Death (Lich)'s Haste buff (Honestly, this ability needs to be reworked to fix it the way I want, but this is a small fix until I find motivation to work on it)
 - Fix Achaekek / Warpriest interaction, where somehow the favored weapon was counting as unarmed strike (despite it not being set to unarmed on the blueprint. I literally do not understand this bug)
 - Heart of Iceberg weapon now has name/description for it's effect instead of blank for both
+- Bane Of Flesh now correctly gives +2 AB/Damage bonus for it's effect

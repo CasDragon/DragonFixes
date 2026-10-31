@@ -18,22 +18,8 @@ public class Azata
     {
         Main.log.Log("Patching IncredibleMightMainBuff to not double up on bonuses");
         var buff = BuffRefs.IncredibleMightMainBuff.Reference.Get();
-        try
-        {
-            DragonHelpers.RemoveComponent<AttackBonusConditional>(buff);
-        }
-        catch (Exception e)
-        {
-            Main.log.Log("Buff doesn't have that component");
-        }
-        try
-        {
-            DragonHelpers.RemoveComponent<DamageBonusConditional>(buff);
-        }
-        catch (Exception e)
-        {
-            Main.log.Log("Buff doesn't have that component");
-        }
+        DragonHelpers.RemoveComponent<AttackBonusConditional>(buff);
+        DragonHelpers.RemoveComponent<DamageBonusConditional>(buff);
 
         BuffConfigurator.For(buff)
             .AddContextIncreaseSpellDamage(ContextValues.Property(UnitProperty.MythicLevel))
