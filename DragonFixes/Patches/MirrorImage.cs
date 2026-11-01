@@ -2,15 +2,14 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using BlueprintCore.Blueprints.References;
 using HarmonyLib;
+using Kingmaker.Blueprints;
 using Kingmaker.EntitySystem.Entities;
 using Kingmaker.RuleSystem;
 using Kingmaker.RuleSystem.Rules;
 using Kingmaker.UnitLogic;
-using Kingmaker.UnitLogic.Buffs.Blueprints;
-
 namespace DragonFixes.Patches;
 
-[HarmonyPatch(nameof(RuleAttackRoll), nameof(RuleAttackRoll.OnTrigger))]
+[HarmonyPatch(typeof(RuleAttackRoll), nameof(RuleAttackRoll.OnTrigger))]
 public class MirrorImage
 {
     static readonly System.Reflection.MethodInfo IsImmune =
@@ -22,9 +21,10 @@ public class MirrorImage
     static readonly System.Reflection.MethodInfo Helper =
         AccessTools.Method(typeof(MirrorImage), nameof(HasEcholocation));
 
-    private static readonly BlueprintBuff EcholocationBuff = BuffRefs.EcholocationBuff.Reference.Get();
+    private static BlueprintBuffReference EcholocationBuff;
     public static bool HasEcholocation(UnitEntityData unit)
     {
+        EcholocationBuff ??= BuffRefs.EcholocationBuff.Reference.Get().ToReference<BlueprintBuffReference>();
         return unit.Buffs.HasFact(EcholocationBuff);
     }
 
