@@ -3,6 +3,8 @@ using BlueprintCore.Actions.Builder.ContextEx;
 using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
+using BlueprintCore.Conditions.Builder;
+using BlueprintCore.Conditions.Builder.ContextEx;
 using BlueprintCore.Utils.Types;
 using DragonFixes.Util;
 using DragonLibrary.Utils;
@@ -11,7 +13,9 @@ using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
+using Kingmaker.UnitLogic.Abilities.Components;
 using Kingmaker.UnitLogic.Abilities.Components.TargetCheckers;
+using Kingmaker.Utility;
 
 namespace DragonFixes.Fixes.Classes
 {
@@ -56,6 +60,16 @@ namespace DragonFixes.Fixes.Classes
                 .AddInitiatorAttackWithWeaponTrigger(ActionsBuilder.New().ApplyBuff(buff, ContextDuration.Fixed(1)),
                     onCharge: true)
                 .Configure();
+            // hippo fix?
+            var hippocharge = AbilityRefs.HippogriffFlyingAttackAbility.Reference.Get();
+            var conditions = ActionsBuilder.New()
+                .Conditional(
+                    ConditionsBuilder.New()
+                        .HasFact(x),
+                    ifTrue:
+                    ActionsBuilder.New().ApplyBuff(buff, ContextDuration.Fixed(1))).Build();
+            var comp = hippocharge.Components.FirstOrDefault(c => c is AbilityExecuteActionOnCast) as AbilityExecuteActionOnCast;
+            comp?.Actions.Actions = [.. conditions.Actions, .. comp.Actions.Actions];
         }
     }
 }
