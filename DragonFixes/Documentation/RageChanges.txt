@@ -6,11 +6,9 @@ Mangling Frenzy - now works on all rage effects
 Lawbringer - now removes all rage effects
 Furious - now works on all rage effects
 
-Come and Get Me - now correctly works with Mythic Inspiration for Skald
-Guarded Stance - now correctly works with Mythic Inspiration for Skald
-Lethal Stance - now correctly works with Mythic Inspiration for Skald
-Powerful Stance - now correctly works with Mythic Inspiration for Skald
-Reckless Stance - now correctly works with Mythic Inspiration for Skald
+Mythic Inspiration currently breaks Inspired Rage working with these effects (because it swaps out the buff applied by Inspired Rage) 
+This fixes the following features to still apply with Inspired Rage even when you take Mythic Inspiration
+Come and Get Me, Guarded Stance, Lethal Stance, Powerful Stance, Reckless Stance 
 
 Inspired Rage - now removes most rage effects
 Inspire Tranquility - now suppresses most rage effects
