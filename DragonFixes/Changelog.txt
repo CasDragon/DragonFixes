@@ -5,6 +5,7 @@
  - Silver Darts can now be specialized with Spell Specialization, and is included with Thassalonian lists
  - Mirror Image should now respect Echolocation even in edge cases (untested)
  - Fix weird interaction with TTT Base, where Advanced Weapon/Armor Training wouldn't show up with DragonFixes installed
+ - Possible fix for Mounted Mastery / Hippogriff interaction
 ** 1.36.3
  - Fix Achaekek / Warpriest interaction, where somehow the favored weapon was counting as unarmed strike (despite it not being set to unarmed on the blueprint. I literally do not understand this bug)
  - Fix issues with my previous Mounted Mastery fix, and my previous Incredible Might fix

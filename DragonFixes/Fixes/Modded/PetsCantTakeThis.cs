@@ -1,6 +1,7 @@
 using System;
 using BlueprintCore.Blueprints.Configurators.Classes;
 using BlueprintCore.Blueprints.References;
+using DragonLibrary.ModRefs;
 using DragonLibrary.Utils;
 
 namespace DragonFixes.Fixes.Modded;
@@ -15,7 +16,7 @@ public class PetsCantTakeThis
         {
             try
             {
-                CharacterClassConfigurator.For("338ABF27-23C1-4C1A-B0F1-7CD7E3020444")
+                CharacterClassConfigurator.For(SwashbucklerRefs.Swashbuckler)
                     .AddPrerequisiteNoClassLevel(pet)
                     .AddPrerequisiteIsPet(not: true)
                     .Configure();
@@ -30,7 +31,7 @@ public class PetsCantTakeThis
         {
             try
             {
-                CharacterClassConfigurator.For("7c4a2f91-e3b8-4d65-a017-58c91b2e3f40")
+                CharacterClassConfigurator.For(PsychicWarriorRefs.SoulKnifeClass)
                     .AddPrerequisiteNoClassLevel(pet)
                     .AddPrerequisiteIsPet(not: true)
                     .Configure();
@@ -42,7 +43,7 @@ public class PetsCantTakeThis
             }
             try
             {
-                CharacterClassConfigurator.For("4c8f9c4e-7f22-4d9b-a9b9-2f7a9f7e1d01")
+                CharacterClassConfigurator.For(PsychicWarriorRefs.PsychicWarriorClass)
                     .AddPrerequisiteNoClassLevel(pet)
                     .AddPrerequisiteIsPet(not: true)
                     .Configure();
