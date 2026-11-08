@@ -14,10 +14,10 @@ namespace DragonFixes.Fixes.UnitFeatures
             var x = FeatureSelectionRefs.AdvancedWeaponTraining1.Reference.Get();
             DragonHelpers.RemoveComponent<PrerequisiteFeature>(x);
             FeatureSelectionConfigurator.For(x)
-                .AddPrerequisiteFeaturesFromList([FeatureSelectionRefs.WeaponTrainingSelection.Reference.Get(),
-                    FeatureSelectionRefs.SoheiWeaponTrainingSelection.Reference.Get(),
-                    FeatureSelectionRefs.LichSkeletalWeaponTrainingSelection.Reference.Get(),
-                    FeatureSelectionRefs.DIscipleOfThePikeWeaponTrainingSelection.Reference.Get()],
+                .AddPrerequisiteFeaturesFromList([FeatureSelectionRefs.WeaponTrainingSelection.ToString(),
+                    FeatureSelectionRefs.SoheiWeaponTrainingSelection.ToString(),
+                    FeatureSelectionRefs.LichSkeletalWeaponTrainingSelection.ToString(),
+                    FeatureSelectionRefs.DIscipleOfThePikeWeaponTrainingSelection.ToString()],
                     1,
                     group: Prerequisite.GroupType.All)
                 .Configure();
