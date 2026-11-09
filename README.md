@@ -7,3 +7,6 @@ Requires [ModMenu](https://github.com/CasDragon/ModMenu) and [DragonLibrary](htt
 [The currently fixed bugs list is here](https://github.com/CasDragon/DragonFixes/blob/master/DragonFixes/FixList.txt), because I can't be bothered to update my README more than once every 2 years. 
 
 Thanks to everyone on the Owlcat Discord for putting up with my nonsense, especially Micro / Kuru / ADDB / AlterAsc
+Thanks to Yogurt for allowing me to steal some of his fixes in case people don't have their mod
+Thanks to Tia for all her support and fixes she's contributed! Major kudos to her!
+Thanks to Whiterock for providing me lists of bugs he wants me to fix, and general or specific things to fix on those bugs. Without him, the fix list would be much much shorter
