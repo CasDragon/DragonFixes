@@ -15,6 +15,7 @@ public class Barbarian
     [DragonConfigure]
     public static void PatchCrushAndTearFeature()
     {
+        if (ModCompat.yogurt) return;
         Main.log.Log("Patching CrushAndTearFeature to work at level 5");
         AddFeatureOnClassLevel c = FeatureRefs.CrushAndTearFeature.Reference.Get().GetComponent<AddFeatureOnClassLevel>(com => com.Level == 5);
         c!.m_Feature = FeatureRefs.CrushAndTearFeatureLevelUp5.Reference.Get().ToReference<BlueprintFeatureReference>();

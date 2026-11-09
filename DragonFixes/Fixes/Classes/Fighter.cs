@@ -13,6 +13,7 @@ public class Fighter
     [DragonConfigure]
     public static void PatchTwoHandedFighterPiledriverFeature()
     {
+        if (ModCompat.yogurt) return;
         Main.log.Log("Patching TwoHandedFighterPiledriverFeature to correctly remove the bullrush buff");
         if (FeatureRefs.TwoHandedFighterPiledriverFeature.Reference.Get().Components
                 .FirstOrDefault(c => 

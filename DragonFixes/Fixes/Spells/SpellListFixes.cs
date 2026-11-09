@@ -12,6 +12,7 @@ namespace DragonFixes.Fixes.Spells
         [DragonConfigure]
         public static void WizardSpellListPatch()
         {
+            if (ModCompat.yogurt) return;
             Main.log.Log("Patching Wizard spell list to remove dupe Finger of Death");
             BlueprintSpellList bp = SpellListRefs.WizardSpellList.Reference.Get();
             BlueprintAbility spell = AbilityRefs.FingerOfDeathSithhud.Reference.Get();

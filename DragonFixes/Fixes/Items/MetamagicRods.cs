@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
-using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
+﻿using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
-using DragonFixes.Util;
 using DragonLibrary.Utils;
-using Kingmaker.Blueprints.Classes.Spells;
 using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 
@@ -19,6 +11,7 @@ namespace DragonFixes.Fixes.Items
         [DragonConfigure]
         public static void PatchPiercingRods()
         {
+            if (ModCompat.yogurt) return;
             Main.log.Log("Patching Piercing metamagic rods to actually be piercing instead of intensified.");
             BlueprintBuff normal = BuffRefs.MetamagicRodNormalPiercingBuff.Reference.Get();
             DragonHelpers.RemoveComponent<MetamagicRodMechanics>(normal);

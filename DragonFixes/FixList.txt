@@ -162,3 +162,5 @@
 - Breath of Nothingness can now be specialized with Spell Specialization, and is included with Thassalonian lists
 - Silver Darts can now be specialized with Spell Specialization, and is included with Thassalonian lists
 - Mirror Image should now respect Echolocation even in edge cases (untested)
+- Allow circumstance bonuses to stack (toggleable)
+- Allow DLC spells to be specialized (stolen the list from Yogurt, and disabled if their mod is installed)

@@ -1,4 +1,8 @@
 ** Unreleased
+ - Allow circumstance bonuses to stack
+ - Stop applying some fixes that Yogurt does if their mod is detected (hard to tell exactly what they've done)
+ - Allow DLC spells to be specialized (stolen the list from Yogurt, and disabled if their mod is installed)
+** 1.37.0
  - Heart of Iceberg weapon now has name/description for it's effect instead of blank for both
  - Bane Of Flesh now correctly gives +2 AB/Damage bonus for it's effect
  - Breath of Nothingness can now be specialized with Spell Specialization, and is included with Thassalonian lists
