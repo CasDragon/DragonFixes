@@ -164,3 +164,4 @@
 - Mirror Image should now respect Echolocation even in edge cases (untested)
 - Allow circumstance bonuses to stack (toggleable)
 - Allow DLC spells to be specialized (stolen the list from Yogurt, and disabled if their mod is installed)
+- Fix base game component WeaponAttackTypeDamageBonus to properly apply descriptors (example: Destructive Smite now being morale and is able to be doubled by dumb morale doubling ring)

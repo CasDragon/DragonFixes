@@ -9,7 +9,7 @@ namespace DragonFixes.Patches;
 public class CircumstanceBonusStacking
 { 
 
-    private const string SettingName = "circumstanceBonus";
+    private const string SettingName = "circumstancebonus";
     private const string SettingDescription =
         "Allows circumstance bonuses to stack";
 

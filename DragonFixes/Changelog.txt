@@ -2,6 +2,8 @@
  - Allow circumstance bonuses to stack
  - Stop applying some fixes that Yogurt does if their mod is detected (hard to tell exactly what they've done)
  - Allow DLC spells to be specialized (stolen the list from Yogurt, and disabled if their mod is installed)
+ - Fix `WeaponAttackTypeDamageBonus`to properly apply descriptor, so anything using it will now be correct descriptor (example: Destructive Smite now being morale and is able to be doubled by dumb morale doubling ring)
+ - Fix my TWF / unarmed fix maybe?
 ** 1.37.0
  - Heart of Iceberg weapon now has name/description for it's effect instead of blank for both
  - Bane Of Flesh now correctly gives +2 AB/Damage bonus for it's effect
