@@ -1,5 +1,6 @@
 using HarmonyLib;
 using Kingmaker.Blueprints.Items.Equipment;
+using Kingmaker.Craft;
 using Kingmaker.EntitySystem.Entities;
 using Kingmaker.Items;
 using Kingmaker.UnitLogic.Parts;
@@ -20,6 +21,9 @@ public class ItemStatHelperPatch
         if (unitPartEnhancePotion == null || blueprintItemEquipment.Type != UsableItemType.Potion)
             return;
         int potionLevel = blueprintItemEquipment.CasterLevel;
+        CraftedItemPart craftedItemPart = item.Get<CraftedItemPart>();
+        if (craftedItemPart is not null)
+            potionLevel = craftedItemPart.CasterLevel;
         if (unitPartEnhancePotion.classData.Level > potionLevel)
             return;
         __result = potionLevel;
