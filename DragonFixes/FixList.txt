@@ -165,3 +165,4 @@
 - Allow circumstance bonuses to stack (toggleable)
 - Allow DLC spells to be specialized (stolen the list from Yogurt, and disabled if their mod is installed)
 - Fix base game component WeaponAttackTypeDamageBonus to properly apply descriptors (example: Destructive Smite now being morale and is able to be doubled by dumb morale doubling ring)
+- Fix Enhance Potion from working on potions that have higher CL than your class (so it doesn't replace it with lower CL)

@@ -7,7 +7,6 @@ using Kingmaker.EntitySystem.Entities;
 using Kingmaker.Items.Slots;
 using Kingmaker.RuleSystem.Rules;
 using Kingmaker.UnitLogic;
-using Kingmaker.UnitLogic.ActivatableAbilities.Restrictions;
 
 namespace DragonFixes.Patches;
 
