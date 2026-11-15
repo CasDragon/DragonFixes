@@ -19,7 +19,7 @@ public class ItemStatHelperPatch
         UnitPartEnhancePotion unitPartEnhancePotion = caster.Get<UnitPartEnhancePotion>();
         if (unitPartEnhancePotion == null || blueprintItemEquipment.Type != UsableItemType.Potion)
             return;
-        int potionLevel = item.GetSpellLevel();
+        int potionLevel = blueprintItemEquipment.CasterLevel;
         if (unitPartEnhancePotion.classData.Level > potionLevel)
             return;
         __result = potionLevel;
