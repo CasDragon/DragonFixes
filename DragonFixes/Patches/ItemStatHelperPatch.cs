@@ -14,14 +14,14 @@ public class ItemStatHelperPatch
     [HarmonyPostfix]
     public static void EnhancePotionCheckFix(ref int __result, ItemEntity item, UnitEntityData caster)
     {
-        if (item.Blueprint is not BlueprintItemEquipment blueprintItemEquipment)
+        if (item.Blueprint is not BlueprintItemEquipmentUsable blueprintItemEquipment)
             return;
         UnitPartEnhancePotion unitPartEnhancePotion = caster.Get<UnitPartEnhancePotion>();
-        UsableItemType? usableItemType = (blueprintItemEquipment as BlueprintItemEquipmentUsable)?.Type;
-        if (unitPartEnhancePotion == null || usableItemType != UsableItemType.Potion)
+        if (unitPartEnhancePotion == null || blueprintItemEquipment.Type != UsableItemType.Potion)
             return;
-        if (unitPartEnhancePotion.classData.Level <= item.GetSpellLevel())
+        int potionLevel = item.GetSpellLevel();
+        if (unitPartEnhancePotion.classData.Level > potionLevel)
             return;
-        __result = unitPartEnhancePotion.classData.Level;
+        __result = potionLevel;
     }
 }
