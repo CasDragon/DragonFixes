@@ -1,4 +1,4 @@
-using BlueprintCore.Blueprints.References;
+/*using BlueprintCore.Blueprints.References;
 using HarmonyLib;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.EntitySystem.Entities;
@@ -34,4 +34,4 @@ public class RestrictionsHelperPatches
 
         __result = true;
     }
-}
+}*/

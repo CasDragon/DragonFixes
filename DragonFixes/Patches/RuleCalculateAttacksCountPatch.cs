@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using BlueprintCore.Blueprints.References;
 using HarmonyLib;
 using Kingmaker.Blueprints.Classes;
@@ -34,12 +34,9 @@ public static class RuleCalculateAttacksCountPatches
             return;
 
         __instance.Result.SecondaryHand.AdditionalAttacks++;
-
-        if (!offHand.Owner.State.Features.ImprovedUnarmedStrike)
-            __instance.Result.SecondaryHand.PenalizedAttacks += Math.Max(0, penalizedAttacksCount);
     }
 
-    private static bool UnitTesting(UnitEntityData unit)
+    internal static bool UnitTesting(UnitEntityData unit)
     {
         if (unit.GetFeature(Flurry) != null)
             return false;
@@ -47,4 +44,4 @@ public static class RuleCalculateAttacksCountPatches
             return true;
         return false;
     }
-}
+}*/
