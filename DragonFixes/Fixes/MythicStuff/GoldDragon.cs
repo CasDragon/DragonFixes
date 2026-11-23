@@ -5,7 +5,7 @@ using Kingmaker.Blueprints;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Abilities.Components.TargetCheckers;
 
-namespace DragonFixes.Fixes.Classes
+namespace DragonFixes.Fixes.MythicStuff
 {
     internal class GoldDragon
     {
@@ -15,7 +15,7 @@ namespace DragonFixes.Fixes.Classes
             Main.log.Log("Patching DragonFormAbillity to not be castable if you are in corrupt gd form.");
             BlueprintAbility ability = AbilityRefs.DragonFormAbillity.Reference.Get();
             AbilityTargetHasFact component = ability.GetComponent<AbilityTargetHasFact>();
-            component.m_CheckedFacts = [.. component.m_CheckedFacts, BuffRefs.CorruptedDragonFormBuff.Reference.Get().ToReference<BlueprintUnitFactReference>()];
+            component?.m_CheckedFacts = [.. component.m_CheckedFacts, BuffRefs.CorruptedDragonFormBuff.Reference.Get().ToReference<BlueprintUnitFactReference>()];
         }
         [DragonConfigure]
         public static void PatchThousandBitesBuff()

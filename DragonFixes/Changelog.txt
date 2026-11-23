@@ -1,10 +1,13 @@
-** Unreleased
+** 1.38.0
  - Allow circumstance bonuses to stack
  - Stop applying some fixes that Yogurt does if their mod is detected (hard to tell exactly what they've done)
  - Allow DLC spells to be specialized (stolen the list from Yogurt, and disabled if their mod is installed)
  - Fix `WeaponAttackTypeDamageBonus`to properly apply descriptor, so anything using it will now be correct descriptor (example: Destructive Smite now being morale and is able to be doubled by dumb morale doubling ring)
- - Remove TWF/double unarmed fix, because it's annoying me
+ - Remove TWF/double unarmed fix, because it's annoying me. May come back to reimplementing the fix when I have more patience
  - Fix EnhancePotion from working on potions that have higher CL than your class (so it doesn't replace it with lower CL)
+ - Blazing Rondo now doesn't give enemies it's buff when they start in the non hostile faction (usually cutscene enemies, i.e. Stauton and Minago)
+ - Amplified Rod of Mortiferous Blizzard now applies Slow instead of Prone like it's supposed to
+ - Amplified Rod of Mortiferous Blizzard now consumes charges correctly
 ** 1.37.0
  - Heart of Iceberg weapon now has name/description for it's effect instead of blank for both
  - Bane Of Flesh now correctly gives +2 AB/Damage bonus for it's effect
